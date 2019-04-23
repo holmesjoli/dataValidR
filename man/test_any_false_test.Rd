@@ -17,9 +17,11 @@ Tests any values equal FALSE
 }
 \examples{
 vec <- c(T, F, T, F)
+df <- data.frame(col1 = c(T, T, T, T))
+
 test_any_false(vec)
 ## Returns TRUE
-df <- data.frame(col1 = c(T, T, T, T))
+
 test_any_false(df$col1)
 ## Returns FALSE
 }

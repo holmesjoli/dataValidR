@@ -17,9 +17,11 @@ Test all values equal true
 }
 \examples{
 vec <- c(T, F, T, F)
+df <- data.frame(col1 = c(T, T, T, T))
+
 test_all_true(vec)[2]
 # FAILS
-df <- data.frame(col1 = c(T, T, T, T))
+
 test_all_true(df$col1)[2]
 # PASSES
 }

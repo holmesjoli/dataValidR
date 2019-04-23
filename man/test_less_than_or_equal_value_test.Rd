@@ -5,8 +5,6 @@
 \title{Test less than or equal to upper bound}
 \usage{
 test_less_than_or_equal_value_test(vec, upper)
-
-test_less_than_or_equal_value_test(vec, upper)
 }
 \arguments{
 \item{vec}{the vector or column to test}
@@ -15,31 +13,19 @@ test_less_than_or_equal_value_test(vec, upper)
 }
 \value{
 vector
-
-vector
 }
 \description{
-Tests if all the values in a column are less than or equal to an upper bound
-
 Tests if all the values in a column are less than or equal to an upper bound
 }
 \examples{
 vec <- c(1,2,3)
+
 test_less_than_or_equal_value_test(vec, 4)
 # Returns TRUE
+
 test_less_than_or_equal_value_test(vec, 3)
 # Returns TRUE
+
 test_less_than_or_equal_value_test(vec, 2)
 # Returns FALSE
-vec <- c(1,2,3)
-test_less_than_or_equal_value_test(vec, 4)[2]
-# PASSES
-test_less_than_or_equal_value_test(vec, 3)[2]
-# PASSES
-test_less_than_or_equal_value_test(vec, 2)[2]
-# FAILS
 }
-\seealso{
-Other numeric column tests: \code{\link{test_less_than_value}}
-}
-\concept{numeric column tests}
