@@ -145,15 +145,15 @@ testthat::test_that("tests test_exclu_lower_inclu_upper_range evaluates correctl
 })
 
 testthat::test_that("tests test_inclu_lower_exclu_upper_range_test evaluates correctly", {
-  
+    
     testthat::expect_true(test_inclu_lower_exclu_upper_range_test(vec, 0, 4))
     testthat::expect_false(test_inclu_lower_exclu_upper_range_test(vec, 1, 3))
     testthat::expect_false(test_inclu_lower_exclu_upper_range_test(vec, 0, 2))
-  
+    
 })
 
 testthat::test_that("tests test_inclu_lower_exclu_upper_range_test evaluates correctly", {
-  
+    
     testthat::expect_equal(length(test_inclu_lower_exclu_upper_range(vec, 0, 4)), 3)
     testthat::expect_equal(test_inclu_lower_exclu_upper_range(vec, 0, 4)[2], test_pass_ti)
     
@@ -162,5 +162,5 @@ testthat::test_that("tests test_inclu_lower_exclu_upper_range_test evaluates cor
     
     testthat::expect_equal(length(test_inclu_lower_exclu_upper_range(vec, 0, 2)), 3)
     testthat::expect_equal(test_inclu_lower_exclu_upper_range(vec, 0, 2)[2], test_fail_ti)
-  
+    
 })
