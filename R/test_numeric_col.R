@@ -203,6 +203,7 @@ test_greater_than_or_equal_value <- function(vec, lower) {
 
 #' @title Test exclusive bounds range
 #' @description Tests if all the values in a column between an upper and lower bound 
+#' @param vec the vector or column to test
 #' @param lower the lower bound
 #' @param upper the upper bound
 #' @return boolean
@@ -365,8 +366,63 @@ test_exclu_lower_inclu_upper_range <- function(vec, lower, upper) {
     if (test_exclu_lower_inclu_upper_range_test(vec, lower, upper)) {
         return(c(td, test_pass_ti, test_pass_tm))
     } else {
-        return(c(td, test_fail_ti, "Exclusive lower bound, inclusive upper bound (lower < X <= upper)"))
+        return(c(td, test_fail_ti, "Values outside of range"))
     }
+}
+
+#' @title Test inclusive lower bound, exclusive upper bound
+#' @description Tests if all the values in a column are less than or equal to the lower bound and greater than the upper bound
+#' @inheritParams test_exclu_value_range_test
+#' @return boolean
+#' @examples
+#' vec <- c(1,2,3)
+#' 
+#' test_inclu_lower_exclu_upper_range_test (vec, 0, 4)
+#' ## Returns TRUE
+#' 
+#' test_inclu_lower_exclu_upper_range_test(vec, 1, 3)
+#' ## Returns FALSE
+#' 
+#' test_inclu_lower_exclu_upper_range_test(vec, 2, 4)
+#' ## Returns FALSE
+test_inclu_lower_exclu_upper_range_test <- function(vec, lower, upper) {
+  
+  mn <- min(vec)
+  mx <- max(vec)
+  
+  if (mn >= lower & mx < upper) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+  
+}
+
+#' @inherit test_inclu_lower_exclu_upper_range_test return title
+#' @description Tests if all the values in a column are less than or equal to the lower bound and greater than the upper bound
+#' @inheritParams test_exclu_value_range_test
+#' @family numeric column tests
+#' @return vector
+#' @examples
+#' vec <- c(1,2,3)
+#' 
+#' test_inclu_lower_exclu_upper_range(vec, 0, 4)
+#' ## Returns PASS
+#' 
+#' test_inclu_lower_exclu_upper_range(vec, 1, 3)
+#' ## Returns ERROR
+#' 
+#' test_inclu_lower_exclu_upper_range(vec, 2, 4)
+#' ## Returns ERROR
+test_inclu_lower_exclu_upper_range <- function(vec, lower, upper) {
+  
+  td <- "Inclusive lower bound, exclusive upper bound (lower <= X < upper)"
+  
+  if (test_inclu_lower_exclu_upper_range_test(vec, lower, upper)) {
+    return(c(td, test_pass_ti, test_pass_tm))
+  } else {
+    return(c(td, test_fail_ti, "Values outside of range"))
+  }
 }
 
 
