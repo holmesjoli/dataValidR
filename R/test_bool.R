@@ -31,10 +31,10 @@ test_all_true_test <- function(vec) {
 #' df <- data.frame(col1 = c(T, T, T, T))
 #' 
 #' test_all_true(vec)[2]
-#' # FAILS
+#' ## Returns ERROR
 #' 
 #' test_all_true(df$col1)[2]
-#' # PASSES
+#' ## Returns PASS
 
 test_all_true <- function(vec) {
     
@@ -77,10 +77,10 @@ test_all_false_test <- function(vec) {
 #' df <- data.frame(col1 = c(F, F, F, F))
 #' 
 #' test_all_false(vec)[2]
-#' # FAILS
+#' ## Returns ERROR
 #' 
 #' test_all_false(df$col1)[2]
-#' # PASSES
+#' ## Returns PASS
 test_all_false <- function(vec) {
     
     td <- "Test all equal FALSE"
@@ -167,10 +167,10 @@ test_any_false_test <- function(vec) {
 #' df <- data.frame(col1 = c(T, T, T, T))
 #' 
 #' test_any_false(vec)[2]
-#' # PASSES
+#' ## Returns PASS
 #' 
 #' test_any_false(df$col1)[2]
-#' # FAILS
+#' ## Returns ERROR
 test_any_false <- function(vec) {
     
     td <- "Test any equal FALSE"
