@@ -2,7 +2,7 @@
 % Please edit documentation in R/test_bool.R
 \name{test_any_true}
 \alias{test_any_true}
-\title{Tests any rows equal TRUE}
+\title{Tests any values equal TRUE}
 \usage{
 test_any_true(vec)
 }
@@ -13,7 +13,7 @@ test_any_true(vec)
 vector
 }
 \description{
-Tests any rows equal TRUE
+Tests any values equal TRUE
 }
 \examples{
 vec <- c(T, F, T, F)
@@ -23,3 +23,8 @@ df <- data.frame(col1 = c(T, T, T, T))
 test_any_true(df$col1)[2]
 # PASSES
 }
+\seealso{
+Other boolean tests: \code{\link{test_all_false}},
+  \code{\link{test_all_true}}, \code{\link{test_any_false}}
+}
+\concept{boolean tests}

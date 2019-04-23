@@ -2,7 +2,7 @@
 % Please edit documentation in R/test_bool.R
 \name{test_all_false_test}
 \alias{test_all_false_test}
-\title{Tests all rows equal FALSE}
+\title{Test all values equal false}
 \usage{
 test_all_false_test(vec)
 }
@@ -13,7 +13,7 @@ test_all_false_test(vec)
 boolean
 }
 \description{
-Tests all rows equal FALSE
+Test all values equal false
 }
 \examples{
 vec <- c(T, F, T, F)

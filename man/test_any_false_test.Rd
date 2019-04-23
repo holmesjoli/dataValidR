@@ -2,7 +2,7 @@
 % Please edit documentation in R/test_bool.R
 \name{test_any_false_test}
 \alias{test_any_false_test}
-\title{Tests any rows equal FALSE}
+\title{Tests any values equal FALSE}
 \usage{
 test_any_false_test(vec)
 }
@@ -13,7 +13,7 @@ test_any_false_test(vec)
 boolean
 }
 \description{
-Tests any rows equal FALSE
+Tests any values equal FALSE
 }
 \examples{
 vec <- c(T, F, T, F)
