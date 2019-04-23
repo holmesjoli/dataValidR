@@ -1,6 +1,7 @@
 # Tests for numeric column tests
 
-vec <- c(1, 2, 3)
+vec <- c(1:3)
+vec2 <- c(1:5)
 df <- data.frame(col = vec)
 
 testthat::test_that("tests test_less_than_value_test evaluates correctly", {
@@ -77,5 +78,26 @@ testthat::test_that("tests test_greater_than_or_equal_value evaluates correctly"
     
     testthat::expect_equal(length(test_greater_than_or_equal_value(vec, 2)), 3)
     testthat::expect_equal(test_greater_than_or_equal_value(vec, 2)[2], test_fail_ti)
+    
+})
+
+testthat::test_that("tests test_exclu_value_range_test evaluates correctly", {
+    
+    testthat::expect_true(test_exclu_value_range_test(vec, 0, 4))
+    testthat::expect_false(test_exclu_value_range_test(vec, 0, 3))
+    testthat::expect_false(test_exclu_value_range_test(vec, 1, 3))
+    
+})
+
+testthat::test_that("tests test_greater_than_or_equal_value evaluates correctly", {
+    
+    testthat::expect_equal(length(test_exclu_value_range(vec, 0, 4)), 3)
+    testthat::expect_equal(test_exclu_value_range(vec, 0, 4)[2], test_pass_ti)
+    
+    testthat::expect_equal(length(test_exclu_value_range(vec, 0, 3)), 3)
+    testthat::expect_equal(test_exclu_value_range(vec, 0, 3)[2], test_fail_ti)
+    
+    testthat::expect_equal(length(test_exclu_value_range(vec, 1, 3)), 3)
+    testthat::expect_equal(test_exclu_value_range(vec, 1, 3)[2], test_fail_ti)
     
 })
