@@ -101,3 +101,24 @@ testthat::test_that("tests test_greater_than_or_equal_value evaluates correctly"
     testthat::expect_equal(test_exclu_value_range(vec, 1, 3)[2], test_fail_ti)
     
 })
+
+testthat::test_that("tests test_inclu_value_range evaluates correctly", {
+  
+  testthat::expect_true(test_inclu_value_range_test(vec, 1, 3))
+  testthat::expect_true(test_inclu_value_range_test(vec, 1, 4))
+  testthat::expect_false(test_inclu_value_range_test(vec, 2, 5))
+  
+})
+
+testthat::test_that("tests test_inclu_value_range evaluates correctly", {
+  
+  testthat::expect_equal(length(test_inclu_value_range(vec, 1, 3)), 3)
+  testthat::expect_equal(test_inclu_value_range(vec, 1, 3)[2], test_pass_ti)
+  
+  testthat::expect_equal(length(test_inclu_value_range(vec, 1, 4)), 3)
+  testthat::expect_equal(test_inclu_value_range(vec, 1, 4)[2], test_pass_ti)
+  
+  testthat::expect_equal(length(test_inclu_value_range(vec, 2, 5)), 3)
+  testthat::expect_equal(test_inclu_value_range(vec, 2, 5)[2], test_fail_ti)
+  
+})

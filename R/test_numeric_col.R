@@ -202,21 +202,20 @@ test_greater_than_or_equal_value <- function(vec, lower) {
 }
 
 #' @title Test exclusive bounds range
-#' @description Tests if all the values in a column between an upper and lower bound
-#' @param vec the vector or column to test
+#' @description Tests if all the values in a column between an upper and lower bound 
 #' @param lower the lower bound
 #' @param upper the upper bound
 #' @return boolean
 #' @examples
 #' vec <- c(1,2,3)
 #' 
-#' test_exclu_value_range_test(vec, 0, 4)
-#' # Returns TRUE
+#' test_exclu_exclu_range_test(vec, 0, 4)
+#' ## Returns TRUE
 #' 
-#' test_exclu_value_range_test(vec, 0, 3)
+#' test_exclu_exclu_range_test(vec, 0, 3)
 #' ## Returns FALSE
 #' 
-#' test_exclu_value_range_test(vec, 1, 4)
+#' test_exclu_exclu_range_test(vec, 1, 3)
 #' ## Returns FALSE
 test_exclu_value_range_test <- function(vec, lower, upper) {
     
@@ -232,8 +231,8 @@ test_exclu_value_range_test <- function(vec, lower, upper) {
 }
 
 #' @inherit test_exclu_value_range_test return title
-#' @description Tests if all the values are less than the upper and greater than the lower bound
-#' @inheritParams test_greater_than_value_test
+#' @description Tests if all the values in a column between an upper and lower bound 
+#' @inheritParams test_exclu_value_range_test
 #' @family numeric column tests
 #' @return vector
 #' @examples
@@ -257,4 +256,60 @@ test_exclu_value_range <- function(vec, lower, upper) {
         return(c(td, test_fail_ti, "Values outside of range"))
     }
     
+}
+
+#' @title Test inclusive bounds range
+#' @description Tests if all the values in a column between an upper and lower bound or equal to upper/lower bound
+#' @inheritParams test_exclu_value_range_test
+#' @return boolean
+#' @examples
+#' vec <- c(1,2,3)
+#' 
+#' test_inclu_value_range_test(vec, 0, 4)
+#' # Returns TRUE
+#' 
+#' test_inclu_value_range_test(vec, 0, 3)
+#' ## Returns FALSE
+#' 
+#' test_inclu_value_range_test(vec, 1, 4)
+#' ## Returns FALSE
+test_inclu_value_range_test <- function(vec, lower, upper) {
+  
+  mn <- min(vec)
+  mx <- max(vec)
+  
+  if (mn >= lower & mx <= upper) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+  
+}
+
+#' @inherit test_inclu_value_range_test return title
+#' @description Tests if all the values are less than the upper and greater than the lower bound or equal to upper/lower bound
+#' @inheritParams test_exclu_value_range_test
+#' @family numeric column tests
+#' @return vector
+#' @examples
+#' vec <- c(1,2,3)
+#' 
+#' test_inclu_value_range(vec, 1, 3)
+#' # Returns PASS
+#' 
+#' test_inclu_value_range(vec, 1, 4)
+#' ## Returns PASS
+#' 
+#' test_inclu_value_range(vec, 2, 5)
+#' ## Returns ERROR
+test_inclu_value_range <- function(vec, lower, upper) {
+  
+  td <- "Inclusive Range (lower <= X <= upper)"
+  
+  if (test_inclu_value_range_test(vec, lower, upper)) {
+    return(c(td, test_pass_ti, test_pass_tm))
+  } else {
+    return(c(td, test_fail_ti, "Values outside of range"))
+  }
+  
 }
