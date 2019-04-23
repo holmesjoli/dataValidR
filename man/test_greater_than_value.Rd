@@ -24,10 +24,11 @@ test_greater_than_value(vec, 0)[2]
 # Returns PASS
 
 test_greater_than_value(vec, 1)[2]
-## Returns FAIL
+## Returns ERROR
 }
 \seealso{
-Other numeric column tests: \code{\link{test_greater_than_or_equal_value}},
+Other numeric column tests: \code{\link{test_exclu_value_range}},
+  \code{\link{test_greater_than_or_equal_value}},
   \code{\link{test_less_than_or_equal_value}},
   \code{\link{test_less_than_value}}
 }

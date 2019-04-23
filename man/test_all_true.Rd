@@ -20,10 +20,10 @@ vec <- c(T, F, T, F)
 df <- data.frame(col1 = c(T, T, T, T))
 
 test_all_true(vec)[2]
-# FAILS
+## Returns ERROR
 
 test_all_true(df$col1)[2]
-# PASSES
+## Returns PASS
 }
 \seealso{
 Other boolean tests: \code{\link{test_all_false}},
