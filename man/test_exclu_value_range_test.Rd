@@ -7,8 +7,6 @@
 test_exclu_value_range_test(vec, lower, upper)
 }
 \arguments{
-\item{vec}{the vector or column to test}
-
 \item{lower}{the lower bound}
 
 \item{upper}{the upper bound}
@@ -22,12 +20,12 @@ Tests if all the values in a column between an upper and lower bound
 \examples{
 vec <- c(1,2,3)
 
-test_exclu_value_range_test(vec, 0, 4)
-# Returns TRUE
+test_exclu_exclu_range_test(vec, 0, 4)
+## Returns TRUE
 
-test_exclu_value_range_test(vec, 0, 3)
+test_exclu_exclu_range_test(vec, 0, 3)
 ## Returns FALSE
 
-test_exclu_value_range_test(vec, 1, 4)
+test_exclu_exclu_range_test(vec, 1, 3)
 ## Returns FALSE
 }

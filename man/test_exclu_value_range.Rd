@@ -7,15 +7,15 @@
 test_exclu_value_range(vec, lower, upper)
 }
 \arguments{
-\item{vec}{the vector or column to test}
-
 \item{lower}{the lower bound}
+
+\item{upper}{the upper bound}
 }
 \value{
 vector
 }
 \description{
-Tests if all the values are less than the upper and greater than the lower bound
+Tests if all the values in a column between an upper and lower bound
 }
 \examples{
 vec <- c(1,2,3,4,5)
@@ -32,6 +32,7 @@ test_exclu_value_range(vec, 2, 5)
 \seealso{
 Other numeric column tests: \code{\link{test_greater_than_or_equal_value}},
   \code{\link{test_greater_than_value}},
+  \code{\link{test_inclu_value_range}},
   \code{\link{test_less_than_or_equal_value}},
   \code{\link{test_less_than_value}}
 }

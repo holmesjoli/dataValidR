@@ -30,6 +30,7 @@ test_less_than_value_test(vec, 3)[2]
 Other numeric column tests: \code{\link{test_exclu_value_range}},
   \code{\link{test_greater_than_or_equal_value}},
   \code{\link{test_greater_than_value}},
+  \code{\link{test_inclu_value_range}},
   \code{\link{test_less_than_or_equal_value}}
 }
 \concept{numeric column tests}
