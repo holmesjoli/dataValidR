@@ -30,6 +30,8 @@ test_less_than_or_equal_value_test(vec, 2)[2]
 # FAILS
 }
 \seealso{
-Other numeric column tests: \code{\link{test_less_than_value}}
+Other numeric column tests: \code{\link{test_greater_than_or_equal_value}},
+  \code{\link{test_greater_than_value}},
+  \code{\link{test_less_than_value}}
 }
 \concept{numeric column tests}
