@@ -7,6 +7,8 @@
 test_exclu_value_range_test(vec, lower, upper)
 }
 \arguments{
+\item{vec}{the vector or column to test}
+
 \item{lower}{the lower bound}
 
 \item{upper}{the upper bound}

@@ -7,6 +7,8 @@
 test_inclu_value_range(vec, lower, upper)
 }
 \arguments{
+\item{vec}{the vector or column to test}
+
 \item{lower}{the lower bound}
 
 \item{upper}{the upper bound}
@@ -34,6 +36,7 @@ Other numeric column tests: \code{\link{test_exclu_lower_inclu_upper_range}},
   \code{\link{test_exclu_value_range}},
   \code{\link{test_greater_than_or_equal_value}},
   \code{\link{test_greater_than_value}},
+  \code{\link{test_inclu_lower_exclu_upper_range}},
   \code{\link{test_less_than_or_equal_value}},
   \code{\link{test_less_than_value}}
 }
