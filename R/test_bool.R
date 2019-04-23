@@ -6,10 +6,10 @@
 #' @examples
 #' vec <- c(T, F, T, F)
 #' test_all_true(vec)
-#' # FAILS
+#' ## Returns FALSE
 #' df <- data.frame(col1 = c(T, T, T, T))
 #' test_all_true(df$col1)
-#' # PASSES
+#' ## Returns TRUE
 test_all_true_test <- function(vec) {
     
     if (all(vec)) {
@@ -49,10 +49,10 @@ test_all_true <- function(vec) {
 #' @examples
 #' vec <- c(T, F, T, F)
 #' test_all_false(vec)
-#' # FAILS
+#' ## Returns FALSE
 #' df <- data.frame(col1 = c(F, F, F, F))
 #' test_all_false(df$col1)
-#' # PASSES
+#' ## Returns TRUE
 test_all_false_test <- function(vec) {
 
     
@@ -90,10 +90,10 @@ test_all_false <- function(vec) {
 #' @examples
 #' vec <- c(T, F, T, F)
 #' test_any_true(vec)
-#' # PASSES
+#' ## Returns TRUE
 #' df <- data.frame(col1 = c(T, T, T, T))
 #' test_any_true(df$col1)
-#' # PASSES
+#' ## Returns TRUE
 test_any_true_test <- function(vec) {
     
     if (any(vec)) {
@@ -131,10 +131,10 @@ test_any_true <- function(vec) {
 #' @examples
 #' vec <- c(T, F, T, F)
 #' test_any_false(vec)
-#' # PASSES
+#' ## Returns TRUE
 #' df <- data.frame(col1 = c(T, T, T, T))
 #' test_any_false(df$col1)
-#' # FAILS
+#' ## Returns FALSE
 test_any_false_test <- function(vec) {
     
     if (all(vec)) {

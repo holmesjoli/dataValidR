@@ -2,8 +2,7 @@
 % Please edit documentation in R/test_numeric_col.R
 \name{test_less_than_value_test}
 \alias{test_less_than_value_test}
-\title{Test less than upper bound 
-Tests if all the values in a column are less than an upper bound}
+\title{Test less than upper bound}
 \usage{
 test_less_than_value_test(vec, upper)
 }
@@ -16,13 +15,12 @@ test_less_than_value_test(vec, upper)
 boolean
 }
 \description{
-Test less than upper bound 
 Tests if all the values in a column are less than an upper bound
 }
 \examples{
 vec <- c(1,2,3)
 test_less_than_value_test(vec, 4)
-# PASSES
+# Returns TRUE
 test_less_than_value_test(vec, 3)
-# FAILS
+## Returns FALSE
 }
