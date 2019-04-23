@@ -27,7 +27,8 @@ test_greater_than_value(vec, 1)[2]
 ## Returns ERROR
 }
 \seealso{
-Other numeric column tests: \code{\link{test_exclu_value_range}},
+Other numeric column tests: \code{\link{test_exclu_lower_inclu_upper_range}},
+  \code{\link{test_exclu_value_range}},
   \code{\link{test_greater_than_or_equal_value}},
   \code{\link{test_inclu_value_range}},
   \code{\link{test_less_than_or_equal_value}},
