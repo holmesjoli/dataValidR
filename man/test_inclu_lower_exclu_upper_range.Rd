@@ -22,7 +22,7 @@ Tests if all the values in a column are less than or equal to the lower bound an
 \examples{
 vec <- c(1,2,3)
 
-test_inclu_lower_exclu_upper_range(vec, 0, 3)
+test_inclu_lower_exclu_upper_range(vec, 0, 4)
 ## Returns PASS
 
 test_inclu_lower_exclu_upper_range(vec, 1, 3)
