@@ -40,9 +40,9 @@ test_less_than_value <- function(vec, upper) {
     td <- "Less than value (<)"
     
     if (test_less_than_value_test(vec, upper)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Values outside of upper bound"))
+        return(c(td, test_fail$ti, "Values outside of upper bound"))
     }
     
 }
@@ -94,9 +94,9 @@ test_less_than_or_equal_value <- function(vec, upper) {
     
     if (test_less_than_or_equal_value_test(vec, upper)) {
         
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Values outside of upper bound"))
+        return(c(td, test_fail$ti, "Values outside of upper bound"))
     }
 }
 
@@ -141,9 +141,9 @@ test_greater_than_value <- function(vec, lower) {
     td <- "Less than value (>)"
     
     if (test_greater_than_value_test(vec, lower)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Values outside of lower bound"))
+        return(c(td, test_fail$ti, "Values outside of lower bound"))
     }
     
 }
@@ -194,9 +194,9 @@ test_greater_than_or_equal_value <- function(vec, lower) {
     td <- "Less than value (>=)"
     
     if (test_greater_than_or_equal_value_test(vec, lower)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Values outside of lower bound"))
+        return(c(td, test_fail$ti, "Values outside of lower bound"))
     }
     
 }
@@ -252,9 +252,9 @@ test_exclu_value_range <- function(vec, lower, upper) {
     td <- "Exclusive Range (lower < X < upper)"
     
     if (test_exclu_value_range_test(vec, lower, upper)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Values outside of range"))
+        return(c(td, test_fail$ti, "Values outside of range"))
     }
     
 }
@@ -308,9 +308,9 @@ test_inclu_value_range <- function(vec, lower, upper) {
     td <- "Inclusive Range (lower <= X <= upper)"
     
     if (test_inclu_value_range_test(vec, lower, upper)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Values outside of range"))
+        return(c(td, test_fail$ti, "Values outside of range"))
     }
     
 }
@@ -364,9 +364,9 @@ test_exclu_lower_inclu_upper_range <- function(vec, lower, upper) {
     td <- "Exclusive lower bound, inclusive upper bound (lower < X <= upper)"
     
     if (test_exclu_lower_inclu_upper_range_test(vec, lower, upper)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Values outside of range"))
+        return(c(td, test_fail$ti, "Values outside of range"))
     }
 }
 
@@ -419,9 +419,9 @@ test_inclu_lower_exclu_upper_range <- function(vec, lower, upper) {
     td <- "Inclusive lower bound, exclusive upper bound (lower <= X < upper)"
     
     if (test_inclu_lower_exclu_upper_range_test(vec, lower, upper)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Values outside of range"))
+        return(c(td, test_fail$ti, "Values outside of range"))
     }
 }
 

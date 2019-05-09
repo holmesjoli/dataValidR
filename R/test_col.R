@@ -41,9 +41,9 @@ test_unique <- function(vec) {
     td <- "Unique Values"
     
     if (test_unique_test(vec)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Not Unique"))
+        return(c(td, test_fail$ti, "Not Unique"))
     }
     
 }
@@ -90,9 +90,9 @@ test_values <- function(vec, expc_values) {
     add_values <- setdiff(unique(vec), expc_values)
     
     if (test_values_test(add_values)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, paste0("Additional values in col", paste(add_values, collapse = ","))))
+        return(c(td, test_fail$ti, paste0("Additional values in col", paste(add_values, collapse = ","))))
     }
     
 }
@@ -111,13 +111,13 @@ test_values <- function(vec, expc_values) {
 #' test_null_values_test(vec2)
 #' ## Returns FALSE
 test_null_values_test <- function(vec) {
-  
-  if(all(!is.na(vec))) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
-  
+    
+    if (all(!is.na(vec))) {
+        return(TRUE)
+    } else {
+        return(FALSE)
+    }
+    
 }
 
 #' @inherit test_null_values_test return title
@@ -139,8 +139,8 @@ test_null_values <- function(vec) {
     td <- "Null Values"
     
     if (test_null_values_test(vec)) {
-        return(c(td, test_pass_ti, test_pass_tm))
+        return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_fail_ti, "Contains null values"))
+        return(c(td, test_fail$ti, "Contains null values"))
     }
 }

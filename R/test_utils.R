@@ -1,16 +1,38 @@
-test_pass_ti <- "PASS"
-test_fail_ti <- "ERROR"
-test_warn_ti <- "WARNING"
 
-test_pass_tm <- ""
+test_pass <- list(
+  
+  ti = "PASS",
+  tm = ""
+  
+)
 
+class(test_pass) <- append(class(test_pass), "test_pass")
+
+test_fail <- list(
+  
+  ti = "ERROR"
+)
+
+class(test_fail) <- append(class(test_fail), "test_fail")
+
+test_warn <- list(
+  
+  ti = "WARNING"
+)
+
+class(test_warn) <- append(class(test_warn), "test_warn")
+
+
+df <- list(
+  
+  names = c("Description", "Indicator", "Message")
+)
 
 named_df <- function(x) {
   
-  df <- data.frame(matrix(ncol = 3, nrow = 0))
-  names(df) <- c("Description", "Indicator", "Message")
-  names(x) <- c("Description", "Indicator", "Message")
-  df <- rbind(df, x)
+  df <- t(data.frame(t1))
+  colnames(df) <- c("Description", "Indicator", "Message")
+  row.names(df) <- NULL
   
   return(df)
 }
