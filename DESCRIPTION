@@ -12,7 +12,7 @@ RoxygenNote: 6.1.1
 Language: en-US
 VignetteBuilder: knitr
 Remotes:
-    utilsR  
+    holmesjoli/utilsR  
 Suggests: 
     knitr,
     rmarkdown
