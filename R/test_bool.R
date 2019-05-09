@@ -86,9 +86,9 @@ test_all_false <- function(vec) {
     td <- "Test all equal FALSE"
     
     if (test_all_false_test(vec)) {
-        return(c(td, test_fail$ti, "Not all equal to FALSE"))
+      return(c(td, test_pass$ti, test_pass$tm))
     } else {
-        return(c(td, test_pass$ti, test_pass$tm))
+      return(c(td, test_fail$ti, "Not all equal to FALSE"))
     }
 }
 
@@ -176,8 +176,8 @@ test_any_false <- function(vec) {
     td <- "Test any equal FALSE"
     
     if (test_any_false_test(vec)) {
-        return(c(td, test_fail$ti, "All are TRUE"))
+      return(c(td, test_pass$ti, test_pass$tm))  
     } else {
-        return(c(td, test_pass$ti, test_pass$tm))
+      return(c(td, test_fail$ti, "All are TRUE"))  
     }
 }
