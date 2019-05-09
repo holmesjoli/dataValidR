@@ -1,11 +1,11 @@
-language: r
-cache: packages
+- language: r
+- cache: packages
 
 jobs:
-  include:
-    r_github_package:
+  - include:
+    - r_github_package:
       - holmesjoli/utilsR
-    after_success:
+    - after_success:
       - Rscript -e 'library(covr); codecov()'
   - r: 3.2
     warnings_are_errors: false
