@@ -4,8 +4,8 @@
 #' @param vec the vector or column to test
 #' @return boolean
 #' @examples
-#' vec <- c(T, F, T, F)
-#' df <- data.frame(col1 = c(T, T, T, T))
+#' vec <- c(TRUE, F, TRUE, F)
+#' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #'  
 #' test_all_true(vec)
 #' ## Returns FALSE
@@ -27,8 +27,8 @@ test_all_true_test <- function(vec) {
 #' @family boolean tests
 #' @return vector
 #' @examples
-#' vec <- c(T, F, T, F)
-#' df <- data.frame(col1 = c(T, T, T, T))
+#' vec <- c(TRUE, F, TRUE, F)
+#' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #' 
 #' test_all_true(vec)[2]
 #' ## Returns ERROR
@@ -51,7 +51,7 @@ test_all_true <- function(vec) {
 #' @inheritParams test_all_true_test
 #' @return boolean
 #' @examples
-#' vec <- c(T, F, T, F)
+#' vec <- c(TRUE, F, TRUE, F)
 #' df <- data.frame(col1 = c(F, F, F, F))
 #' 
 #' test_all_false(vec)
@@ -73,7 +73,7 @@ test_all_false_test <- function(vec) {
 #' @family boolean tests
 #' @return vector
 #' @examples
-#' vec <- c(T, F, T, F)
+#' vec <- c(TRUE, F, TRUE, F)
 #' df <- data.frame(col1 = c(F, F, F, F))
 #' 
 #' test_all_false(vec)[2]
@@ -96,8 +96,8 @@ test_all_false <- function(vec) {
 #' @inheritParams test_all_true_test
 #' @return boolean
 #' @examples
-#' vec <- c(T, F, T, F)
-#' df <- data.frame(col1 = c(T, T, T, T))
+#' vec <- c(TRUE, F, TRUE, F)
+#' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #' 
 #' test_any_true(vec)
 #' ## Returns TRUE
@@ -118,8 +118,8 @@ test_any_true_test <- function(vec) {
 #' @family boolean tests
 #' @return vector
 #' @examples
-#' vec <- c(T, F, T, F)
-#' df <- data.frame(col1 = c(T, T, T, T))
+#' vec <- c(TRUE, F, TRUE, F)
+#' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #' 
 #' test_any_true(vec)[2]
 #' # PASSES
@@ -141,8 +141,8 @@ test_any_true <- function(vec) {
 #' @inheritParams test_all_true_test
 #' @return boolean
 #' @examples
-#' vec <- c(T, F, T, F)
-#' df <- data.frame(col1 = c(T, T, T, T))
+#' vec <- c(TRUE, F, TRUE, F)
+#' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #' 
 #' test_any_false(vec)
 #' ## Returns TRUE
@@ -163,8 +163,8 @@ test_any_false_test <- function(vec) {
 #' @family boolean tests
 #' @return vector
 #' @examples
-#' vec <- c(T, F, T, F)
-#' df <- data.frame(col1 = c(T, T, T, T))
+#' vec <- c(TRUE, F, TRUE, F)
+#' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #' 
 #' test_any_false(vec)[2]
 #' ## Returns PASS
