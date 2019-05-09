@@ -1,8 +1,8 @@
 # Test SetUp
 
-vec1 <- c(T, T, T)
-vec2 <- c(F, F, F)
-vec3 <- c(T, F, T)
+vec1 <- c(TRUE, TRUE, TRUE)
+vec2 <- c(FALSE, FALSE, FALSE)
+vec3 <- c(TRUE, FALSE, TRUE)
 
 df <- data.frame(col1 = vec1, col2 = vec2, col3 = vec3)
 
@@ -74,3 +74,26 @@ testthat::test_that("tests that any TRUE return a vector of length 3", {
     
 })
 
+
+testthat::test_that("tests that all TRUE return a vector of length 3", {
+  
+  testthat::expect_equal(length(test_all_false(vec1)), 3)
+  testthat::expect_equal(test_all_false(vec1)[2], test_fail$ti)
+  
+  testthat::expect_equal(length(test_all_false(vec2)), 3)
+  testthat::expect_equal(test_all_false(vec2)[2], test_pass$ti)
+  
+})
+
+testthat::test_that("tests that all TRUE return a vector of length 3", {
+  
+  testthat::expect_equal(length(test_any_false(vec1)), 3)
+  testthat::expect_equal(test_any_false(vec1)[2], test_fail$ti)
+  
+  testthat::expect_equal(length(test_any_false(vec2)), 3)
+  testthat::expect_equal(test_any_false(vec2)[2], test_pass$ti)
+  
+  testthat::expect_equal(length(test_any_false(vec3)), 3)
+  testthat::expect_equal(test_any_false(vec3)[2], test_pass$ti)
+  
+})
