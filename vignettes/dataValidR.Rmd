@@ -14,14 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(dataValidR)
-```
-
-
 The dataValidR is a set of functions to be used for testing and validating data.
 
-```{r}
+```{r, eval = FALSE, echo = TRUE}
 
 library(dataValidR)
 
@@ -29,12 +24,10 @@ df <- data.frame(col1 = c(1:10),
                  col2 = letters[1:10],
                  col3 = c(rep(NA, 3), 1:7))
 
-tests <- data.frame()
+t1 <- test_unique(df$col1)
+t2 <- test_values(df$col2, letters[1:10])
+t3 <- test_null_values(df$col3)
 
-t1 <- dataValidR::test_unique(df$col1)
-t2 <- dataValidR::test_values(df$col2, letters[1:10])
-t3 <- dataValidR::test_null_values(df$col3)
-
-tests <- rbind(t1)
+tests <- rbind(t1, t2, t3)
 
 ```
