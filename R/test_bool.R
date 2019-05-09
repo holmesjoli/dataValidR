@@ -7,10 +7,10 @@
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #'  
-#' test_all_true(vec)
+#' test_all_true_test(vec)
 #' ## Returns FALSE
 #' 
-#' test_all_true(df$col1)
+#' test_all_true_test(df$col1)
 #' ## Returns TRUE
 test_all_true_test <- function(vec) {
     
@@ -35,7 +35,6 @@ test_all_true_test <- function(vec) {
 #' 
 #' test_all_true(df$col1)[2]
 #' ## Returns PASS
-
 test_all_true <- function(vec) {
     
     td <- "Test all equal TRUE"
@@ -54,10 +53,10 @@ test_all_true <- function(vec) {
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(FALSE, FALSE, FALSE, FALSE))
 #' 
-#' test_all_false(vec)
+#' test_all_false_test(vec)
 #' ## Returns FALSE
 #' 
-#' test_all_false(df$col1)
+#' test_all_false_test(df$col1)
 #' ## Returns TRUE
 test_all_false_test <- function(vec) {
     
@@ -99,10 +98,10 @@ test_all_false <- function(vec) {
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #' 
-#' test_any_true(vec)
+#' test_any_true_test(vec)
 #' ## Returns TRUE
 #' 
-#' test_any_true(df$col1)
+#' test_any_true_test(df$col1)
 #' ## Returns TRUE
 test_any_true_test <- function(vec) {
     
@@ -144,10 +143,10 @@ test_any_true <- function(vec) {
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #' 
-#' test_any_false(vec)
+#' test_any_false_test(vec)
 #' ## Returns TRUE
 #' 
-#' test_any_false(df$col1)
+#' test_any_false_test(df$col1)
 #' ## Returns FALSE
 test_any_false_test <- function(vec) {
     
