@@ -57,20 +57,20 @@ testthat::test_that("tests that any FALSE evaluates correctly", {
 testthat::test_that("tests that all TRUE return a vector of length 3", {
     
     testthat::expect_equal(length(test_all_true(vec1)), 3)
-    testthat::expect_equal(test_all_true(vec1)[2], test_pass_ti)
+    testthat::expect_equal(test_all_true(vec1)[2], test_pass$ti)
     
     testthat::expect_equal(length(test_all_true(vec2)), 3)
-    testthat::expect_equal(test_all_true(vec2)[2], test_fail_ti)
+    testthat::expect_equal(test_all_true(vec2)[2], test_fail$ti)
     
 })
 
 testthat::test_that("tests that any TRUE return a vector of length 3", {
     
     testthat::expect_equal(length(test_any_true(vec1)), 3)
-    testthat::expect_equal(test_any_true(vec1)[2], test_pass_ti)
+    testthat::expect_equal(test_any_true(vec1)[2], test_pass$ti)
     
     testthat::expect_equal(length(test_any_true(vec2)), 3)
-    testthat::expect_equal(test_any_true(vec2)[2], test_fail_ti)
+    testthat::expect_equal(test_any_true(vec2)[2], test_fail$ti)
     
 })
 
