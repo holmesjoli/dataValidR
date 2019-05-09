@@ -22,7 +22,7 @@ library(dataValidR)
 The dataValidR is a set of functions to be used for testing and validating data.
 
 ```{r}
-library(utilsR)
+
 library(dataValidR)
 
 df <- data.frame(col1 = c(1:10),
@@ -36,11 +36,5 @@ t2 <- test_values(df$col2, letters[1:10])
 t3 <- test_null_values(df$col3)
 
 tests <- rbind(t1)
-
-
-utilsR::open_log("test_log.log")
-
-
-utilsR::close_log()
 
 ```
