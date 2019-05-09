@@ -16,8 +16,8 @@ vector
 Test all values equal false
 }
 \examples{
-vec <- c(T, F, T, F)
-df <- data.frame(col1 = c(F, F, F, F))
+vec <- c(TRUE, FALSE, TRUE, FALSE)
+df <- data.frame(col1 = c(FALSE, FALSE, FALSE, FALSE))
 
 test_all_false(vec)[2]
 ## Returns ERROR

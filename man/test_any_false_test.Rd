@@ -16,8 +16,8 @@ boolean
 Tests any values equal FALSE
 }
 \examples{
-vec <- c(T, F, T, F)
-df <- data.frame(col1 = c(T, T, T, T))
+vec <- c(TRUE, FALSE, TRUE, FALSE)
+df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 
 test_any_false(vec)
 ## Returns TRUE
