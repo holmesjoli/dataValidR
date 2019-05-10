@@ -1,8 +1,8 @@
 ---
-title: "dataValidR"
+title: "validR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{dataValidR}
+  %\VignetteIndexEntry{validR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-The dataValidR is a set of functions to be used for testing and validating data.
+The validR is a set of functions to be used for testing and validating data.
 
 ```{r, eval = FALSE, echo = TRUE}
 
-library(dataValidR)
+library(validR)
 
 df <- data.frame(col1 = c(1:10),
                  col2 = letters[1:10],

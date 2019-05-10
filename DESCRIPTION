@@ -1,4 +1,4 @@
-Package: dataValidR
+Package: validR
 Type: Package
 Title: Data Validation Tools for R
 Version: 0.0.0.9999
