@@ -2,8 +2,8 @@
 
 <!-- badges: start -->
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5c55b64f4df6402a97fb8194e888a5d7)](https://www.codacy.com/app/holmesjoli/validR?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=holmesjoli/validR&amp;utm_campaign=Badge_Grade)
+[![Build status](https://travis-ci.org/holmesjoli/validR.svg?branch=master)](https://travis-ci.org/holmesjoli/validR)
 [![Codecov test coverage](https://codecov.io/gh/holmesjoli/validR/branch/master/graph/badge.svg)](https://codecov.io/gh/holmesjoli/validR?branch=master)
-
 <!-- badges: end -->
 
 The validR package is a series of tests used for data validation.
