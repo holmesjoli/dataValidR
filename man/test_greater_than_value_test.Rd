@@ -18,6 +18,7 @@ boolean
 Tests if all the values in a column are greater than a lower bound
 }
 \examples{
+\dontrun{
 vec <- c(1,2,3)
 
 test_greater_than_value_test(vec, 0)
@@ -25,4 +26,5 @@ test_greater_than_value_test(vec, 0)
 
 test_greater_than_value_test(vec, 1)
 ## Returns FALSE
+}
 }

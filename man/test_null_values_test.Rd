@@ -16,6 +16,7 @@ boolean
 Tests if the vector/column contains any NA values
 }
 \examples{
+\dontrun{
 vec1 <- c(1,2,3)
 vec2 <- c(1,NA,2)
 
@@ -24,4 +25,5 @@ test_null_values_test(vec1)
 
 test_null_values_test(vec2)
 ## Returns FALSE
+}
 }

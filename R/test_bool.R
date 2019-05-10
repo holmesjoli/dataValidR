@@ -67,6 +67,7 @@ test_all_false_test <- function(vec) {
         return(TRUE)
     }
 }
+
 #' @title Test all values equal false
 #' @inheritParams test_all_true_test
 #' @family boolean tests

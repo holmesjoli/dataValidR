@@ -16,12 +16,14 @@ boolean
 Test all values equal false
 }
 \examples{
+\dontrun{
 vec <- c(TRUE, FALSE, TRUE, FALSE)
 df <- data.frame(col1 = c(FALSE, FALSE, FALSE, FALSE))
 
-test_all_false(vec)
+test_all_false_test(vec)
 ## Returns FALSE
 
-test_all_false(df$col1)
+test_all_false_test(df$col1)
 ## Returns TRUE
+}
 }

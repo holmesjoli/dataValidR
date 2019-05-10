@@ -20,6 +20,7 @@ boolean
 Tests if all the values in a column between an upper and lower bound
 }
 \examples{
+\dontrun{
 vec <- c(1,2,3)
 
 test_exclu_exclu_range_test(vec, 0, 4)
@@ -30,4 +31,5 @@ test_exclu_exclu_range_test(vec, 0, 3)
 
 test_exclu_exclu_range_test(vec, 1, 3)
 ## Returns FALSE
+}
 }

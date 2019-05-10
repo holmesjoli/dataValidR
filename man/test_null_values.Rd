@@ -23,7 +23,7 @@ test_null_values(vec1)[2]
 ## Returns PASS
 
 test_null_values(vec2)[2]
-## Returns ERROR 
+## Returns ERROR
 }
 \seealso{
 Other general column tests: \code{\link{test_unique}},

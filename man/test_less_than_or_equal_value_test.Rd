@@ -18,6 +18,7 @@ vector
 Tests if all the values in a column are less than or equal to an upper bound
 }
 \examples{
+\dontrun{
 vec <- c(1,2,3)
 
 test_less_than_or_equal_value_test(vec, 4)
@@ -28,4 +29,5 @@ test_less_than_or_equal_value_test(vec, 3)
 
 test_less_than_or_equal_value_test(vec, 2)
 # Returns FALSE
+}
 }

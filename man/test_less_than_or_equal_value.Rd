@@ -20,13 +20,13 @@ Tests if all the values in a column are less than or equal to an upper bound
 \examples{
 vec <- c(1,2,3)
 
-test_less_than_or_equal_value_test(vec, 4)[2]
+test_less_than_or_equal_value(vec, 4)[2]
 ## Returns PASS
 
-test_less_than_or_equal_value_test(vec, 3)[2]
+test_less_than_or_equal_value(vec, 3)[2]
 ## Returns PASS
 
-test_less_than_or_equal_value_test(vec, 2)[2]
+test_less_than_or_equal_value(vec, 2)[2]
 ## Returns ERROR
 }
 \seealso{

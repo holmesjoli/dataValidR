@@ -6,6 +6,11 @@
 \usage{
 test_values(vec, expc_values)
 }
+\arguments{
+\item{vec}{the vector or column to test}
+
+\item{expc_values}{a vector of expected values}
+}
 \value{
 vector
 }
@@ -21,7 +26,7 @@ test_values(vec2, expc_values)[2]
 ## Returns PASS
 
 test_values(vec1, expc_values)[2]
-## Returns ERROR 
+## Returns ERROR
 }
 \seealso{
 Other general column tests: \code{\link{test_null_values}},

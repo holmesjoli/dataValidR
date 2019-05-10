@@ -20,11 +20,11 @@ Tests if all the values in a column are less than an upper bound
 \examples{
 vec <- c(1,2,3)
 
-test_less_than_value_test(vec, 4)[2]
+test_less_than_value(vec, 4)[2]
 ## Returns PASS
 
-test_less_than_value_test(vec, 3)[2]
-## Returns ERROR 
+test_less_than_value(vec, 3)[2]
+## Returns ERROR
 }
 \seealso{
 Other numeric column tests: \code{\link{test_exclu_lower_inclu_upper_range}},

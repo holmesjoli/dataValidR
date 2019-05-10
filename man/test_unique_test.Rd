@@ -16,6 +16,7 @@ boolean
 Tests if the vector/column is unique
 }
 \examples{
+\dontrun{
 vec1 <- c(1,2,3)
 vec2 <- c(1,1,2)
 
@@ -24,4 +25,5 @@ test_unique_test(vec1)
 
 test_unique_test(vec2)
 ## Returns FALSE
+}
 }

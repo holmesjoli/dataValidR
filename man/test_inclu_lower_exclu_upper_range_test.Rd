@@ -20,6 +20,7 @@ boolean
 Tests if all the values in a column are less than or equal to the lower bound and greater than the upper bound
 }
 \examples{
+\dontrun{
 vec <- c(1,2,3)
 
 test_inclu_lower_exclu_upper_range_test (vec, 0, 4)
@@ -30,4 +31,5 @@ test_inclu_lower_exclu_upper_range_test(vec, 1, 3)
 
 test_inclu_lower_exclu_upper_range_test(vec, 2, 4)
 ## Returns FALSE
+}
 }

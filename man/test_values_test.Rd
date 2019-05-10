@@ -16,10 +16,11 @@ boolean
 Tests if the vector/column contains values other than expected
 }
 \examples{
-
+\dontrun{
 test_values_test(c())
 # Returns TRUE
 
 test_values_test(c(4,5))
 ## Returns FALSE
+}
 }
