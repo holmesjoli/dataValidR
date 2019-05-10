@@ -30,7 +30,7 @@ df <- list(
 
 named_df <- function(x) {
   
-  df <- t(data.frame(t1))
+  df <- t(data.frame(x))
   colnames(df) <- c("Description", "Indicator", "Message")
   row.names(df) <- NULL
   

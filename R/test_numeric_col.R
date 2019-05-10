@@ -6,6 +6,7 @@
 #' @param upper the upper bound
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(1,2,3)
 #' 
 #' test_less_than_value_test(vec, 4)
@@ -13,6 +14,7 @@
 #' 
 #' test_less_than_value_test(vec, 3)
 #' ## Returns FALSE
+#' }
 test_less_than_value_test <- function(vec, upper) {
     
     if (all(vec < upper)) {
@@ -30,11 +32,12 @@ test_less_than_value_test <- function(vec, upper) {
 #' @examples
 #' vec <- c(1,2,3)
 #' 
-#' test_less_than_value_test(vec, 4)[2]
+#' test_less_than_value(vec, 4)[2]
 #' ## Returns PASS
 #' 
-#' test_less_than_value_test(vec, 3)[2]
-#' ## Returns ERROR 
+#' test_less_than_value(vec, 3)[2]
+#' ## Returns ERROR
+#' @export
 test_less_than_value <- function(vec, upper) {
     
     td <- "Less than value (<)"
@@ -52,6 +55,7 @@ test_less_than_value <- function(vec, upper) {
 #' @inheritParams test_less_than_value_test 
 #' @return vector
 #' @examples
+#' \dontrun{
 #' vec <- c(1,2,3)
 #' 
 #' test_less_than_or_equal_value_test(vec, 4)
@@ -62,6 +66,7 @@ test_less_than_value <- function(vec, upper) {
 #' 
 #' test_less_than_or_equal_value_test(vec, 2)
 #' # Returns FALSE
+#' }
 test_less_than_or_equal_value_test <- function(vec, upper) {
     
     if (all(vec <= upper)) {
@@ -80,14 +85,15 @@ test_less_than_or_equal_value_test <- function(vec, upper) {
 #' @examples
 #' vec <- c(1,2,3)
 #' 
-#' test_less_than_or_equal_value_test(vec, 4)[2]
+#' test_less_than_or_equal_value(vec, 4)[2]
 #' ## Returns PASS
 #' 
-#' test_less_than_or_equal_value_test(vec, 3)[2]
+#' test_less_than_or_equal_value(vec, 3)[2]
 #' ## Returns PASS
 #' 
-#' test_less_than_or_equal_value_test(vec, 2)[2]
+#' test_less_than_or_equal_value(vec, 2)[2]
 #' ## Returns ERROR
+#' @export
 test_less_than_or_equal_value <- function(vec, upper) {
     
     td <- "Less than value (<=)"
@@ -106,6 +112,7 @@ test_less_than_or_equal_value <- function(vec, upper) {
 #' @param lower the lower bound
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(1,2,3)
 #' 
 #' test_greater_than_value_test(vec, 0)
@@ -113,6 +120,7 @@ test_less_than_or_equal_value <- function(vec, upper) {
 #' 
 #' test_greater_than_value_test(vec, 1)
 #' ## Returns FALSE
+#' }
 test_greater_than_value_test <- function(vec, lower) {
     
     if (all(vec > lower)) {
@@ -136,6 +144,7 @@ test_greater_than_value_test <- function(vec, lower) {
 #' 
 #' test_greater_than_value(vec, 1)[2]
 #' ## Returns ERROR
+#' @export
 test_greater_than_value <- function(vec, lower) {
     
     td <- "Less than value (>)"
@@ -153,6 +162,7 @@ test_greater_than_value <- function(vec, lower) {
 #' @inheritParams test_greater_than_value_test 
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(1,2,3)
 #' 
 #' test_greater_than_value_test(vec, 0)
@@ -163,6 +173,7 @@ test_greater_than_value <- function(vec, lower) {
 #' 
 #' test_greater_than_value_test(vec, 2)
 #' ## Returns FALSE
+#' }
 test_greater_than_or_equal_value_test <- function(vec, lower) {
     
     if (all(vec >= lower)) {
@@ -189,6 +200,7 @@ test_greater_than_or_equal_value_test <- function(vec, lower) {
 #' 
 #' test_greater_than_value(vec, 2)[2]
 #' ## Returns ERROR
+#' @export
 test_greater_than_or_equal_value <- function(vec, lower) {
     
     td <- "Less than value (>=)"
@@ -208,6 +220,7 @@ test_greater_than_or_equal_value <- function(vec, lower) {
 #' @param upper the upper bound
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(1,2,3)
 #' 
 #' test_exclu_exclu_range_test(vec, 0, 4)
@@ -218,6 +231,7 @@ test_greater_than_or_equal_value <- function(vec, lower) {
 #' 
 #' test_exclu_exclu_range_test(vec, 1, 3)
 #' ## Returns FALSE
+#' }
 test_exclu_value_range_test <- function(vec, lower, upper) {
     
     mn <- min(vec)
@@ -247,6 +261,7 @@ test_exclu_value_range_test <- function(vec, lower, upper) {
 #' 
 #' test_exclu_value_range(vec, 2, 5)
 #' ## Returns ERROR
+#' @export
 test_exclu_value_range <- function(vec, lower, upper) {
     
     td <- "Exclusive Range (lower < X < upper)"
@@ -264,6 +279,7 @@ test_exclu_value_range <- function(vec, lower, upper) {
 #' @inheritParams test_exclu_value_range_test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(1,2,3)
 #' 
 #' test_inclu_value_range_test(vec, 0, 4)
@@ -274,6 +290,7 @@ test_exclu_value_range <- function(vec, lower, upper) {
 #' 
 #' test_inclu_value_range_test(vec, 1, 4)
 #' ## Returns FALSE
+#' }
 test_inclu_value_range_test <- function(vec, lower, upper) {
     
     mn <- min(vec)
@@ -303,6 +320,7 @@ test_inclu_value_range_test <- function(vec, lower, upper) {
 #' 
 #' test_inclu_value_range(vec, 2, 5)
 #' ## Returns ERROR
+#' @export
 test_inclu_value_range <- function(vec, lower, upper) {
     
     td <- "Inclusive Range (lower <= X <= upper)"
@@ -320,27 +338,29 @@ test_inclu_value_range <- function(vec, lower, upper) {
 #' @inheritParams test_exclu_value_range_test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(1,2,3)
-#' 
+#'
 #' test_exclu_lower_inclu_range_test(vec, 0, 3)
 #' ## Returns TRUE
-#' 
+#'
 #' test_exclu_lower_inclu_range_test(vec, 1, 3)
 #' ## Returns FALSE
-#' 
+#'
 #' test_exclu_lower_inclu_range_test(vec, 0, 4)
 #' ## Returns FALSE
+#' }
 test_exclu_lower_inclu_upper_range_test <- function(vec, lower, upper) {
-    
+
     mn <- min(vec)
     mx <- max(vec)
-    
+
     if (mn > lower & mx <= upper) {
         return(TRUE)
     } else {
         return(FALSE)
     }
-    
+
 }
 
 #' @inherit test_exclu_lower_inclu_upper_range_test return title
@@ -359,6 +379,7 @@ test_exclu_lower_inclu_upper_range_test <- function(vec, lower, upper) {
 #' 
 #' test_exclu_lower_inclu_upper_range(vec, 0, 2)
 #' ## Returns ERROR
+#' @export
 test_exclu_lower_inclu_upper_range <- function(vec, lower, upper) {
     
     td <- "Exclusive lower bound, inclusive upper bound (lower < X <= upper)"
@@ -375,6 +396,7 @@ test_exclu_lower_inclu_upper_range <- function(vec, lower, upper) {
 #' @inheritParams test_exclu_value_range_test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(1,2,3)
 #' 
 #' test_inclu_lower_exclu_upper_range_test (vec, 0, 4)
@@ -385,6 +407,7 @@ test_exclu_lower_inclu_upper_range <- function(vec, lower, upper) {
 #' 
 #' test_inclu_lower_exclu_upper_range_test(vec, 2, 4)
 #' ## Returns FALSE
+#' }
 test_inclu_lower_exclu_upper_range_test <- function(vec, lower, upper) {
     
     mn <- min(vec)
@@ -414,6 +437,7 @@ test_inclu_lower_exclu_upper_range_test <- function(vec, lower, upper) {
 #' 
 #' test_inclu_lower_exclu_upper_range(vec, 2, 4)
 #' ## Returns ERROR
+#' @export
 test_inclu_lower_exclu_upper_range <- function(vec, lower, upper) {
     
     td <- "Inclusive lower bound, exclusive upper bound (lower <= X < upper)"
@@ -424,5 +448,3 @@ test_inclu_lower_exclu_upper_range <- function(vec, lower, upper) {
         return(c(td, test_fail$ti, "Values outside of range"))
     }
 }
-
-

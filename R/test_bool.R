@@ -4,6 +4,7 @@
 #' @param vec the vector or column to test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
 #'  
@@ -12,6 +13,7 @@
 #' 
 #' test_all_true_test(df$col1)
 #' ## Returns TRUE
+#' }
 test_all_true_test <- function(vec) {
     
     if (all(vec)) {
@@ -29,16 +31,17 @@ test_all_true_test <- function(vec) {
 #' @examples
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
-#' 
+#'
 #' test_all_true(vec)[2]
 #' ## Returns ERROR
-#' 
+#'
 #' test_all_true(df$col1)[2]
 #' ## Returns PASS
+#' @export
 test_all_true <- function(vec) {
-    
+
     td <- "Test all equal TRUE"
-    
+
     if (test_all_true_test(vec)) {
         return(c(td, test_pass$ti, test_pass$tm))
     } else {
@@ -50,17 +53,19 @@ test_all_true <- function(vec) {
 #' @inheritParams test_all_true_test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(FALSE, FALSE, FALSE, FALSE))
-#' 
+#'
 #' test_all_false_test(vec)
 #' ## Returns FALSE
-#' 
+#'
 #' test_all_false_test(df$col1)
 #' ## Returns TRUE
+#' }
 test_all_false_test <- function(vec) {
-    
-    
+
+
     if (any(vec)) {
         return(FALSE)
     } else {
@@ -69,22 +74,23 @@ test_all_false_test <- function(vec) {
 }
 
 #' @title Test all values equal false
-#' @inheritParams test_all_true_test
+#' @inheritParams test_all_true
 #' @family boolean tests
 #' @return vector
 #' @examples
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(FALSE, FALSE, FALSE, FALSE))
-#' 
+#'
 #' test_all_false(vec)[2]
 #' ## Returns ERROR
-#' 
+#'
 #' test_all_false(df$col1)[2]
 #' ## Returns PASS
+#' @export
 test_all_false <- function(vec) {
-    
+
     td <- "Test all equal FALSE"
-    
+
     if (test_all_false_test(vec)) {
       return(c(td, test_pass$ti, test_pass$tm))
     } else {
@@ -96,16 +102,18 @@ test_all_false <- function(vec) {
 #' @inheritParams test_all_true_test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
-#' 
+#'
 #' test_any_true_test(vec)
 #' ## Returns TRUE
-#' 
+#'
 #' test_any_true_test(df$col1)
 #' ## Returns TRUE
+#' }
 test_any_true_test <- function(vec) {
-    
+
     if (any(vec)) {
         return(TRUE)
     } else {
@@ -120,16 +128,17 @@ test_any_true_test <- function(vec) {
 #' @examples
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
-#' 
+#'
 #' test_any_true(vec)[2]
 #' # PASSES
-#' 
+#'
 #' test_any_true(df$col1)[2]
 #' # PASSES
+#' @export
 test_any_true <- function(vec) {
-    
+
     td <- "Test any equal TRUE"
-    
+
     if (test_any_true_test(vec)) {
         return(c(td, test_pass$ti, test_pass$tm))
     } else {
@@ -141,16 +150,18 @@ test_any_true <- function(vec) {
 #' @inheritParams test_all_true_test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
-#' 
+#'
 #' test_any_false_test(vec)
 #' ## Returns TRUE
-#' 
+#'
 #' test_any_false_test(df$col1)
 #' ## Returns FALSE
+#' }
 test_any_false_test <- function(vec) {
-    
+
     if (all(vec)) {
         return(FALSE)
     } else {
@@ -165,19 +176,20 @@ test_any_false_test <- function(vec) {
 #' @examples
 #' vec <- c(TRUE, FALSE, TRUE, FALSE)
 #' df <- data.frame(col1 = c(TRUE, TRUE, TRUE, TRUE))
-#' 
+#'
 #' test_any_false(vec)[2]
 #' ## Returns PASS
-#' 
+#'
 #' test_any_false(df$col1)[2]
 #' ## Returns ERROR
+#' @export
 test_any_false <- function(vec) {
-    
+
     td <- "Test any equal FALSE"
-    
+
     if (test_any_false_test(vec)) {
-      return(c(td, test_pass$ti, test_pass$tm))  
+      return(c(td, test_pass$ti, test_pass$tm))
     } else {
-      return(c(td, test_fail$ti, "All are TRUE"))  
+      return(c(td, test_fail$ti, "All are TRUE"))
     }
 }

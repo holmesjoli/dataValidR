@@ -5,6 +5,7 @@
 #' @param vec the vector or column to test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec1 <- c(1,2,3)
 #' vec2 <- c(1,1,2)
 #' 
@@ -13,6 +14,7 @@
 #' 
 #' test_unique_test(vec2)
 #' ## Returns FALSE
+#' }
 test_unique_test <- function(vec) {
     
     if (length(unique(vec)) == length(vec)) {
@@ -36,6 +38,7 @@ test_unique_test <- function(vec) {
 #' 
 #' test_unique(vec2)[2]
 #' ## Returns ERROR 
+#' @export
 test_unique <- function(vec) {
     
     td <- "Unique Values"
@@ -53,12 +56,13 @@ test_unique <- function(vec) {
 #' @param add_values a list additional values
 #' @return boolean
 #' @examples
-#' 
+#' \dontrun{
 #' test_values_test(c())
 #' # Returns TRUE
 #' 
 #' test_values_test(c(4,5))
 #' ## Returns FALSE
+#' }
 test_values_test <- function(add_values) {
     
     if (length(add_values) == 0) {
@@ -71,7 +75,8 @@ test_values_test <- function(add_values) {
 
 #' @inherit test_values_test return title
 #' @description Tests if the vector/column contains values other than expected
-#' @inheritParams test_values_test
+#' @param vec the vector or column to test
+#' @param expc_values a vector of expected values 
 #' @family general column tests
 #' @return vector
 #' @examples
@@ -83,7 +88,8 @@ test_values_test <- function(add_values) {
 #' ## Returns PASS
 #' 
 #' test_values(vec1, expc_values)[2]
-#' ## Returns ERROR 
+#' ## Returns ERROR
+#' @export
 test_values <- function(vec, expc_values) {
     
     td <- "Expected Values"
@@ -102,6 +108,7 @@ test_values <- function(vec, expc_values) {
 #' @param vec the vector or column to test
 #' @return boolean
 #' @examples
+#' \dontrun{
 #' vec1 <- c(1,2,3)
 #' vec2 <- c(1,NA,2)
 #' 
@@ -110,6 +117,7 @@ test_values <- function(vec, expc_values) {
 #' 
 #' test_null_values_test(vec2)
 #' ## Returns FALSE
+#' }
 test_null_values_test <- function(vec) {
     
     if (all(!is.na(vec))) {
@@ -133,7 +141,8 @@ test_null_values_test <- function(vec) {
 #' ## Returns PASS
 #' 
 #' test_null_values(vec2)[2]
-#' ## Returns ERROR 
+#' ## Returns ERROR
+#' @export
 test_null_values <- function(vec) {
     
     td <- "Null Values"
