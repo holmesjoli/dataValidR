@@ -30,7 +30,8 @@ class_test_numeric <- function(col_name,
      !(is.null(upper) & is.null(lower)) &&
      is.logical(na)) {
     
-    structure(list(col_name = col_name,
+    structure(list(test_desc = "Value Range",
+                   col_name = col_name,
                    upper_inclu = upper_inclu, 
                    lower_inclu = lower_inclu, 
                    upper = upper,
@@ -95,7 +96,8 @@ class_test_double <- function(col, upper_inclu, lower_inclu, upper, lower, na) {
 #' @export
 class_test_unique <- function(col_name) {
   
-  structure(list(col_name = col_name),
+  structure(list(test_desc = "Test Unique",
+            col_name = col_name),
             class = "test_unique") 
   
 }
@@ -105,7 +107,8 @@ class_test_unique <- function(col_name) {
 #' @export
 class_test_na <- function(col_name) {
   
-  structure(list(col_name = col_name),
+  structure(list(test_desc = "Test NA",
+                 col_name = col_name),
             class = "test_na") 
   
 }
@@ -140,7 +143,7 @@ class_test_range <- function(col_name, int, upper_inclu, lower_inclu,
 
 #' @title Class for column type string
 #' @param col_name the column name
-#' @param values the acceptable values for the variable
+#' @param values the expected values for the variable
 #' @param na if the column should include NA values or not, takes the values TRUE or FALSE
 #' @details if NA is TRUE then it gets added to the list of acceptable values
 #' @export
@@ -152,7 +155,8 @@ class_test_values <- function(col_name, values, na) {
       values <- c(values, NA)
     }
     
-    structure(list(col_name = col_name,
+    structure(list(test_desc = "Expected Values",
+                   col_name = col_name,
                    values = values,
                    na = na),
               class = "test_values")
