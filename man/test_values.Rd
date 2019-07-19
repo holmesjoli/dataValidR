@@ -4,32 +4,33 @@
 \alias{test_values}
 \title{Test expected values}
 \usage{
-test_values(vec, expc_values)
+test_values(df, col_name, values, na)
 }
 \arguments{
-\item{vec}{the vector or column to test}
+\item{df}{the dataframe}
 
-\item{expc_values}{a vector of expected values}
+\item{col_name}{the column name}
+
+\item{values}{the expected values for the variable}
+
+\item{na}{if the column should include NA values or not, takes the values TRUE or FALSE}
 }
 \value{
-vector
+class with test_result, test_message, test_description
 }
 \description{
 Tests if the vector/column contains values other than expected
 }
 \examples{
-vec1 <- c(1,2,3)
-vec2 <- c(1,1,2)
-expc_values <- c(1, 2)
+\dontrun{
+df <- data.frame(x = 1:4, y = 5:8)
+values <- 1:4
+na <- FALSE
 
-test_values(vec2, expc_values)[2]
-## Returns PASS
+test <- test_values(df, "x", values, na)
+## test$test_result returns TRUE
 
-test_values(vec1, expc_values)[2]
-## Returns ERROR
+test <- test_values(df, "y", values, na)
+## test$test_result returns FALSE
 }
-\seealso{
-Other general column tests: \code{\link{test_null_values}},
-  \code{\link{test_unique}}
 }
-\concept{general column tests}

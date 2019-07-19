@@ -4,29 +4,13 @@
 \alias{test_unique}
 \title{Test uniqueness}
 \usage{
-test_unique(vec)
+test_unique(df, col_name)
 }
 \arguments{
-\item{vec}{the vector or column to test}
-}
-\value{
-vector
+\item{df}{the dataframe}
+
+\item{col_name}{the column name}
 }
 \description{
 Tests if the vector/column is unique
 }
-\examples{
-vec1 <- c(1,2,3)
-vec2 <- c(1,1,2)
-
-test_unique(vec1)[2]
-## Returns PASS
-
-test_unique(vec2)[2]
-## Returns ERROR 
-}
-\seealso{
-Other general column tests: \code{\link{test_null_values}},
-  \code{\link{test_values}}
-}
-\concept{general column tests}
