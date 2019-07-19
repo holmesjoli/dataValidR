@@ -1,5 +1,3 @@
-library(dm)
-
 testthat::test_that("is_int returns TRUE for integers", {
   
   testthat::expect_true(is_int(1))
