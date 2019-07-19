@@ -25,13 +25,12 @@ testthat::test_that("test_na returns TRUE when PASSING, FALSE when FAILING", {
 
 testthat::test_that("test_unique returns TRUE when PASSING, FALSE when FAILING", {
   
-  
   df <- data.frame(x = 1:4, y = c(1,1,2:3))
 
-  test <- test_unique_test(df, "x")
+  test <- test_unique(df, "x")
   testthat::expect_true(test$test_result)
   
-  test <- test_unique_test(df, "y")
-  testthat::expect_true(test$test_result)
+  test <- test_unique(df, "y")
+  testthat::expect_false(test$test_result)
   
 })
