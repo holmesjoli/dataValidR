@@ -53,55 +53,46 @@ test_unique <- function(vec) {
 
 #' @title Test expected values
 #' @description Tests if the vector/column contains values other than expected
-#' @param add_values a list additional values
+#' @param df the dataframe
+#' @inheritParams class_test_values
 #' @return boolean
 #' @examples
 #' \dontrun{
-#' test_values_test(c())
-#' # Returns TRUE
+#' df <- data.frame(x = 1:4, y = 5:8)
+#' col_name <- "x"
+#' values <- 1:4
+#' na <- FALSE
 #' 
-#' test_values_test(c(4,5))
+#' test <- test_values(df, col_name, values, na)
+#' ## Returns TRUE
+#' 
+#' col_name <- "y"
+#' test <- test_values(df, col_name, values, na)
 #' ## Returns FALSE
 #' }
-test_values_test <- function(add_values) {
+test_values <- function(df, col_name, values, na) {
+  
+  class <- class_test_values(col_name, values, na) 
+  
+  actual_values <- unique(df[[class$col_name]])
+  add_values <- setdiff(actual_values, class$values)
+  
+  if (length(add_values) > 0) {
     
-    if (length(add_values) == 0) {
-        return(TRUE)
-    } else {
-        return(FALSE)
-    }
+    class$test_result <- FALSE
+    class$test_message <- paste0("FAILED with additional values in col", 
+                                 paste(add_values, collapse = ","))
     
+  } else {
+   
+    class$test_result <- TRUE
+    class$test_message <- "PASSED"
+    
+  }
+  
+  return(class)
 }
 
-#' @inherit test_values_test return title
-#' @description Tests if the vector/column contains values other than expected
-#' @param vec the vector or column to test
-#' @param expc_values a vector of expected values 
-#' @family general column tests
-#' @return vector
-#' @examples
-#' vec1 <- c(1,2,3)
-#' vec2 <- c(1,1,2)
-#' expc_values <- c(1, 2)
-#' 
-#' test_values(vec2, expc_values)[2]
-#' ## Returns PASS
-#' 
-#' test_values(vec1, expc_values)[2]
-#' ## Returns ERROR
-#' @export
-test_values <- function(vec, expc_values) {
-    
-    td <- "Expected Values"
-    add_values <- setdiff(unique(vec), expc_values)
-    
-    if (test_values_test(add_values)) {
-        return(c(td, test_pass$ti, test_pass$tm))
-    } else {
-        return(c(td, test_fail$ti, paste0("Additional values in col", paste(add_values, collapse = ","))))
-    }
-    
-}
 
 #' @title Test NA values
 #' @description Tests if the vector/column contains any NA values
