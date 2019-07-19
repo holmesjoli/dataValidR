@@ -25,3 +25,248 @@ testthat::test_that("Max NA", {
   testthat::expect_true(is.na(max_na(col, FALSE)))
   
 })
+
+testthat::test_that("Test Exclu lower", {
+  
+  df <- data.frame(x = 1:4, y = c(1:3, NA))
+  class <- list(col_name = "x",
+                lower = 0,
+                na = TRUE)
+  
+  test <- test_exclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+
+  class <- list(col_name = "x",
+                lower = 0,
+                na = FALSE)
+  
+  test <- test_exclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                lower = 1,
+                na = TRUE)
+  
+  test <- test_exclu_lower(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "x",
+                lower = 1,
+                na = FALSE)
+  
+  test <- test_exclu_lower(df, class)
+  testthat::expect_false(test$test_result)
+
+  class <- list(col_name = "y",
+                lower = 0,
+                na = TRUE)
+  
+  test <- test_exclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "y",
+                lower_inclu = FALSE,
+                lower = 0,
+                na = FALSE)
+  
+  test <- test_exclu_lower(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "y",
+                lower = 1,
+                na = TRUE)
+  
+  test <- test_exclu_lower(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "y",
+                lower = 1,
+                na = FALSE)
+  
+  test <- test_exclu_lower(df, class)
+  testthat::expect_false(test$test_result)
+  
+})
+
+testthat::test_that("Test Inclu lower", {
+  
+  df <- data.frame(x = 1:4, y = c(1:3, NA))
+  class <- list(col_name = "x",
+                lower = 0,
+                na = TRUE)
+  
+  test <- test_inclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                lower = 0,
+                na = FALSE)
+  
+  test <- test_inclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                lower = 1,
+                na = TRUE)
+  
+  test <- test_inclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                lower = 1,
+                na = FALSE)
+  
+  test <- test_inclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "y",
+                lower = 0,
+                na = TRUE)
+  
+  test <- test_inclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "y",
+                lower = 0,
+                na = FALSE)
+  
+  test <- test_inclu_lower(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "y",
+                lower = 1,
+                na = TRUE)
+  
+  test <- test_inclu_lower(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "y",
+                lower = 1,
+                na = FALSE)
+  
+  test <- test_inclu_lower(df, class)
+  testthat::expect_false(test$test_result)
+  
+})
+
+testthat::test_that("Test Exclu upper", {
+  
+  df <- data.frame(x = 1:4, y = c(1:3, NA))
+  class <- list(col_name = "x",
+                upper = 5,
+                na = TRUE)
+  
+  test <- test_exclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                upper = 5,
+                na = FALSE)
+  
+  test <- test_exclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                upper = 4,
+                na = TRUE)
+  
+  test <- test_exclu_upper(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "x",
+                upper = 4,
+                na = FALSE)
+  
+  test <- test_exclu_upper(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "y",
+                upper = 5,
+                na = TRUE)
+  
+  test <- test_exclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "y",
+                upper = 5,
+                na = FALSE)
+  
+  test <- test_exclu_upper(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "y",
+                upper = 3,
+                na = TRUE)
+  
+  test <- test_exclu_upper(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "y",
+                upper = 3,
+                na = FALSE)
+  
+  test <- test_exclu_upper(df, class)
+  testthat::expect_false(test$test_result)
+  
+})
+
+testthat::test_that("Test Inclu upper", {
+  
+  df <- data.frame(x = 1:4, y = c(1:3, NA))
+  class <- list(col_name = "x",
+                upper = 5,
+                na = TRUE)
+  
+  test <- test_inclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                upper = 5,
+                na = FALSE)
+  
+  test <- test_inclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                upper = 4,
+                na = TRUE)
+  
+  test <- test_inclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "x",
+                upper = 4,
+                na = FALSE)
+  
+  test <- test_inclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "y",
+                upper = 5,
+                na = TRUE)
+  
+  test <- test_inclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "y",
+                upper = 5,
+                na = FALSE)
+  
+  test <- test_inclu_upper(df, class)
+  testthat::expect_false(test$test_result)
+  
+  class <- list(col_name = "y",
+                upper = 3,
+                na = TRUE)
+  
+  test <- test_inclu_upper(df, class)
+  testthat::expect_true(test$test_result)
+  
+  class <- list(col_name = "y",
+                upper = 3,
+                na = FALSE)
+  
+  test <- test_inclu_upper(df, class)
+  testthat::expect_false(test$test_result)
+  
+})
