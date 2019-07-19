@@ -12,7 +12,13 @@ is_int <- function(x) {
 }
 
 #' @title Class for column type numeric
-#' @inheritParams class_test_range
+#' @param col_name the column name
+#' @param int takes the value TRUE if the column is an integer, FALSE if double, takes the values TRUE or FALSE
+#' @param upper_inclu indicates if the upper bound should be inclusive or not, takes on the values NULL, TRUE or FALSE
+#' @param lower_inclu indicates if the lower bound should be inclusive or not, takes on the values NULL, TRUE or FALSE
+#' @param upper the upper value
+#' @param lower the lower value
+#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
 #' @export
 class_test_numeric_range <- function(col_name,
                                upper_inclu = NULL, lower_inclu = NULL, 
@@ -30,8 +36,7 @@ class_test_numeric_range <- function(col_name,
      !(is.null(upper) & is.null(lower)) &&
      is.logical(na)) {
     
-    structure(list(test_desc = "Value Range",
-                   col_name = col_name,
+    structure(list(col_name = col_name,
                    upper_inclu = upper_inclu, 
                    lower_inclu = lower_inclu, 
                    upper = upper,
@@ -57,7 +62,7 @@ class_test_numeric_range <- function(col_name,
 }
 
 #' @title Class for column type integer
-#' @inheritParams class_test_range
+#' @inheritParams class_test_numeric_range
 #' @export
 class_test_integer_range <- function(col_name, upper_inclu, lower_inclu, upper, lower, na) {
   
@@ -79,7 +84,7 @@ class_test_integer_range <- function(col_name, upper_inclu, lower_inclu, upper, 
 
 
 #' @title Class for column type double
-#' @inheritParams class_test_range
+#' @inheritParams class_test_numeric_range
 #' @export
 class_test_double_range <- function(col, upper_inclu, lower_inclu, upper, lower, na) {
   
@@ -92,7 +97,7 @@ class_test_double_range <- function(col, upper_inclu, lower_inclu, upper, lower,
 
 
 #' @title Class to test unique
-#' @param col_name the column name
+#' @inheritParams class_test_numeric_range
 #' @export
 class_test_unique <- function(col_name) {
   
@@ -114,13 +119,6 @@ class_test_na <- function(col_name) {
 }
 
 #' @title Class for range
-#' @param col_name the column name
-#' @param int takes the value TRUE if the column is an integer, FALSE if double, takes the values TRUE or FALSE
-#' @param upper_inclu indicates if the upper bound should be inclusive or not, takes on the values NULL, TRUE or FALSE
-#' @param lower_inclu indicates if the lower bound should be inclusive or not, takes on the values NULL, TRUE or FALSE
-#' @param upper the upper value
-#' @param lower the lower value
-#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
 #' @export
 class_test_range <- function(col_name, int, upper_inclu, lower_inclu, 
                              upper, lower, na) {
