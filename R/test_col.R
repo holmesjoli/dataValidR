@@ -12,6 +12,7 @@
 #' test <- test_unique_test(df, "y)
 #' ## test$test_result returns FALSE
 #' }
+#' @export
 test_unique <- function(df, col_name) {
     
   class <- class_test_unique(col_name)
@@ -46,6 +47,7 @@ test_unique <- function(df, col_name) {
 #' test <- test_values(df, "y", values, na)
 #' ## test$test_result returns FALSE
 #' }
+#' @export
 test_values <- function(df, col_name, values, na) {
   
   class <- class_test_values(col_name, values, na) 
@@ -84,6 +86,7 @@ test_values <- function(df, col_name, values, na) {
 #' test_na(df, "y")
 #' ## test$test_result returns FALSE
 #' }
+#' @export
 test_na <- function(df, col_name) {
     
   class <- class_test_na(col_name)
