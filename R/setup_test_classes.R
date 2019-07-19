@@ -14,7 +14,7 @@ is_int <- function(x) {
 #' @title Class for column type numeric
 #' @inheritParams class_test_range
 #' @export
-class_test_numeric <- function(col_name,
+class_test_numeric_range <- function(col_name,
                                upper_inclu = NULL, lower_inclu = NULL, 
                                upper = NULL, lower = NULL, na) {
   
@@ -59,7 +59,7 @@ class_test_numeric <- function(col_name,
 #' @title Class for column type integer
 #' @inheritParams class_test_range
 #' @export
-class_test_integer <- function(col_name, upper_inclu, lower_inclu, upper, lower, na) {
+class_test_integer_range <- function(col_name, upper_inclu, lower_inclu, upper, lower, na) {
   
   if ((is_int(upper) | is.null(upper)) &&
       (is_int(lower) | is.null(lower))) {
@@ -81,7 +81,7 @@ class_test_integer <- function(col_name, upper_inclu, lower_inclu, upper, lower,
 #' @title Class for column type double
 #' @inheritParams class_test_range
 #' @export
-class_test_double <- function(col, upper_inclu, lower_inclu, upper, lower, na) {
+class_test_double_range <- function(col, upper_inclu, lower_inclu, upper, lower, na) {
   
   num <- class_test_numeric(col, upper_inclu, lower_inclu, upper, lower, na)
   class(num) <- append(class(num), "double")
