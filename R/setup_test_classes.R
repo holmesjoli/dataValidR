@@ -12,6 +12,7 @@ is_int <- function(x) {
 }
 
 #' @title Class for column type numeric
+#' @param df_name the dataframe name
 #' @param col_name the column name
 #' @param int takes the value TRUE if the column is an integer, FALSE if double, takes the values TRUE or FALSE
 #' @param upper_inclu indicates if the upper bound should be inclusive or not, takes on the values NULL, TRUE or FALSE
@@ -20,9 +21,9 @@ is_int <- function(x) {
 #' @param lower the lower value
 #' @param na if the column should include NA values or not, takes the values TRUE or FALSE
 #' @export
-class_test_numeric_range <- function(col_name,
-                               upper_inclu = NULL, lower_inclu = NULL, 
-                               upper = NULL, lower = NULL, na) {
+class_test_numeric_range <- function(df_name, col_name,
+                                     upper_inclu = NULL, lower_inclu = NULL, 
+                                     upper = NULL, lower = NULL, na) {
   
   if((is.logical(upper_inclu) | is.null(upper_inclu)) && 
      (is.logical(lower_inclu) | is.null(lower_inclu)) && 
@@ -36,7 +37,8 @@ class_test_numeric_range <- function(col_name,
      !(is.null(upper) & is.null(lower)) &&
      is.logical(na)) {
     
-    structure(list(col_name = col_name,
+    structure(list(df_name,
+                   col_name = col_name,
                    upper_inclu = upper_inclu, 
                    lower_inclu = lower_inclu, 
                    upper = upper,
@@ -64,12 +66,14 @@ class_test_numeric_range <- function(col_name,
 #' @title Class for column type integer
 #' @inheritParams class_test_numeric_range
 #' @export
-class_test_integer_range <- function(col_name, upper_inclu, lower_inclu, upper, lower, na) {
+class_test_integer_range <- function(df_name, col_name,
+                                     upper_inclu, lower_inclu, upper, lower, na) {
   
   if ((is_int(upper) | is.null(upper)) &&
       (is_int(lower) | is.null(lower))) {
     
-    num <- class_test_numeric(col_name, upper_inclu, lower_inclu, upper, lower, na)
+    num <- class_test_numeric_range(df_name, col_name, 
+                                    upper_inclu, lower_inclu, upper, lower, na)
     class(num) <- append(class(num), "integer")
     
     return(num)
@@ -86,9 +90,11 @@ class_test_integer_range <- function(col_name, upper_inclu, lower_inclu, upper, 
 #' @title Class for column type double
 #' @inheritParams class_test_numeric_range
 #' @export
-class_test_double_range <- function(col, upper_inclu, lower_inclu, upper, lower, na) {
+class_test_double_range <- function(df_name, col_name, 
+                                    upper_inclu, lower_inclu, upper, lower, na) {
   
-  num <- class_test_numeric(col, upper_inclu, lower_inclu, upper, lower, na)
+  num <- class_test_numeric_range(df_name, col_name, 
+                                  upper_inclu, lower_inclu, upper, lower, na)
   class(num) <- append(class(num), "double")
   
   return(num)
@@ -97,22 +103,26 @@ class_test_double_range <- function(col, upper_inclu, lower_inclu, upper, lower,
 
 
 #' @title Class to test unique
-#' @inheritParams class_test_numeric_range
+#' @param df_name the dataframe name
+#' @param col_name the column name
 #' @export
-class_test_unique <- function(col_name) {
+class_test_unique <- function(df_name, col_name) {
   
   structure(list(test_desc = "Test Unique",
-            col_name = col_name),
+                 df_name = df_name,
+                 col_name = col_name),
             class = "test_unique") 
   
 }
 
 #' @title Class to test NA
+#' @param df_name the dataframe name
 #' @param col_name the column name
 #' @export
-class_test_na <- function(col_name) {
+class_test_na <- function(df_name, col_name) {
   
   structure(list(test_desc = "Test NA",
+                 df_name = df_name,
                  col_name = col_name),
             class = "test_na") 
   
@@ -120,15 +130,17 @@ class_test_na <- function(col_name) {
 
 #' @title Class for range
 #' @export
-class_test_range <- function(col_name, int, upper_inclu, lower_inclu, 
+class_test_range <- function(df_name, col_name, int, upper_inclu, lower_inclu, 
                              upper, lower, na) {
   
   if (is.logical(int)) {
   
     if (int) {
-      class_test_integer(col_name, upper_inclu, lower_inclu, upper, lower, na)
+      class_test_integer(df_name, col_name, 
+                         upper_inclu, lower_inclu, upper, lower, na)
     } else {
-      class_test_double(col_name, upper_inclu, lower_inclu, upper, lower, na)
+      class_test_double(df_name, col_name, 
+                        upper_inclu, lower_inclu, upper, lower, na)
     }
       
   } else {
@@ -136,16 +148,16 @@ class_test_range <- function(col_name, int, upper_inclu, lower_inclu,
     if(!is.logical(int)) stop("na only takes the values TRUE or FALSE")
     
   }
-
 }
 
 #' @title Class for column type string
+#' @param df_name the dataframe name
 #' @param col_name the column name
 #' @param values the expected values for the variable
 #' @param na if the column should include NA values or not, takes the values TRUE or FALSE
 #' @details if NA is TRUE then it gets added to the list of acceptable values
 #' @export
-class_test_values <- function(col_name, values, na) {
+class_test_values <- function(df_name, col_name, values, na) {
   
   if (is.logical(na)) {
     
@@ -154,6 +166,7 @@ class_test_values <- function(col_name, values, na) {
     }
     
     structure(list(test_desc = "Expected Values",
+                   df_name = df_name,
                    col_name = col_name,
                    values = values,
                    na = na),
