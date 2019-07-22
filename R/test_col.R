@@ -1,7 +1,7 @@
 #' @title Test uniqueness
 #' @description Tests if the vector/column is unique
 #' @param df the dataframe
-#' @inheritParams class_test_unique
+#' @param cls
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = c(1,1,2:3))
@@ -13,21 +13,21 @@
 #' ## test$test_result returns FALSE
 #' }
 #' @export
-test_unique <- function(df, col_name) {
+test_unique <- function(df, df_name, col_name) {
     
-  class <- class_test_unique(col_name)
+  cls <- class_test_unique(df_name, col_name)
   
-    if (length(unique(df[[class$col_name]])) == length(df[[class$col_name]])) {
+    if (length(unique(df[[cls$col_name]])) == length(df[[cls$col_name]])) {
         
-      class$test_result <- TRUE
-      class$test_message <- "PASSED"
+      cls$test_result <- TRUE
+      cls$test_message <- "PASSED"
       
     } else {
-      class$test_result <- FALSE
-      class$test_message <- "FAILED: Not Unique"
+      cls$test_result <- FALSE
+      cls$test_message <- "FAILED: Not Unique"
     }
   
-  return(class)
+  return(cls)
 }
 
 #' @title Test expected values
@@ -50,25 +50,25 @@ test_unique <- function(df, col_name) {
 #' @export
 test_values <- function(df, col_name, values, na) {
   
-  class <- class_test_values(col_name, values, na) 
+  cls <- class_test_values(col_name, values, na) 
   
-  actual_values <- unique(df[[class$col_name]])
-  add_values <- setdiff(actual_values, class$values)
+  actual_values <- unique(df[[cls$col_name]])
+  add_values <- setdiff(actual_values, cls$values)
   
   if (length(add_values) > 0) {
     
-    class$test_result <- FALSE
-    class$test_message <- paste0("FAILED with additional values in col", 
+    cls$test_result <- FALSE
+    cls$test_message <- paste0("FAILED with additional values in col", 
                                  paste(add_values, collapse = ","))
     
   } else {
    
-    class$test_result <- TRUE
-    class$test_message <- "PASSED"
+    cls$test_result <- TRUE
+    cls$test_message <- "PASSED"
     
   }
   
-  return(class)
+  return(cls)
 }
 
 
@@ -89,18 +89,18 @@ test_values <- function(df, col_name, values, na) {
 #' @export
 test_na <- function(df, col_name) {
     
-  class <- class_test_na(col_name)
+  cls <- class_test_na(col_name)
   
-    if (all(!is.na(df[[class$col_name]]))) {
+    if (all(!is.na(df[[cls$col_name]]))) {
         
-      class$test_result <- TRUE
-      class$test_message <- "PASSED"
+      cls$test_result <- TRUE
+      cls$test_message <- "PASSED"
       
     } else {
       
-      class$test_result <- FALSE  
-      class$test_message <- "FAILED: Contains null values"
+      cls$test_result <- FALSE  
+      cls$test_message <- "FAILED: Contains null values"
     }
     
-  return(class)
+  return(cls)
 }
