@@ -30,8 +30,8 @@ max_na <- function(col, na) {
 
 #' @title Test Exclu lower
 #' @description Tests that column is greater than the lower bound
-#' @param lower the lower bound
-#' @inheritParams min_na
+#' @param df the dataframe
+#' @param cls the setup class for testing
 #' @export
 test_exclu_lower <- function(df, cls) {
   
@@ -85,9 +85,7 @@ test_inclu_lower <- function(df, cls) {
 
 #' @title Test Exclu upper
 #' @description Tests that column is less than the upper bound
-#' @param col the column to test
-#' @param upper the upper bound
-#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
+#' @inheritParams test_exclu_lower
 #' @export
 test_exclu_upper <- function(df, cls) {
   
@@ -114,7 +112,7 @@ test_exclu_upper <- function(df, cls) {
 
 #' @title Test Exclu upper
 #' @description Tests that column is less than or equal to the upper bound
-#' @inheritParams test_exclu_upper
+#' @inheritParams test_exclu_lower
 #' @export
 test_inclu_upper <- function(df, cls) {
   
@@ -142,7 +140,6 @@ test_inclu_upper <- function(df, cls) {
 #' @title Test exclu lower and exclu upper
 #' @description Tests that the column is greater than the lower bound AND less than the upper bound
 #' @inheritParams test_exclu_lower
-#' @inheritParams test_exclu_upper
 #' @export
 test_exclu_lower_exclu_upper <- function(df, cls) {
 
@@ -174,8 +171,7 @@ test_exclu_lower_exclu_upper <- function(df, cls) {
 
 #' @title Test inclu lower and exclu upper
 #' @description Tests that the column is greater than or equal to the lower bound AND less than the upper bound
-#' @inheritParams test_inclu_lower
-#' @inheritParams test_exclu_upper
+#' @inheritParams test_exclu_lower
 #' @export
 test_inclu_lower_exclu_upper <- function(df, cls) {
   
@@ -207,8 +203,7 @@ test_inclu_lower_exclu_upper <- function(df, cls) {
 
 #' @title Test inclu lower and inclu upper
 #' @description Tests that the column is greater than or equal to the lower bound AND less or equal to than the upper bound
-#' @inheritParams test_inclu_lower
-#' @inheritParams test_inclu_upper
+#' @inheritParams test_exclu_lower
 #' @export
 test_inclu_lower_inclu_upper <- function(df, cls) {
   
@@ -242,7 +237,6 @@ test_inclu_lower_inclu_upper <- function(df, cls) {
 #' @title Test exclu lower and inclu upper
 #' @description Tests that the column is greater thanto the lower bound AND less or equal to than the upper bound
 #' @inheritParams test_exclu_lower
-#' @inheritParams test_inclu_upper
 #' @export
 test_exclu_lower_inclu_upper <- function(df, cls) {
   
@@ -273,7 +267,9 @@ test_exclu_lower_inclu_upper <- function(df, cls) {
 }
 
 
-
+#' @title Assign the correct numeric test
+#' @description Assigns the correct numeric test depending on the parameters
+#' @inheritParams test_exclu_lower
 assign_numeric_class <- function(df, cls) {
   
   if (!is.null(cls$upper) & !is.null(cls$lower)) {
