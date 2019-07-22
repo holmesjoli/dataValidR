@@ -1,21 +1,21 @@
 #' @title Test uniqueness
 #' @description Tests if the vector/column is unique
 #' @param df the dataframe
-#' @param cls
+#' @param cls the setup class for testing
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = c(1,1,2:3))
+#' cls <- class_test_unique("df_name", "x") 
 #' 
-#' test <- test_unique_test(df, "x")
+#' test <- test_unique(df, cls)
 #' ## test$test_result returns TRUE
 #' 
-#' test <- test_unique_test(df, "y)
+#' cls <- class_test_unique("df_name", "y") 
+#' test <- test_unique(df, cls)
 #' ## test$test_result returns FALSE
 #' }
 #' @export
-test_unique <- function(df, df_name, col_name) {
-    
-  cls <- class_test_unique(df_name, col_name)
+test_unique <- function(df, cls) {
   
     if (length(unique(df[[cls$col_name]])) == length(df[[cls$col_name]])) {
         
@@ -33,24 +33,24 @@ test_unique <- function(df, df_name, col_name) {
 #' @title Test expected values
 #' @description Tests if the vector/column contains values other than expected
 #' @param df the dataframe
-#' @inheritParams class_test_values
+#' @param cls the setup class for testing
 #' @return class with test_result, test_message, test_description
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = 5:8)
 #' values <- 1:4
 #' na <- FALSE
+#' cls <- class_test_values("df_name", "x", values, na)
 #' 
-#' test <- test_values(df, "x", values, na)
+#' test <- test_values(df, cls)
 #' ## test$test_result returns TRUE
 #' 
-#' test <- test_values(df, "y", values, na)
+#' cls <- class_test_values("df_name", "y", values, na)
+#' test <- test_values(df, cls)
 #' ## test$test_result returns FALSE
 #' }
 #' @export
-test_values <- function(df, col_name, values, na) {
-  
-  cls <- class_test_values(col_name, values, na) 
+test_values <- function(df, cls) {
   
   actual_values <- unique(df[[cls$col_name]])
   add_values <- setdiff(actual_values, cls$values)
@@ -58,7 +58,7 @@ test_values <- function(df, col_name, values, na) {
   if (length(add_values) > 0) {
     
     cls$test_result <- FALSE
-    cls$test_message <- paste0("FAILED with additional values in col", 
+    cls$test_message <- paste0("FAILED with additional values in col ", 
                                  paste(add_values, collapse = ","))
     
   } else {
@@ -75,21 +75,20 @@ test_values <- function(df, col_name, values, na) {
 #' @title Test NA values
 #' @description Tests if the vector/column contains any NA values
 #' @param df the dataframe
-#' @inheritParams class_test_na
+#' @param cls the setup class for testing
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = c(NA, 6:8))
-#' 
-#' test_na(df, "x")
+#' cls <- class_test_na("df_name", "x") 
+#' test <- test_na(df, cls)
 #' ## test$test_result returns TRUE
 #' 
-#' test_na(df, "y")
+#' cls <- class_test_na("df_name", "y") 
+#' test <- test_na(df, cls)
 #' ## test$test_result returns FALSE
 #' }
 #' @export
-test_na <- function(df, col_name) {
-    
-  cls <- class_test_na(col_name)
+test_na <- function(df, cls) {
   
     if (all(!is.na(df[[cls$col_name]]))) {
         
