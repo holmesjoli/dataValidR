@@ -4,7 +4,8 @@
 \alias{class_test_range}
 \title{Class for range}
 \usage{
-class_test_range(col_name, int, upper_inclu, lower_inclu, upper, lower, na)
+class_test_range(df_name, col_name, int, upper_inclu, lower_inclu, upper,
+  lower, na)
 }
 \description{
 Class for range

@@ -4,12 +4,10 @@
 \alias{test_unique}
 \title{Test uniqueness}
 \usage{
-test_unique(df, col_name)
+test_unique(df, df_name, col_name)
 }
 \arguments{
 \item{df}{the dataframe}
-
-\item{col_name}{the column name}
 }
 \description{
 Tests if the vector/column is unique

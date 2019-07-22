@@ -4,7 +4,12 @@
 \alias{test_inclu_lower_inclu_upper}
 \title{Test inclu lower and inclu upper}
 \usage{
-test_inclu_lower_inclu_upper(df, class)
+test_inclu_lower_inclu_upper(df, cls)
+}
+\arguments{
+\item{df}{the dataframe}
+
+\item{cls}{the setup class for testing}
 }
 \description{
 Tests that the column is greater than or equal to the lower bound AND less or equal to than the upper bound

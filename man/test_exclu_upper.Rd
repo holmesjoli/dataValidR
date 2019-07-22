@@ -4,14 +4,12 @@
 \alias{test_exclu_upper}
 \title{Test Exclu upper}
 \usage{
-test_exclu_upper(df, class)
+test_exclu_upper(df, cls)
 }
 \arguments{
-\item{col}{the column to test}
+\item{df}{the dataframe}
 
-\item{upper}{the upper bound}
-
-\item{na}{if the column should include NA values or not, takes the values TRUE or FALSE}
+\item{cls}{the setup class for testing}
 }
 \description{
 Tests that column is less than the upper bound

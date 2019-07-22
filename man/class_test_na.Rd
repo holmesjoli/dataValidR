@@ -4,9 +4,11 @@
 \alias{class_test_na}
 \title{Class to test NA}
 \usage{
-class_test_na(col_name)
+class_test_na(df_name, col_name)
 }
 \arguments{
+\item{df_name}{the dataframe name}
+
 \item{col_name}{the column name}
 }
 \description{

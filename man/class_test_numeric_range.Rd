@@ -4,10 +4,12 @@
 \alias{class_test_numeric_range}
 \title{Class for column type numeric}
 \usage{
-class_test_numeric_range(col_name, upper_inclu = NULL,
+class_test_numeric_range(df_name, col_name, upper_inclu = NULL,
   lower_inclu = NULL, upper = NULL, lower = NULL, na)
 }
 \arguments{
+\item{df_name}{the dataframe name}
+
 \item{col_name}{the column name}
 
 \item{upper_inclu}{indicates if the upper bound should be inclusive or not, takes on the values NULL, TRUE or FALSE}

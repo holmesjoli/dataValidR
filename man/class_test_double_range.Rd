@@ -4,9 +4,14 @@
 \alias{class_test_double_range}
 \title{Class for column type double}
 \usage{
-class_test_double_range(col, upper_inclu, lower_inclu, upper, lower, na)
+class_test_double_range(df_name, col_name, upper_inclu, lower_inclu, upper,
+  lower, na)
 }
 \arguments{
+\item{df_name}{the dataframe name}
+
+\item{col_name}{the column name}
+
 \item{upper_inclu}{indicates if the upper bound should be inclusive or not, takes on the values NULL, TRUE or FALSE}
 
 \item{lower_inclu}{indicates if the lower bound should be inclusive or not, takes on the values NULL, TRUE or FALSE}

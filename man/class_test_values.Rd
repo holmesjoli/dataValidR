@@ -4,9 +4,11 @@
 \alias{class_test_values}
 \title{Class for column type string}
 \usage{
-class_test_values(col_name, values, na)
+class_test_values(df_name, col_name, values, na)
 }
 \arguments{
+\item{df_name}{the dataframe name}
+
 \item{col_name}{the column name}
 
 \item{values}{the expected values for the variable}

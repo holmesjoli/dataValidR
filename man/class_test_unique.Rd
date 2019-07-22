@@ -4,9 +4,11 @@
 \alias{class_test_unique}
 \title{Class to test unique}
 \usage{
-class_test_unique(col_name)
+class_test_unique(df_name, col_name)
 }
 \arguments{
+\item{df_name}{the dataframe name}
+
 \item{col_name}{the column name}
 }
 \description{
