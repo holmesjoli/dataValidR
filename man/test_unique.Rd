@@ -4,11 +4,26 @@
 \alias{test_unique}
 \title{Test uniqueness}
 \usage{
-test_unique(df, df_name, col_name)
+test_unique(df, cls)
 }
 \arguments{
 \item{df}{the dataframe}
+
+\item{cls}{the setup class for testing}
 }
 \description{
 Tests if the vector/column is unique
+}
+\examples{
+\dontrun{
+df <- data.frame(x = 1:4, y = c(1,1,2:3))
+cls <- class_test_unique("df_name", "x", FALSE) 
+
+test <- test_unique(df, cls)
+## test$test_result returns TRUE
+
+cls <- class_test_unique("df_name", "y", FALSE) 
+test <- test_unique(df, cls)
+## test$test_result returns FALSE
+}
 }

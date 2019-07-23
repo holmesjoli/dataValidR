@@ -4,13 +4,14 @@
 \alias{class_test_unique}
 \title{Class to test unique}
 \usage{
-class_test_unique(df_name, col_name)
+class_test_unique(cls)
 }
 \arguments{
-\item{df_name}{the dataframe name}
-
-\item{col_name}{the column name}
+\item{cls}{the general test setup cls}
 }
 \description{
 Class to test unique
+}
+\details{
+if NA is set to TRUE, columns with multiple NAs will not be marked as non-unique, NA rows will be ignored
 }

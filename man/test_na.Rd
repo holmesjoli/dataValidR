@@ -4,12 +4,12 @@
 \alias{test_na}
 \title{Test NA values}
 \usage{
-test_na(df, col_name)
+test_na(df, cls)
 }
 \arguments{
 \item{df}{the dataframe}
 
-\item{col_name}{the column name}
+\item{cls}{the setup class for testing}
 }
 \description{
 Tests if the vector/column contains any NA values
@@ -17,11 +17,12 @@ Tests if the vector/column contains any NA values
 \examples{
 \dontrun{
 df <- data.frame(x = 1:4, y = c(NA, 6:8))
-
-test_na(df, "x")
+cls <- class_test_na("df_name", "x") 
+test <- test_na(df, cls)
 ## test$test_result returns TRUE
 
-test_na(df, "y")
+cls <- class_test_na("df_name", "y") 
+test <- test_na(df, cls)
 ## test$test_result returns FALSE
 }
 }

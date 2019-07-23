@@ -4,16 +4,12 @@
 \alias{test_values}
 \title{Test expected values}
 \usage{
-test_values(df, col_name, values, na)
+test_values(df, cls)
 }
 \arguments{
 \item{df}{the dataframe}
 
-\item{col_name}{the column name}
-
-\item{values}{the expected values for the variable}
-
-\item{na}{if the column should include NA values or not, takes the values TRUE or FALSE}
+\item{cls}{the setup class for testing}
 }
 \value{
 class with test_result, test_message, test_description
@@ -26,11 +22,13 @@ Tests if the vector/column contains values other than expected
 df <- data.frame(x = 1:4, y = 5:8)
 values <- 1:4
 na <- FALSE
+cls <- class_test_values("df_name", "x", values, na)
 
-test <- test_values(df, "x", values, na)
+test <- test_values(df, cls)
 ## test$test_result returns TRUE
 
-test <- test_values(df, "y", values, na)
+cls <- class_test_values("df_name", "y", values, na)
+test <- test_values(df, cls)
 ## test$test_result returns FALSE
 }
 }

@@ -8,18 +8,6 @@ test_double_range(df, col_name, upper_inclu, lower_inclu, upper, lower, na)
 }
 \arguments{
 \item{df}{the dataframe}
-
-\item{col_name}{the column name}
-
-\item{upper_inclu}{indicates if the upper bound should be inclusive or not, takes on the values NULL, TRUE or FALSE}
-
-\item{lower_inclu}{indicates if the lower bound should be inclusive or not, takes on the values NULL, TRUE or FALSE}
-
-\item{upper}{the upper value}
-
-\item{lower}{the lower value}
-
-\item{na}{if the column should include NA values or not, takes the values TRUE or FALSE}
 }
 \description{
 Tests the double range based on the parameter configurations

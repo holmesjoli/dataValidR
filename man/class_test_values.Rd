@@ -2,22 +2,16 @@
 % Please edit documentation in R/setup_test_classes.R
 \name{class_test_values}
 \alias{class_test_values}
-\title{Class for column type string}
+\title{Class to test values}
 \usage{
-class_test_values(df_name, col_name, values, na)
+class_test_values(cls)
 }
 \arguments{
-\item{df_name}{the dataframe name}
-
-\item{col_name}{the column name}
-
-\item{values}{the expected values for the variable}
-
-\item{na}{if the column should include NA values or not, takes the values TRUE or FALSE}
+\item{cls}{the general test setup cls}
 }
 \description{
-Class for column type string
+Class to test values
 }
 \details{
-if NA is TRUE then it gets added to the list of acceptable values
+if cls$na is TRUE then it gets added to the list of acceptable values
 }
