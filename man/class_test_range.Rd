@@ -27,6 +27,7 @@ na is a boolean value, if NA values are allowed in the column to be tested. If N
 there are NA values, an error will occur.
 }
 \examples{
-setup <- list(df_name = "data name", col_name = "col name", na = TRUE)
-cls <- class_test_unique(setup) 
+# Tests column "col name" bewteen 1 and 10: 1 <= x <= 10
+setup <- list(df_name = "data name", col_name = "col name", int = TRUE, upper_inclu = TRUE, lower_inclu = TRUE, lower = 1, upper = 10, na = TRUE)
+cls <- class_test_range(setup) 
 }
