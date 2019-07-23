@@ -270,7 +270,7 @@ test_exclu_lower_inclu_upper <- function(df, cls) {
 #' @title Assign the correct numeric test
 #' @description Assigns the correct numeric test depending on the parameters
 #' @inheritParams test_exclu_lower
-assign_numeric_class <- function(df, cls) {
+test_range <- function(df, cls) {
   
   if (!is.null(cls$upper) & !is.null(cls$lower)) {
     
