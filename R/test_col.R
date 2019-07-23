@@ -5,27 +5,34 @@
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = c(1,1,2:3))
-#' cls <- class_test_unique("df_name", "x") 
+#' cls <- class_test_unique("df_name", "x", FALSE) 
 #' 
 #' test <- test_unique(df, cls)
 #' ## test$test_result returns TRUE
 #' 
-#' cls <- class_test_unique("df_name", "y") 
+#' cls <- class_test_unique("df_name", "y", FALSE) 
 #' test <- test_unique(df, cls)
 #' ## test$test_result returns FALSE
 #' }
 #' @export
 test_unique <- function(df, cls) {
   
-    if (length(unique(df[[cls$col_name]])) == length(df[[cls$col_name]])) {
-        
-      cls$test_result <- TRUE
-      cls$test_message <- "PASSED"
+  if (cls$na) {
+    
+    col <- df[[cls$col_name]][!is.na(df[[cls$col_name]])]
+  } else {
+    col <- df[[cls$col_name]]
+  }
+  
+  if (length(unique(col)) == length(col)) {
       
-    } else {
-      cls$test_result <- FALSE
-      cls$test_message <- "FAILED: Not Unique"
-    }
+    cls$test_result <- TRUE
+    cls$test_message <- "PASSED"
+    
+  } else {
+    cls$test_result <- FALSE
+    cls$test_message <- "FAILED: Not Unique"
+  }
   
   return(cls)
 }
@@ -58,7 +65,7 @@ test_values <- function(df, cls) {
   if (length(add_values) > 0) {
     
     cls$test_result <- FALSE
-    cls$test_message <- paste0("FAILED with additional values in col ", 
+    cls$test_message <- paste0("FAILED with additional values in col: ", 
                                  paste(add_values, collapse = ","))
     
   } else {
@@ -98,7 +105,7 @@ test_na <- function(df, cls) {
     } else {
       
       cls$test_result <- FALSE  
-      cls$test_message <- "FAILED: Contains null values"
+      cls$test_message <- "FAILED: Contains na values"
     }
     
   return(cls)
