@@ -4,14 +4,23 @@
 \alias{class_test_values}
 \title{Class to test values}
 \usage{
-class_test_values(cls)
+class_test_values(setup)
 }
 \arguments{
-\item{cls}{the general test setup cls}
+\item{setup}{the general test setup}
 }
 \description{
 Class to test values
 }
 \details{
-if cls$na is TRUE then it gets added to the list of acceptable values
+the setup class should have four parameters: df_name, col_name, values, and na.
+df_name is a string and represents the name of the dataframe. 
+col_name is a string and represents the name of the column to be tested.
+values is a list of values that expected in the column to be tested. 
+na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+there are NA values, an error will occur.
+}
+\examples{
+setup <- list(df_name = "data name", col_name = "col name", values = 1:4, na = TRUE)
+cls <- class_test_values(setup)
 }

@@ -4,11 +4,20 @@
 \alias{class_test_na}
 \title{Class to test NA}
 \usage{
-class_test_na(cls)
+class_test_na(setup)
 }
 \arguments{
-\item{cls}{the general test setup cls}
+\item{setup}{the general test setup}
 }
 \description{
 Class to test NA
+}
+\details{
+the setup class should have two parameters: df_name, col_name, values, and na.
+df_name is a string and represents the name of the dataframe. 
+col_name is a string and represents the name of the column to be tested.
+}
+\examples{
+setup <- list(df_name = "data name", col_name = "col name")
+cls <- class_test_na(setup)
 }

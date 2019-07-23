@@ -4,10 +4,10 @@
 \alias{test_param_numeric}
 \title{Test param is numeric}
 \usage{
-test_param_numeric(cls, param)
+test_param_numeric(setup, param)
 }
 \arguments{
-\item{cls}{the class to check the parameters}
+\item{setup}{the class to check the parameters}
 
 \item{param}{string, the parameter to check}
 }

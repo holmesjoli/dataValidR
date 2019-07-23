@@ -4,11 +4,22 @@
 \alias{class_test_bool}
 \title{Class to test boolean}
 \usage{
-class_test_bool(cls)
+class_test_bool(setup)
 }
 \arguments{
-\item{cls}{the general test setup cls}
+\item{setup}{the general test setup}
 }
 \description{
 Class to test boolean
+}
+\details{
+the setup class should have three parameters: df_name, col_name, and na.
+df_name is a string and represents the name of the dataframe. 
+col_name is a string and represents the name of the column to be tested.
+na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+there are NA values, an error will occur.
+}
+\examples{
+setup <- list(df_name = "data name", col_name = "col name", na = TRUE)
+cls <- class_test_bool(setup) 
 }

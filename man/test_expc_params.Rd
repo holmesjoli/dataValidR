@@ -4,10 +4,10 @@
 \alias{test_expc_params}
 \title{Test the expected parameters exist in the class}
 \usage{
-test_expc_params(cls, expc_params)
+test_expc_params(setup, expc_params)
 }
 \arguments{
-\item{cls}{the class to check for the parameters in}
+\item{setup}{the class to check for the parameters in}
 
 \item{expc_params}{the expected parameters}
 }

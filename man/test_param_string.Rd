@@ -4,10 +4,10 @@
 \alias{test_param_string}
 \title{Test param is string}
 \usage{
-test_param_string(cls, param)
+test_param_string(setup, param)
 }
 \arguments{
-\item{cls}{the class to check the parameters}
+\item{setup}{the class to check the parameters}
 
 \item{param}{string, the parameter to check}
 }

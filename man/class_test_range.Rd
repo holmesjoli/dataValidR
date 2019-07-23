@@ -4,11 +4,29 @@
 \alias{class_test_range}
 \title{Class for range}
 \usage{
-class_test_range(cls)
+class_test_range(setup)
 }
 \arguments{
-\item{cls}{the general test setup cls}
+\item{setup}{the general test setup}
 }
 \description{
 Class for range
+}
+\details{
+the setup class should have eight parameters: df_name, col_name, int, upper_inclu, lower_inclu, upper, lower, na
+df_name is a string and represents the name of the dataframe. 
+col_name is a string and represents the name of the column to be tested.
+int is a boolean value, if the values should be integers or not
+upper_inclu takes on the values TRUE, FALSE, or NULL. If there's an upper bound then it should be set to TRUE or FALSE.
+If the upper bound is inclusive, x <= upper, then upper_inclu = TRUE, else upper_inclu = FALSE.
+lower_inclu takes on the values TRUE, FALSE, or NULL. If there's an lower bound then it should be set to TRUE or FALSE.
+If the lower bound is inclusive, x >= lower, then lower_inclu = TRUE, else lower_inclu = FALSE.
+upper can take a numeric value or NULL. If there's no upper bound, then upper should be null.
+lower can take a numeric value or NULL. If there's no lower bound, then lower should be null.
+na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+there are NA values, an error will occur.
+}
+\examples{
+setup <- list(df_name = "data name", col_name = "col name", na = TRUE)
+cls <- class_test_unique(setup) 
 }

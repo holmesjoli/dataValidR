@@ -4,10 +4,10 @@
 \alias{test_param_logical}
 \title{Test param is logical}
 \usage{
-test_param_logical(cls, param)
+test_param_logical(setup, param)
 }
 \arguments{
-\item{cls}{the class to check the parameters}
+\item{setup}{the class to check the parameters}
 
 \item{param}{string, the parameter to check}
 }

@@ -4,7 +4,7 @@
 \alias{test_params_both_null_or_not}
 \title{Test params are both null or both not null}
 \usage{
-test_params_both_null_or_not(cls, param1, param2)
+test_params_both_null_or_not(setup, param1, param2)
 }
 \arguments{
 \item{param1}{first param to test}

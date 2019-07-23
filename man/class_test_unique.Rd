@@ -4,14 +4,22 @@
 \alias{class_test_unique}
 \title{Class to test unique}
 \usage{
-class_test_unique(cls)
+class_test_unique(setup)
 }
 \arguments{
-\item{cls}{the general test setup cls}
+\item{setup}{the general test setup}
 }
 \description{
 Class to test unique
 }
 \details{
-if NA is set to TRUE, columns with multiple NAs will not be marked as non-unique, NA rows will be ignored
+the setup class should have three parameters: df_name, col_name, and na.
+df_name is a string and represents the name of the dataframe. 
+col_name is a string and represents the name of the column to be tested.
+na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+there are NA values, an error will occur.
+}
+\examples{
+setup <- list(df_name = "data name", col_name = "col name", na = TRUE)
+cls <- class_test_unique(setup) 
 }
