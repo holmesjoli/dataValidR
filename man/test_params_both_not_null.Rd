@@ -6,6 +6,11 @@
 \usage{
 test_params_both_not_null(cls, param1, param2)
 }
+\arguments{
+\item{param1}{first param to test}
+
+\item{param2}{second param to test}
+}
 \description{
 Test two params are both not null
 }
