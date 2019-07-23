@@ -1,7 +1,8 @@
 testthat::test_that("is_int returns TRUE for integers", {
   
   testthat::expect_true(is_int(1))
-  testthat::expect_true(is_int(1.0))
+  testthat::expect_false(is_int(1.0))
+  testthat::expect_false(is_int(1.1))
   testthat::expect_true(all(is_int(c(1,2,3))))
   testthat::expect_false(all(is_int(c(1,2,3.5))))
   
