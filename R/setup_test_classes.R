@@ -3,196 +3,195 @@
 #' @return TRUE or FALSE
 #' @export
 is_int <- function(x) {
-  
-  if (!is.null(x)) {
-    x%%1==0
-  } else {
-    return(FALSE)
-  }
+    
+    if (!is.null(x) & !is.logical(x)) {
+        x%%1 == 0
+    } else {
+        return(FALSE)
+    }
 }
 
-#' @title Class for column type numeric
-#' @param df_name the dataframe name
-#' @param col_name the column name
-#' @param int takes the value TRUE if the column is an integer, FALSE if double, takes the values TRUE or FALSE
-#' @param upper_inclu indicates if the upper bound should be inclusive or not, takes on the values NULL, TRUE or FALSE
-#' @param lower_inclu indicates if the lower bound should be inclusive or not, takes on the values NULL, TRUE or FALSE
-#' @param upper the upper value
-#' @param lower the lower value
-#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
-#' @export
-class_test_numeric_range <- function(df_name, col_name,
-                                     upper_inclu = NULL, lower_inclu = NULL, 
-                                     upper = NULL, lower = NULL, na) {
-  
-  if((is.logical(upper_inclu) | is.null(upper_inclu)) && 
-     (is.logical(lower_inclu) | is.null(lower_inclu)) && 
-     (is.numeric(upper) | is.null(upper)) && 
-     (is.numeric(lower) | is.null(lower)) &&
-     (length(upper) == 1 | is.null(upper)) && 
-     (length(lower) == 1 | is.null(lower)) &&
-     (!is.null(upper_inclu) == !is.null(upper)) &&
-     (!is.null(lower_inclu) == !is.null(lower)) &&
-     !(is.null(upper_inclu) & is.null(lower_inclu)) &&
-     !(is.null(upper) & is.null(lower)) &&
-     is.logical(na)) {
-    
-    structure(list(df_name,
-                   col_name = col_name,
-                   upper_inclu = upper_inclu, 
-                   lower_inclu = lower_inclu, 
-                   upper = upper,
-                   lower = lower,
-                   na = na),
-              class = "numeric")  
-    
-  } else {
-    
-    if(!(is.logical(upper_inclu) | is.null(upper_inclu))) stop("upper_inclu is not boolean or NULL")
-    if(!(is.logical(lower_inclu) | is.null(lower_inclu))) stop("lower_inclu is not boolean or NULL")
-    if(!(is.numeric(upper) | is.null(upper))) stop("upper is not numeric or NULL")
-    if(!(is.numeric(lower) | is.null(lower))) stop("lower is not numeric or NULL")
-    if(!(length(upper) == 1 | is.null(upper))) stop("upper is not of length 1 or NULL")
-    if(!(length(lower) == 1 | is.null(lower))) stop("lower is not of length 1 or NULL")
-    if((is.null(upper_inclu) == is.null(upper))) stop("upper_inclu and upper must both be NULL or both be not null")
-    if((is.null(lower_inclu) == is.null(lower))) stop("lower_inclu and lower must both be NULL or both be not null")
-    if(!(is.null(upper_inclu) & is.null(lower_inclu))) stop("upper_inclu and lower_inclu cannot both by NULL")
-    if(!(is.null(upper) & is.null(lower))) stop("upper and lower cannot both be NULL")
-    if(!is.logical(na)) stop("na only takes the values TRUE or FALSE")
-    
-  }
+#' @title Test the expected parameters exist in the class
+#' @param cls the class to check for the parameters in
+#' @param expc_params the expected parameters
+test_expc_params <- function(cls, expc_params) {
+  msg <- paste0("Test configuration missing parameter(s): ", paste(setdiff(expc_params, names(cls)), collapse = ", "))
+  assertthat::assert_that(all(expc_params %in% names(cls)), msg = msg)
+
 }
 
-#' @title Class for column type integer
-#' @inheritParams class_test_numeric_range
-#' @export
-class_test_integer_range <- function(df_name, col_name,
-                                     upper_inclu, lower_inclu, upper, lower, na) {
-  
-  if ((is_int(upper) | is.null(upper)) &&
-      (is_int(lower) | is.null(lower))) {
-    
-    num <- class_test_numeric_range(df_name, col_name, 
-                                    upper_inclu, lower_inclu, upper, lower, na)
-    class(num) <- append(class(num), "integer")
-    
-    return(num)
-    
-  } else {
-    
-    if(!(is_int(upper) | is.null(upper))) stop("upper is not integer or NULL")
-    if(!(is_int(lower) | is.null(lower))) stop("lower is not integer or NULL")
-
-  }
+#' @title Test param is logical
+#' @param cls the class to check the parameters
+#' @param param string, the parameter to check
+test_param_logical <- function(cls, param) {
+    value <- cls[[param]]
+    msg <- paste0("Parameter '", param, "' only takes the values TRUE or FALSE")
+    assertthat::assert_that(!is.null(value), msg = msg)
+    assertthat::assert_that(!is.na(value), msg = msg)
+    assertthat::assert_that(is.logical(value), msg = msg)
 }
 
-
-#' @title Class for column type double
-#' @inheritParams class_test_numeric_range
-#' @export
-class_test_double_range <- function(df_name, col_name, 
-                                    upper_inclu, lower_inclu, upper, lower, na) {
-  
-  num <- class_test_numeric_range(df_name, col_name, 
-                                  upper_inclu, lower_inclu, upper, lower, na)
-  class(num) <- append(class(num), "double")
-  
-  return(num)
-  
+#' @title Test param is logical or NULL
+#' @inheritParams test_param_logical
+test_param_logical_or_null <- function(cls, param) {
+  value <- cls[[param]]
+  msg <- paste0("Parameter '", param, "' only takes the values TRUE or FALSE or NULL")
+  assertthat::assert_that((is.logical(value) | is.null(value)), msg = msg)
 }
 
-
-#' @title Class to test unique
-#' @param df_name the dataframe name
-#' @param col_name the column name
-#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
-#' @details if NA is set to TRUE, columns with multiple NAs will not be marked as non-unique, NA rows will be ignored
-#' @export
-class_test_unique <- function(df_name, col_name, na) {
-  
-  structure(list(test_desc = "Test Unique",
-                 df_name = df_name,
-                 col_name = col_name,
-                 na = na),
-            class = "test_unique") 
-  
+#' @title Test param is numeric
+#' @inheritParams test_param_logical
+test_param_numeric <- function(cls, param) {
+   value <- cls[[param]]
+   msg <- paste0("Parameter '", param, "' must be numeric")
+   assertthat::assert_that(is.numeric(value), msg = msg)
 }
 
-#' @title Class to test NA
-#' @param df_name the dataframe name
-#' @param col_name the column name
-#' @export
-class_test_na <- function(df_name, col_name) {
-  
-  structure(list(test_desc = "Test NA",
-                 df_name = df_name,
-                 col_name = col_name),
-            class = "test_na") 
-  
+#' @title Test param is numeric or NULL
+#' @inheritParams test_param_logical
+test_param_numeric_or_null <- function(cls, param) {
+  value <- cls[[param]]
+  msg <- paste0("Parameter '", param, "' must be numeric or NULL")
+  assertthat::assert_that(is.numeric(value) | is.null(value), msg = msg)
+}
+
+#' @title Test param is integer or NULL
+#' @inheritParams test_param_logical
+test_param_integer_or_null <- function(cls, param) {
+  value <- cls[[param]]
+  msg <- paste0("Parameter '", param, "' must be integer or NULL")
+  assertthat::assert_that((is_int(value) | is.null(value)) & !is.na(value), msg = msg)
+}
+
+#' @title Test param is string
+#' @inheritParams test_param_logical
+test_param_string <- function(cls, param) {
+  value <- cls[[param]]
+  msg <- paste0("Parameter '", param, "' must be a string")
+  assertthat::assert_that(is.character(value), msg = msg)
+}
+
+#' @title Test params are both null or both not null
+#' @description Tests that param1 and param2 both equal null or both are not equal to null
+#' @param param1 first param to test
+#' @param param2 second param to test
+test_params_both_null_or_not <- function(cls, param1, param2) {
+  msg <- paste0(param1, " and ", param2, " must both be null or both be not null")
+  log <- (is.null(cls[[param1]]) & is.null(cls[[param2]])) | 
+         (!is.null(cls[[param1]]) & !is.null(cls[[param2]]))
+  assertthat::assert_that(log, msg = msg)
+}
+
+#' @title Test two params are both not null
+#' @inheritParams test_params_both_null_not
+test_params_both_not_null <- function(cls, param1, param2) {
+  msg <- paste0(param1, " and ", param2, " must both be not null")
+  log <-  !is.null(cls[[param1]]) | !is.null(cls[[param2]])
+  assertthat::assert_that(log, msg = msg)
 }
 
 #' @title Class for range
-#' @export
-class_test_range <- function(df_name, col_name, int, upper_inclu, lower_inclu, 
-                             upper, lower, na) {
-  
-  if (is.logical(int)) {
-  
-    if (int) {
-      class_test_integer(df_name, col_name, 
-                         upper_inclu, lower_inclu, upper, lower, na)
+#' @param cls the general test setup cls
+class_test_range <- function(cls) {
+    
+    expc_params <- c("df_name", "col_name", "int", "upper_inclu", 
+                     "lower_inclu", "upper", "lower", "na")
+    test_expc_params(cls, expc_params)
+    test_param_string(cls, "df_name")
+    test_param_string(cls, "col_name")
+    test_param_logical(cls, "int")
+    test_param_logical_or_null(cls, "upper_inclu")
+    test_param_logical_or_null(cls, "lower_inclu")
+    test_param_logical(cls, "na")
+    test_param_numeric_or_null(cls, "upper")
+    test_param_numeric_or_null(cls, "lower")
+    test_params_both_null_or_not(cls, "upper", "upper_inclu")
+    test_params_both_null_or_not(cls, "lower", "lower_inclu")
+    
+    if (cls$int) {
+        test_param_integer_or_null(cls, "upper")
+        test_param_integer_or_null(cls, "lower")
+        class(cls) <- append(class(cls), "integer")
     } else {
-      class_test_double(df_name, col_name, 
-                        upper_inclu, lower_inclu, upper, lower, na)
+        class(cls) <- append(class(cls), "double")
     }
-      
-  } else {
     
-    if(!is.logical(int)) stop("na only takes the values TRUE or FALSE")
+    cls$test_desc <- "Test Range"
+    class(cls) <- append(class(cls), "test_range")
     
-  }
+    return(cls)
+}
+
+#' @title Class to test unique
+#' @param cls the general test setup cls
+#' @details if NA is set to TRUE, columns with multiple NAs will not be marked as non-unique, NA rows will be ignored
+#' @export
+class_test_unique <- function(cls) {
+    
+    expc_params <- c("df_name", "col_name")
+    test_expc_params(cls, expc_params)
+    test_param_string(cls, "df_name")
+    test_param_string(cls, "col_name")
+    test_param_logical(cls, "na")
+    
+    cls$test_desc <- "Test Unique"
+    class(cls) <- append(class(cls), "test_unique")
+    
+    return(cls)
+}
+
+#' @title Class to test NA
+#' @param cls the general test setup cls
+#' @export
+class_test_na <- function(cls) {
+    
+    expc_params <- c("df_name", "col_name")
+    test_expc_params(cls, expc_params)
+    test_param_string(cls, "df_name")
+    test_param_string(cls, "col_name")
+    
+    cls$test_desc <- "Test NA"
+    class(cls) <- append(class(cls), "test_na")
+    
+    return(cls)
 }
 
 #' @title Class to test values
-#' @param df_name the dataframe name
-#' @param col_name the column name
-#' @param values the expected values for the variable
-#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
-#' @details if NA is TRUE then it gets added to the list of acceptable values
+#' @param cls the general test setup cls
+#' @details if cls$na is TRUE then it gets added to the list of acceptable values
 #' @export
-class_test_values <- function(df_name, col_name, values, na) {
-  
-  if (is.logical(na)) {
+class_test_values <- function(cls) {
     
-    if (na) {
-      values <- c(values, NA)
+    expc_params <- c("df_name", "col_name", "values", "na")
+    test_expc_params(cls, expc_params)
+    test_param_string(cls, "df_name")
+    test_param_string(cls, "col_name")
+    test_param_logical(cls, "na")
+    
+    if (cls$na) {
+        cls$values <- c(cls$values, NA)
     }
     
-    structure(list(test_desc = "Expected Values",
-                   df_name = df_name,
-                   col_name = col_name,
-                   values = values,
-                   na = na),
-              class = "test_values")
-  } else {
+    cls$test_desc <- "Expected Values"
+    class(cls) <- append(class(cls), "test_values")
     
-    if(!is.logical(na)) stop("na only takes the values TRUE or FALSE")
-    
-  }
+    return(cls)
 }
 
 #' @title Class to test boolean
-#' @param df_name the dataframe name
-#' @param col_name the column name
-#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
-#' @details if NA is TRUE then it gets added to the list of acceptable values
+#' @param cls the general test setup cls
 #' @export
-class_test_bool <- function(df_name, col_name, na) {
-  
-  structure(list(test_desc = "Boolean Values",
-                 df_name = df_name,
-                 col_name = col_name,
-                 na = na),
-            class = "test_bool")
+class_test_bool <- function(cls) {
+    
+    expc_params <- c("df_name", "col_name", "na")
+    test_expc_params(cls, expc_params)
+    test_param_string(cls, "df_name")
+    test_param_string(cls, "col_name")
+    test_param_logical(cls, "na")
+    
+    
+    cls$test_desc <- "Boolean Values"
+    class(cls) <- append(class(cls), "test_boolean")
+    
+    return(cls)
 }
-
