@@ -303,35 +303,3 @@ assign_numeric_class <- function(df, cls) {
   }
   return(cls)
 }
-
-
-#' @title Test integer range
-#' @description Tests the integer range based on the parameter configurations
-#' @param df the dataframe
-#' @inheritParams class_test_numeric_range
-#' @export
-test_integer_range <- function(df, col_name, upper_inclu, lower_inclu, 
-                               upper, lower, na) {
-  
-  cls <- class_test_integer_range(col_name, upper_inclu, lower_inclu, 
-                                    upper, lower, na)
-  cls <- assign_numeric_class(df, cls)
-  
-  return(cls)
-}
-
-#' @title Test double range
-#' @description Tests the double range based on the parameter configurations
-#' @param df the dataframe
-#' @inheritParams class_test_numeric_range
-#' @export
-test_double_range <- function(df, col_name, upper_inclu, lower_inclu, 
-                              upper, lower, na) {
-  
-  cls <- class_test_double_range(col_name, upper_inclu, lower_inclu, 
-                                   upper, lower, na)
-  cls <- assign_numeric_class(df, cls)
-  
-  return(cls)
-
-}
