@@ -1,38 +1,44 @@
+passed <- "PASSED"
+failed <- "FAILED"
 
-test_pass <- list(
+test_row <- function(test) {
   
-  ti = "PASS",
-  tm = ""
+  data.frame(df_name = test$df_name,
+             col_name = test$col_name,
+             test_name = test$test_name,
+             test_desc = test$test_desc,
+             test_result = test$test_result,
+             test_message = test$test_message)
   
-)
+}
 
-class(test_pass) <- append(class(test_pass), "test_pass")
-
-test_fail <- list(
+apply_tests <- function(df, setup) {
   
-  ti = "ERROR"
-)
-
-class(test_fail) <- append(class(test_fail), "test_fail")
-
-test_warn <- list(
+  test_name <- setup$test_name
   
-  ti = "WARNING"
-)
-
-class(test_warn) <- append(class(test_warn), "test_warn")
-
-
-df <- list(
+  if (test_name == "test_na") {
+    
+    cls <- class_test_na(setup)
+    test <- test_na(df, cls)
+    
+  } else if (test_name == "test_unique") {
+    
+    cls <- class_test_unique(setup)
+    test <- test_unique(df, cls)
+    
+  } else if (test_name == "test_values") {
+    
+    cls <- class_test_values(setup)
+    test <- test_values(df, cls)
+    
+  } else if (test_name == "test_range") {
+    
+    cls <- class_test_range(setup)
+    test <- test_range(df, cls)
+    
+  }
   
-  names = c("Description", "Indicator", "Message")
-)
-
-named_df <- function(x) {
+  row <- test_row(test)
   
-  df <- t(data.frame(x))
-  colnames(df) <- c("Description", "Indicator", "Message")
-  row.names(df) <- NULL
-  
-  return(df)
+  return(row)
 }
