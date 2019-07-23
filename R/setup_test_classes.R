@@ -91,7 +91,24 @@ test_params_both_not_null <- function(setup, param1, param2) {
 }
 
 #' @title Class for range
-#' @param setup the general test setup setup
+#' @param setup the general test setup
+#' @details the setup class should have eight parameters: df_name, col_name, int, upper_inclu, lower_inclu, upper, lower, na
+#' df_name is a string and represents the name of the dataframe. 
+#' col_name is a string and represents the name of the column to be tested.
+#' int is a boolean value, if the values should be integers or not
+#' upper_inclu takes on the values TRUE, FALSE, or NULL. If there's an upper bound then it should be set to TRUE or FALSE.
+#' If the upper bound is inclusive, x <= upper, then upper_inclu = TRUE, else upper_inclu = FALSE.
+#' lower_inclu takes on the values TRUE, FALSE, or NULL. If there's an lower bound then it should be set to TRUE or FALSE.
+#' If the lower bound is inclusive, x >= lower, then lower_inclu = TRUE, else lower_inclu = FALSE.
+#' upper can take a numeric value or NULL. If there's no upper bound, then upper should be null.
+#' lower can take a numeric value or NULL. If there's no lower bound, then lower should be null.
+#' na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+#' there are NA values, an error will occur.
+#' @examples
+#' # Tests column "col name" bewteen 1 and 10: 1 <= x <= 10
+#' setup <- list(df_name = "data name", col_name = "col name", int = TRUE, upper_inclu = TRUE, lower_inclu = TRUE, lower = 1, upper = 10, na = TRUE)
+#' cls <- class_test_range(setup) 
+#' @export
 class_test_range <- function(setup) {
     
     expc_params <- c("df_name", "col_name", "int", "upper_inclu", 
@@ -124,11 +141,18 @@ class_test_range <- function(setup) {
 
 #' @title Class to test unique
 #' @param setup the general test setup
-#' @details if NA is set to TRUE, columns with multiple NAs will not be marked as non-unique, NA rows will be ignored
+#' @details the setup class should have three parameters: df_name, col_name, and na.
+#' df_name is a string and represents the name of the dataframe. 
+#' col_name is a string and represents the name of the column to be tested.
+#' na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+#' there are NA values, an error will occur.
+#' @examples
+#' setup <- list(df_name = "data name", col_name = "col name", na = TRUE)
+#' cls <- class_test_unique(setup) 
 #' @export
 class_test_unique <- function(setup) {
     
-    expc_params <- c("df_name", "col_name")
+    expc_params <- c("df_name", "col_name", "na")
     test_expc_params(setup, expc_params)
     test_param_string(setup, "df_name")
     test_param_string(setup, "col_name")
@@ -142,6 +166,12 @@ class_test_unique <- function(setup) {
 
 #' @title Class to test NA
 #' @param setup the general test setup
+#' @details the setup class should have two parameters: df_name, col_name, values, and na.
+#' df_name is a string and represents the name of the dataframe. 
+#' col_name is a string and represents the name of the column to be tested.
+#' @examples 
+#' setup <- list(df_name = "data name", col_name = "col name")
+#' cls <- class_test_na(setup)
 #' @export
 class_test_na <- function(setup) {
     
@@ -158,7 +188,15 @@ class_test_na <- function(setup) {
 
 #' @title Class to test values
 #' @param setup the general test setup
-#' @details if setup$na is TRUE then it gets added to the list of acceptable values
+#' @details the setup class should have four parameters: df_name, col_name, values, and na.
+#' df_name is a string and represents the name of the dataframe. 
+#' col_name is a string and represents the name of the column to be tested.
+#' values is a list of values that expected in the column to be tested. 
+#' na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+#' there are NA values, an error will occur.
+#' @examples
+#' setup <- list(df_name = "data name", col_name = "col name", values = 1:4, na = TRUE)
+#' cls <- class_test_values(setup)
 #' @export
 class_test_values <- function(setup) {
     
@@ -179,7 +217,15 @@ class_test_values <- function(setup) {
 }
 
 #' @title Class to test boolean
-#' @param setup the general test setup setup
+#' @param setup the general test setup
+#' @details the setup class should have three parameters: df_name, col_name, and na.
+#' df_name is a string and represents the name of the dataframe. 
+#' col_name is a string and represents the name of the column to be tested.
+#' na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+#' there are NA values, an error will occur.
+#' @examples
+#' setup <- list(df_name = "data name", col_name = "col name", na = TRUE)
+#' cls <- class_test_bool(setup) 
 #' @export
 class_test_bool <- function(setup) {
     
