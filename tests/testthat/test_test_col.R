@@ -37,14 +37,31 @@ testthat::test_that("test_na returns TRUE when PASSING, FALSE when FAILING", {
 
 testthat::test_that("test_unique returns TRUE when PASSING, FALSE when FAILING", {
   
-  df <- data.frame(x = 1:4, y = c(1,1,2:3))
-  cls <- class_test_unique("df_name", "x") 
+  df <- data.frame(x = 1:4, y = c(1,1,2:3), 
+                   z = c(NA, NA, 1:2), w = c(NA, 1:3))
   
+  cls <- class_test_unique("df_name", "x", FALSE) 
   test <- test_unique(df, cls)
   testthat::expect_true(test$test_result)
   
-  cls <- class_test_unique("df_name", "y") 
+  cls <- class_test_unique("df_name", "y", FALSE) 
   test <- test_unique(df, cls)
   testthat::expect_false(test$test_result)
+  
+  cls <- class_test_unique("df_name", "z", TRUE) 
+  test <- test_unique(df, cls)
+  testthat::expect_true(test$test_result)
+  
+  cls <- class_test_unique("df_name", "z", FALSE) 
+  test <- test_unique(df, cls)
+  testthat::expect_false(test$test_result)
+  
+  cls <- class_test_unique("df_name", "w", TRUE) 
+  test <- test_unique(df, cls)
+  testthat::expect_true(test$test_result)
+  
+  cls <- class_test_unique("df_name", "w", FALSE) 
+  test <- test_unique(df, cls)
+  testthat::expect_true(test$test_result)
   
 })
