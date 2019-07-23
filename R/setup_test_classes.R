@@ -150,7 +150,7 @@ class_test_range <- function(df_name, col_name, int, upper_inclu, lower_inclu,
   }
 }
 
-#' @title Class for column type string
+#' @title Class to test values
 #' @param df_name the dataframe name
 #' @param col_name the column name
 #' @param values the expected values for the variable
@@ -176,5 +176,20 @@ class_test_values <- function(df_name, col_name, values, na) {
     if(!is.logical(na)) stop("na only takes the values TRUE or FALSE")
     
   }
+}
+
+#' @title Class to test boolean
+#' @param df_name the dataframe name
+#' @param col_name the column name
+#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
+#' @details if NA is TRUE then it gets added to the list of acceptable values
+#' @export
+class_test_bool <- function(df_name, col_name, na){
+  
+  structure(list(test_desc = "Boolean Values",
+                 df_name = df_name,
+                 col_name = col_name,
+                 na = na),
+            class = "test_bool")
 }
 
