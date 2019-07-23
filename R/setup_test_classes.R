@@ -83,7 +83,7 @@ test_params_both_null_or_not <- function(cls, param1, param2) {
 }
 
 #' @title Test two params are both not null
-#' @inheritParams test_params_both_null_not
+#' @inheritParams test_params_both_null_or_not
 test_params_both_not_null <- function(cls, param1, param2) {
   msg <- paste0(param1, " and ", param2, " must both be not null")
   log <-  !is.null(cls[[param1]]) | !is.null(cls[[param2]])
