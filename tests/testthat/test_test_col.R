@@ -1,13 +1,21 @@
 testthat::test_that("test_values returns TRUE when PASSING, FALSE when FAILING", {
   
-  df <- data.frame(x = 1:4, y = 5:8)
-  values <- 1:4; na <- FALSE
+  df <- data.frame(x = 1:4, y = 5:8, z = c(1:3, NA))
+  values <- 1:4
    
-  cls <- class_test_values("df_name", "x", values, na)
+  cls <- class_test_values("df_name", "x", values, TRUE)
   test <- test_values(df, cls)
   testthat::expect_true(test$test_result)
   
-  cls <- class_test_values("df_name", "y", values, na)
+  cls <- class_test_values("df_name", "y", values, TRUE)
+  test <- test_values(df, cls)
+  testthat::expect_false(test$test_result)
+  
+  cls <- class_test_values("df_name", "z", values, TRUE)
+  test <- test_values(df, cls)
+  testthat::expect_true(test$test_result)
+  
+  cls <- class_test_values("df_name", "z", values, FALSE)
   test <- test_values(df, cls)
   testthat::expect_false(test$test_result)
   
