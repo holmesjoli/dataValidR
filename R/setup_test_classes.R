@@ -106,15 +106,40 @@ test_params_both_not_null <- function(setup, param1, param2) {
 setup_test_range <- function(df_name, col_name, int, lower_inclu, 
                              upper_inclu, lower, upper, na) {
   
-  structure(list(test_name = "test_range", 
-                 df_name = df_name,
-                 col_name = col_name,
-                 int = int,
-                 lower_inclu = lower_inclu,
-                 upper_inclu = upper_inclu,
-                 lower = lower,
-                 upper = upper,
-                 na = na), class = "test_range")
+  setup <- structure(list(test_name = "test_range", 
+                          test_desc = "Test Range",
+                          df_name = df_name,
+                          col_name = col_name,
+                          int = int,
+                          lower_inclu = lower_inclu,
+                          upper_inclu = upper_inclu,
+                          lower = lower,
+                          upper = upper,
+                          na = na), class = "test_range")
+  
+  expc_params <- c("df_name", "col_name", "int", "upper_inclu", 
+                   "lower_inclu", "upper", "lower", "na")
+  test_expc_params(setup, expc_params)
+  test_param_string(setup, "df_name")
+  test_param_string(setup, "col_name")
+  test_param_logical(setup, "int")
+  test_param_logical_or_null(setup, "upper_inclu")
+  test_param_logical_or_null(setup, "lower_inclu")
+  test_param_logical(setup, "na")
+  test_param_numeric_or_null(setup, "upper")
+  test_param_numeric_or_null(setup, "lower")
+  test_params_both_null_or_not(setup, "upper", "upper_inclu")
+  test_params_both_null_or_not(setup, "lower", "lower_inclu")
+  
+  if (setup$int) {
+    test_param_integer_or_null(setup, "upper")
+    test_param_integer_or_null(setup, "lower")
+    class(setup) <- append(class(setup), "integer")
+  } else {
+    class(setup) <- append(class(setup), "double")
+  }
+  
+  return(setup)
 }
 
 #' @title Setup Test Values
@@ -125,11 +150,25 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
 #' there are NA values, an error will occur.
 #' @export
 setup_test_values <- function(df_name, col_name, values, na) {
-  structure(list(test_name = "test_values",
-                 df_name = df_name,
-                 col_name = col_name,
-                 values = values,
-                 na = na), class = "test_values")
+  
+  setup <- structure(list(test_name = "test_values",
+                          test_desc = "Expected Values",
+                          df_name = df_name,
+                          col_name = col_name,
+                          values = values,
+                          na = na), class = "test_values")
+  
+  expc_params <- c("df_name", "col_name", "values", "na")
+  test_expc_params(setup, expc_params)
+  test_param_string(setup, "df_name")
+  test_param_string(setup, "col_name")
+  test_param_logical(setup, "na")
+  
+  if (setup$na) {
+    setup$values <- c(setup$values, NA)
+  }
+  
+  return(setup)
 }
 
 #' @title Setup Test Unique
@@ -139,10 +178,20 @@ setup_test_values <- function(df_name, col_name, values, na) {
 #' there are NA values, an error will occur.
 #' @export
 setup_test_unique <- function(df_name, col_name, na) {
-  structure(list(test_name = "test_unique",
-                 df_name = df_name,
-                 col_name = col_name,
-                 na = na), class = "test_unique")
+  
+  setup <- structure(list(test_name = "test_unique",
+                          test_desc = "Test Unique",
+                          df_name = df_name,
+                          col_name = col_name,
+                          na = na), class = "test_unique")
+  
+  expc_params <- c("df_name", "col_name", "na")
+  test_expc_params(setup, expc_params)
+  test_param_string(setup, "df_name")
+  test_param_string(setup, "col_name")
+  test_param_logical(setup, "na")
+  
+  return(setup)
 }
 
 #' @title Setup Test Na
@@ -150,129 +199,18 @@ setup_test_unique <- function(df_name, col_name, na) {
 #' @param col_name is a string and represents the name of the column to be tested.
 #' @export
 setup_test_na <- function(df_name, col_name) {
-  structure(list(test_name = "test_na",
-                 df_name = df_name,
-                 col_name = col_name), class = "test_na")
-}
-
-
-#' @title Class for range
-#' @param setup the general test setup
-#' @example
-#' # Tests column "col name" bewteen 1 and 10: 1 <= x <= 10
-#' setup <- list(df_name = "data name", col_name = "col name", int = TRUE, upper_inclu = TRUE, lower_inclu = TRUE, lower = 1, upper = 10, na = TRUE)
-#' cls <- class_test_range(setup) 
-#' @export
-class_test_range <- function(setup) {
-    
-    expc_params <- c("df_name", "col_name", "int", "upper_inclu", 
-                     "lower_inclu", "upper", "lower", "na")
-    test_expc_params(setup, expc_params)
-    test_param_string(setup, "df_name")
-    test_param_string(setup, "col_name")
-    test_param_logical(setup, "int")
-    test_param_logical_or_null(setup, "upper_inclu")
-    test_param_logical_or_null(setup, "lower_inclu")
-    test_param_logical(setup, "na")
-    test_param_numeric_or_null(setup, "upper")
-    test_param_numeric_or_null(setup, "lower")
-    test_params_both_null_or_not(setup, "upper", "upper_inclu")
-    test_params_both_null_or_not(setup, "lower", "lower_inclu")
-    
-    if (setup$int) {
-        test_param_integer_or_null(setup, "upper")
-        test_param_integer_or_null(setup, "lower")
-        class(setup) <- append(class(setup), "integer")
-    } else {
-        class(setup) <- append(class(setup), "double")
-    }
-    
-    setup$test_desc <- "Test Range"
-    class(setup) <- append(class(setup), "test_range")
-    
-    return(setup)
-}
-
-#' @title Class to test unique
-#' @param setup the general test setup
-#' @examples
-#' setup <- list(df_name = "data name", col_name = "col name", na = TRUE)
-#' cls <- class_test_unique(setup) 
-#' @export
-class_test_unique <- function(setup) {
-    
-    expc_params <- c("df_name", "col_name", "na")
-    test_expc_params(setup, expc_params)
-    test_param_string(setup, "df_name")
-    test_param_string(setup, "col_name")
-    test_param_logical(setup, "na")
-    
-    setup$test_desc <- "Test Unique"
-    
-    return(setup)
-}
-
-#' @title Class to test NA
-#' @param setup the general test setup
-#' @examples 
-#' setup <- list(df_name = "data name", col_name = "col name")
-#' cls <- class_test_na(setup)
-#' @export
-class_test_na <- function(setup) {
-    
-    expc_params <- c("df_name", "col_name")
-    test_expc_params(setup, expc_params)
-    test_param_string(setup, "df_name")
-    test_param_string(setup, "col_name")
-    
-    setup$test_desc <- "Test NA"
-    
-    return(setup)
-}
-
-#' @title Class to test values
-#' @param setup the general test setup
-#' @examples
-#' setup <- list(df_name = "data name", col_name = "col name", values = 1:4, na = TRUE)
-#' cls <- class_test_values(setup)
-#' @export
-class_test_values <- function(setup) {
-    
-    expc_params <- c("df_name", "col_name", "values", "na")
-    test_expc_params(setup, expc_params)
-    test_param_string(setup, "df_name")
-    test_param_string(setup, "col_name")
-    test_param_logical(setup, "na")
-    
-    if (setup$na) {
-        setup$values <- c(setup$values, NA)
-    }
-    
-    setup$test_desc <- "Expected Values"
-    
-    return(setup)
-}
-
-#' @title Class to test boolean
-#' @param setup the general test setup
-#' @details the setup class should have three parameters: df_name, col_name, and na.
-#' df_name is a string and represents the name of the dataframe. 
-#' col_name is a string and represents the name of the column to be tested.
-#' na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
-#' there are NA values, an error will occur.
-#' @examples
-#' setup <- list(df_name = "data name", col_name = "col name", na = TRUE)
-#' cls <- class_test_bool(setup) 
-#' @export
-class_test_bool <- function(setup) {
-    
-    expc_params <- c("df_name", "col_name", "na")
-    test_expc_params(setup, expc_params)
-    test_param_string(setup, "df_name")
-    test_param_string(setup, "col_name")
-    test_param_logical(setup, "na")
-    
-    setup$test_desc <- "Boolean Values"
-    
-    return(setup)
+  
+  setup <- structure(list(test_name = "test_na",
+                          test_desc = "Test NA",
+                          df_name = df_name,
+                          col_name = col_name), class = "test_na")
+  
+  expc_params <- c("df_name", "col_name")
+  test_expc_params(setup, expc_params)
+  test_param_string(setup, "df_name")
+  test_param_string(setup, "col_name")
+  
+  return(setup)
+  
+  
 }
