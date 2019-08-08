@@ -17,49 +17,6 @@ test_row <- function(test) {
   
 }
 
-#' @title Setup Test Range
-#' @export
-setup_test_range <- function(df_name, col_name, int, lower_inclu, 
-                             upper_inclu, lower, upper, na) {
-  
-  structure(list(test_name = "test_range", 
-        df_name = df_name,
-        col_name = col_name,
-        int = int,
-        lower_inclu = lower_inclu,
-        upper_inclu = upper_inclu,
-        lower = lower,
-        upper = upper,
-        na = na), class = "test_range")
-}
-
-#' @title Setup Test Values
-#' @export
-setup_test_values <- function(df_name, col_name, values, na) {
-  structure(list(test_name = "test_values",
-                 df_name = df_name,
-                 col_name = col_name,
-                 values = values,
-                 na = na), class = "test_values")
-}
-
-#' @title Setup Test Unique
-#' @export
-setup_test_unique <- function(df_name, col_name, na) {
-  structure(list(test_name = "test_unique",
-                 df_name = df_name,
-                 col_name = col_name,
-                 na = na), class = "test_unique")
-}
-
-#' @title Setup Test Na
-#' @export
-setup_test_na <- function(df_name, col_name) {
-  structure(list(test_name = "test_na",
-                 df_name = df_name,
-                 col_name = col_name), class = "test_na")
-}
-
 #' @title Apply test
 #' @export
 apply_test <- function(setup, df){
