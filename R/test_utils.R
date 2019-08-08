@@ -76,6 +76,7 @@ apply_test.default <- function(setup, df, ...){
 }
 
 #' @title Tests for NAs
+#' @export
 apply_test.test_na <- function(setup, df) {
   
   cls <- class_test_na(setup)
@@ -86,6 +87,7 @@ apply_test.test_na <- function(setup, df) {
 }
 
 #' @title Tests for uniqueness
+#' @export
 apply_test.test_unique <- function(setup, df) {
   
   cls <- class_test_unique(setup)
@@ -96,6 +98,7 @@ apply_test.test_unique <- function(setup, df) {
 }
 
 #' @title Tests for Values
+#' @export
 apply_test.test_values <- function(setup, df) {
   
   cls <- class_test_values(setup)
@@ -106,6 +109,7 @@ apply_test.test_values <- function(setup, df) {
 }
 
 #' @title Tests Range of Values
+#' @export
 apply_test.test_range <- function(setup, df) {
   
   cls <- class_test_range(setup)
