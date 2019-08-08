@@ -14,20 +14,60 @@ knitr::opts_chunk$set(
 )
 ```
 
-The validR is a set of functions to be used for testing and validating data.
+The validR is a set of functions to be used for testing and validating data. 
+The main functions are:
+
+- test_range
+- test_values
+- test_unique
+- test_na
+- test_bool (under development)
+
+To use the testing functions first create the test setup. How each test class should be setup can be found by ?class_test_range in the details section.
+
+- class_test_range
+- class_test_values
+- class_test_unique
+- class_test_na
+- class_test_bool  (under development)
+
 
 ```{r, eval = FALSE, echo = TRUE}
-
 library(validR)
 
-df <- data.frame(col1 = c(1:10),
-                 col2 = letters[1:10],
-                 col3 = c(rep(NA, 3), 1:7))
+df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
 
-t1 <- test_unique(df$col1)
-t2 <- test_values(df$col2, letters[1:10])
-t3 <- test_null_values(df$col3)
 
-tests <- rbind(t1, t2, t3)
+setup1 <- list(test_name = "test_range", 
+               df_name = "Test_df",
+               col_name = "x",
+               int = TRUE,
+               lower_inclu = TRUE,
+               upper_inclu = TRUE,
+               lower = 1,
+               upper = 10,
+               na = FALSE)
+
+setup2 <- list(test_name = "test_values",
+               df_name = "Test_df",
+               col_name = "y",
+               values = c("X", "Y"),
+               na = FALSE)
+
+setup3 <- list(test_name = "test_unique",
+               df_name = "Test_df",
+               col_name = "x",
+               na = FALSE)
+
+setup4 <- list(test_name = "test_na",
+               df_name = "Test_df",
+               col_name = "y")
+
+test1 <- apply_tests(df, setup1)
+test2 <- apply_tests(df, setup2)
+test3 <- apply_tests(df, setup3)
+test4 <- apply_tests(df, setup4)
+
+tests <- rbind(test1, test2, test3, test4)
 
 ```
