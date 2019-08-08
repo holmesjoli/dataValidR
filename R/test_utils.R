@@ -17,58 +17,100 @@ test_row <- function(test) {
   
 }
 
-#' @title Apply tests
-#' @description Applied the tests
-#' @param df the dataframe to apply the test to
-#' @param setup the test setup
-#' @return A dataframe representing the values from a single test
-#' @examples
-#' df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
-#' setup1 <- list(test_name = "test_range", df_name = "Test_df", col_name = "x",
-#'                int = TRUE, lower_inclu = TRUE, upper_inclu = TRUE, lower = 1,
-#'                upper = 10, na = FALSE)
-#'
-#' setup2 <- list(test_name = "test_values", df_name = "Test_df", col_name = "y",
-#'                values = c("X", "Y"), na = FALSE)
-#' test1 <- apply_tests(df, setup1)
-#' test2 <- apply_tests(df, setup2)
+#' @title Setup Test Range
 #' @export
-apply_tests <- function(df, setup) {
+setup_test_range <- function(df_name, col_name, int, lower_inclu, 
+                             upper_inclu, lower, upper, na) {
   
-  test_name <- setup$test_name
-  tests <- c("test_na", "test_unique", "test_values",
-             "test_range", "test_bool")
+  structure(list(test_name = "test_range", 
+        df_name = df_name,
+        col_name = col_name,
+        int = int,
+        lower_inclu = lower_inclu,
+        upper_inclu = upper_inclu,
+        lower = lower,
+        upper = upper,
+        na = na), class = "test_range")
+}
+
+#' @title Setup Test Values
+#' @export
+setup_test_values <- function(df_name, col_name, values, na) {
+  structure(list(test_name = "test_values",
+                 df_name = df_name,
+                 col_name = col_name,
+                 values = values,
+                 na = na), class = "test_values")
+}
+
+#' @title Setup Test Unique
+#' @export
+setup_test_unique <- function(df_name, col_name, na) {
+  structure(list(test_name = "test_unique",
+                 df_name = df_name,
+                 col_name = col_name,
+                 na = na), class = "test_unique")
+}
+
+#' @title Setup Test Na
+#' @export
+setup_test_na <- function(df_name, col_name) {
+  structure(list(test_name = "test_na",
+                 df_name = df_name,
+                 col_name = col_name), class = "test_na")
+}
+
+#' @title Apply test
+#' @export
+apply_test <- function(setup, df){
+  UseMethod("apply_test")
   
-  if (test_name %in% tests) {
+}
+
+apply_test.default <- function(setup, df, ...){
   
-      if (test_name == "test_na") {
-        
-        cls <- class_test_na(setup)
-        test <- test_na(df, cls)
-        
-      } else if (test_name == "test_unique") {
-        
-        cls <- class_test_unique(setup)
-        test <- test_unique(df, cls)
-        
-      } else if (test_name == "test_values") {
-        
-        cls <- class_test_values(setup)
-        test <- test_values(df, cls)
-        
-      } else if (test_name == "test_range") {
-        
-        cls <- class_test_range(setup)
-        test <- test_range(df, cls)
-        
-      }
-      
-      row <- test_row(test)
-      
-      return(row)
-      
-  } else {
-    stop("test_name should be one of: ", paste(c("test_na", "test_unique", "test_values",
-                                          "test_range", "test_bool"), collapse = ", "))
-  }
+  warning(paste("apply_test does not know how to handle object of class ", 
+                class(setup),
+                "and can only be used on classes test_na, test_unique, test_values, and test_range"))
+  
+}
+
+#' @title Tests for NAs
+apply_test.test_na <- function(setup, df) {
+  
+  cls <- class_test_na(setup)
+  test <- test_na(df, cls)
+  test_result <- test_row(test)
+  
+  return(test_result)
+}
+
+#' @title Tests for uniqueness
+apply_test.test_unique <- function(setup, df) {
+  
+  cls <- class_test_unique(setup)
+  test <- test_unique(df, cls)
+  test_result <- test_row(test)
+  
+  return(test_result)
+}
+
+#' @title Tests for Values
+apply_test.test_values <- function(setup, df) {
+  
+  cls <- class_test_values(setup)
+  test <- test_values(df, cls)
+  test_result <- test_row(test)
+  
+  return(test_result)
+}
+
+#' @title Tests Range of Values
+apply_test.test_range <- function(setup, df) {
+  
+  cls <- class_test_range(setup)
+  test <- test_range(df, cls)
+  test_result <- test_row(test)
+  
+  return(test_result)
 }
