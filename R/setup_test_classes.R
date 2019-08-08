@@ -159,7 +159,6 @@ class_test_unique <- function(setup) {
     test_param_logical(setup, "na")
     
     setup$test_desc <- "Test Unique"
-    class(setup) <- append(class(setup), "test_unique")
     
     return(setup)
 }
@@ -181,7 +180,6 @@ class_test_na <- function(setup) {
     test_param_string(setup, "col_name")
     
     setup$test_desc <- "Test NA"
-    class(setup) <- append(class(setup), "test_na")
     
     return(setup)
 }
@@ -211,7 +209,6 @@ class_test_values <- function(setup) {
     }
     
     setup$test_desc <- "Expected Values"
-    class(setup) <- append(class(setup), "test_values")
     
     return(setup)
 }
@@ -235,9 +232,7 @@ class_test_bool <- function(setup) {
     test_param_string(setup, "col_name")
     test_param_logical(setup, "na")
     
-    
     setup$test_desc <- "Boolean Values"
-    class(setup) <- append(class(setup), "test_boolean")
     
     return(setup)
 }
