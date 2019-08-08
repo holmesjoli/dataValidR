@@ -36,8 +36,7 @@ apply_test.default <- function(setup, df, ...){
 #' @export
 apply_test.test_na <- function(setup, df) {
   
-  cls <- class_test_na(setup)
-  test <- test_na(df, cls)
+  test <- test_na(df, setup)
   test_result <- test_row(test)
   
   return(test_result)
@@ -47,8 +46,7 @@ apply_test.test_na <- function(setup, df) {
 #' @export
 apply_test.test_unique <- function(setup, df) {
   
-  cls <- class_test_unique(setup)
-  test <- test_unique(df, cls)
+  test <- test_unique(df, setup)
   test_result <- test_row(test)
   
   return(test_result)
@@ -58,8 +56,7 @@ apply_test.test_unique <- function(setup, df) {
 #' @export
 apply_test.test_values <- function(setup, df) {
   
-  cls <- class_test_values(setup)
-  test <- test_values(df, cls)
+  test <- test_values(df, setup)
   test_result <- test_row(test)
   
   return(test_result)
@@ -69,8 +66,7 @@ apply_test.test_values <- function(setup, df) {
 #' @export
 apply_test.test_range <- function(setup, df) {
   
-  cls <- class_test_range(setup)
-  test <- test_range(df, cls)
+  test <- test_range(df, setup)
   test_result <- test_row(test)
   
   return(test_result)
