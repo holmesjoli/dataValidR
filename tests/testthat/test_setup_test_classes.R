@@ -111,21 +111,17 @@ testthat::test_that("test_params_both_not_null", {
   
 })
 
-testthat::test_that("class_test_values tests", {
+testthat::test_that("setup_test_values tests", {
   
-  cls <- list(df_name = "x", col_name = "X", 
-              values = c(1,2,3), na = NA)
+  df_name <- "x"; col_name <- "X"
+  values <- c(1,2,3); na <- NA
   
-  testthat::expect_error(class_test_values(cls))
+  expect_error(setup_test_values(df_name, col_name, values, na))
   
-  cls <- list(df_name = "x", col_name = "X", 
-              values = c(1,2,3), na = TRUE)
+  cls <- setup_test_values(df_name, col_name, values, na  = TRUE)
+  testthat::expect_true(NA %in% cls$values)
   
-  testthat::expect_true(NA %in% class_test_values(cls)$values)
-  
-  cls <- list(df_name = "x", col_name = "X", 
-              values = c(1,2,3), na = FALSE)
-  
-  testthat::expect_false(NA %in% class_test_values(cls)$values)
+  cls <- setup_test_values(df_name, col_name, values, na = FALSE)
+  testthat::expect_false(NA %in% cls$values)
   
 })

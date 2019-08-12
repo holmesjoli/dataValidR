@@ -29,61 +29,56 @@ testthat::test_that("Max NA", {
 testthat::test_that("Test Exclu lower", {
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
-  cls <- list(col_name = "x",
-                lower = 0,
-                na = TRUE)
+  
+  df_name = "x"; col_name = "x"; lower = 0; lower_inclu = FALSE;
+  upper = NULL; upper_inclu = NULL; na = TRUE; int = TRUE
+  
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower, upper, na)
 
-  test <- test_exclu_lower(df, cls)
+  test <- test_exclu_lower(df, setup)
+  testthat::expect_true(test$test_result)
+  
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower, upper, na = FALSE)
+
+  test <- test_exclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "x",
-                lower = 0,
-                na = FALSE)
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower = 1, upper, na = TRUE)
 
-  test <- test_exclu_lower(df, cls)
+  test <- test_exclu_lower(df, setup)
+  testthat::expect_false(test$test_result)
+
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower, upper, na = FALSE)
+
+  test <- test_exclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "x",
-                lower = 1,
-                na = TRUE)
+  setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
+                            upper_inclu, lower = 0, upper, na = TRUE)
 
-  test <- test_exclu_lower(df, cls)
-  testthat::expect_false(test$test_result)
-
-  cls <- list(col_name = "x",
-                lower = 1,
-                na = FALSE)
-
-  test <- test_exclu_lower(df, cls)
-  testthat::expect_false(test$test_result)
-
-  cls <- list(col_name = "y",
-                lower = 0,
-                na = TRUE)
-
-  test <- test_exclu_lower(df, cls)
+  test <- test_exclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "y",
-                lower_inclu = FALSE,
-                lower = 0,
-                na = FALSE)
+  setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
+                            upper_inclu, lower = 0, upper, na = FALSE)
 
-  test <- test_exclu_lower(df, cls)
+  test <- test_exclu_lower(df, setup)
   testthat::expect_false(test$test_result)
 
-  cls <- list(col_name = "y",
-                lower = 1,
-                na = TRUE)
+  setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
+                            upper_inclu, lower = 1, upper, na = TRUE)
 
-  test <- test_exclu_lower(df, cls)
+  test <- test_exclu_lower(df, setup)
   testthat::expect_false(test$test_result)
 
-  cls <- list(col_name = "y",
-                lower = 1,
-                na = FALSE)
+  setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
+                            upper_inclu, lower = 1, upper, na = FALSE)
 
-  test <- test_exclu_lower(df, cls)
+  test <- test_exclu_lower(df, setup)
   testthat::expect_false(test$test_result)
 
 })
@@ -91,60 +86,56 @@ testthat::test_that("Test Exclu lower", {
 testthat::test_that("Test Inclu lower", {
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
-  cls <- list(col_name = "x",
-                lower = 0,
-                na = TRUE)
+  
+  df_name = "x"; col_name = "x"; lower = 0; lower_inclu = TRUE;
+  upper = NULL; upper_inclu = NULL; na = TRUE; int = TRUE
+  
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower, upper, na)
 
-  test <- test_inclu_lower(df, cls)
+  test <- test_inclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "x",
-                lower = 0,
-                na = FALSE)
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower, upper, na = FALSE)
 
-  test <- test_inclu_lower(df, cls)
+  test <- test_inclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "x",
-                lower = 1,
-                na = TRUE)
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower = 1, upper, na = TRUE)
 
-  test <- test_inclu_lower(df, cls)
+  test <- test_inclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "x",
-                lower = 1,
-                na = FALSE)
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower = 1, upper, na = FALSE)
 
-  test <- test_inclu_lower(df, cls)
+  test <- test_inclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "y",
-                lower = 0,
-                na = TRUE)
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower = 0, upper, na = TRUE)
 
-  test <- test_inclu_lower(df, cls)
+  test <- test_inclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "y",
-                lower = 0,
-                na = FALSE)
+  setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
+                            upper_inclu, lower = 0, upper, na = FALSE)
 
-  test <- test_inclu_lower(df, cls)
+  test <- test_inclu_lower(df, setup)
   testthat::expect_false(test$test_result)
 
-  cls <- list(col_name = "y",
-                lower = 1,
-                na = TRUE)
+  setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
+                            upper_inclu, lower = 1, upper, na = TRUE)
 
-  test <- test_inclu_lower(df, cls)
+  test <- test_inclu_lower(df, setup)
   testthat::expect_true(test$test_result)
 
-  cls <- list(col_name = "y",
-                lower = 1,
-                na = FALSE)
+  setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
+                            upper_inclu, lower = 1, upper, na = FALSE)
 
-  test <- test_inclu_lower(df, cls)
+  test <- test_inclu_lower(df, setup)
   testthat::expect_false(test$test_result)
 
 })
@@ -517,7 +508,7 @@ testthat::test_that("test_exclu_lower_inclu_upper", {
 
 })
 
-testthat::test_that("assign_numeric_class", {
+testthat::test_that("test_range", {
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
   cls <- list(col_name = "x",
@@ -527,7 +518,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = TRUE,
                 na = TRUE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("inclu_lower_inclu_upper" %in% class(test))
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
@@ -538,7 +529,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = TRUE,
                 na = FALSE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("inclu_lower_inclu_upper" %in% class(test))
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
@@ -549,7 +540,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = TRUE,
                 na = TRUE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("inclu_lower_exclu_upper" %in% class(test))
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
@@ -560,7 +551,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = FALSE,
                 na = TRUE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("exclu_lower_inclu_upper" %in% class(test))
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
@@ -571,7 +562,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = FALSE,
                 na = TRUE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("exclu_lower_exclu_upper" %in% class(test))
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
@@ -582,7 +573,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = TRUE,
                 na = TRUE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("inclu_lower" %in% class(test))
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
@@ -593,7 +584,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = FALSE,
                 na = TRUE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("exclu_lower" %in% class(test))
 
 
@@ -605,7 +596,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = NULL,
                 na = TRUE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("inclu_upper" %in% class(test))
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
@@ -616,7 +607,7 @@ testthat::test_that("assign_numeric_class", {
                 lower_inclu = NULL,
                 na = TRUE)
 
-  test <- assign_numeric_class(df, cls)
+  test <- test_range(df, cls)
   testthat::expect_true("exclu_upper" %in% class(test))
 
 })
