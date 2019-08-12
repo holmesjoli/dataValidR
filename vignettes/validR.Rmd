@@ -38,14 +38,14 @@ library(validR)
 df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
 
 
-setup1 <- setup_test_range(df_name = "Test_df", col_name = "x", int = TRUE, lower_inclu = TRUE,
+setup1 <- setup_test_range(df_name = "df", col_name = "x", int = TRUE, lower_inclu = TRUE,
                            upper_inclu = TRUE, lower = 1, upper = 10, na = FALSE)
 
-setup2 <- setup_test_values(df_name = "Test_df", col_name = "y", values = c("X", "Y"), na = FALSE)
+setup2 <- setup_test_values(df_name = "df", col_name = "y", values = c("X", "Y"), na = FALSE)
 
-setup3 <- setup_test_unique(df_name = "Test_df", col_name = "x", na = FALSE)
+setup3 <- setup_test_unique(df_name = "df", col_name = "x", na = FALSE)
 
-setup4 <- setup_test_na(df_name = "Test_df", col_name = "y")
+setup4 <- setup_test_na(df_name = "df", col_name = "y")
 
 test1 <- apply_test(setup1, df)
 test2 <- apply_test(setup2, df)
