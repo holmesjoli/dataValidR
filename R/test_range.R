@@ -35,10 +35,10 @@ max_na <- function(col, na) {
 #' @export
 test_exclu_lower <- function(df, cls) {
   
-  cls$test_desc <- "Test x > lower"
-  class(cls) <- append(class(cls), "exclu_lower")
-
   mn <- min_na(df[[cls$col_name]], cls$na)
+  
+  cls$test_desc <- paste0("Test ", cls$col_name," > ", mn)
+  class(cls) <- append(class(cls), "exclu_lower")
   
   if (!is.na(mn)) {
   
@@ -62,10 +62,10 @@ test_exclu_lower <- function(df, cls) {
 #' @export
 test_inclu_lower <- function(df, cls) {
   
-  cls$test_desc <- "Test x >= lower"
-  class(cls) <- append(class(cls), "inclu_lower")
-  
   mn <- min_na(df[[cls$col_name]], cls$na)
+  
+  cls$test_desc <- paste0("Test ", cls$col_name," >= ", mn)
+  class(cls) <- append(class(cls), "inclu_lower")
   
   if (!is.na(mn)) {
     
@@ -89,10 +89,11 @@ test_inclu_lower <- function(df, cls) {
 #' @export
 test_exclu_upper <- function(df, cls) {
   
-  cls$test_desc <- "Test x < upper"
-  class(cls) <- append(class(cls), "exclu_upper")
-  
   mx <- max_na(df[[cls$col_name]], cls$na)
+  
+  cls$test_desc <- paste0("Test ", cls$col_name," < ", mx)
+  
+  class(cls) <- append(class(cls), "exclu_upper")
   
   if (!is.na(mx)) {
     
@@ -116,10 +117,10 @@ test_exclu_upper <- function(df, cls) {
 #' @export
 test_inclu_upper <- function(df, cls) {
   
-  cls$test_desc <- "Test x <= upper"
-  class(cls) <- append(class(cls), "inclu_upper")
-  
   mx <- max_na(df[[cls$col_name]], cls$na)
+  
+  cls$test_desc <- paste0("Test ", cls$col_name," <= ", mx)
+  class(cls) <- append(class(cls), "inclu_upper")
   
   if (!is.na(mx)) {
     
@@ -143,11 +144,11 @@ test_inclu_upper <- function(df, cls) {
 #' @export
 test_exclu_lower_exclu_upper <- function(df, cls) {
 
-  cls$test_desc <- "Test lower < x < upper"
-  class(cls) <- append(class(cls), "exclu_lower_exclu_upper")
-  
   el <- test_exclu_lower(df, cls)
   eu <- test_exclu_upper(df, cls)
+  
+  cls$test_desc <- paste0("Test ", el$lower," < ", cls$col_name," < ", eu$upper)
+  class(cls) <- append(class(cls), "exclu_lower_exclu_upper")
   
   if (el$test_result & eu$test_result) {
     
@@ -175,11 +176,11 @@ test_exclu_lower_exclu_upper <- function(df, cls) {
 #' @export
 test_inclu_lower_exclu_upper <- function(df, cls) {
   
-  cls$test_desc <- "Test lower <= x < upper"
-  class(cls) <- append(class(cls), "inclu_lower_exclu_upper")
-  
   il <- test_inclu_lower(df, cls)
   eu <- test_exclu_upper(df, cls)
+  
+  cls$test_desc <- paste0("Test ", il$lower," <= ", cls$col_name," < ", eu$upper)
+  class(cls) <- append(class(cls), "inclu_lower_exclu_upper")
   
   if (il$test_result & eu$test_result) {
     
@@ -207,11 +208,11 @@ test_inclu_lower_exclu_upper <- function(df, cls) {
 #' @export
 test_inclu_lower_inclu_upper <- function(df, cls) {
   
-  cls$test_desc <- "Test lower <= x <= upper"
-  class(cls) <- append(class(cls), "inclu_lower_inclu_upper")
-  
   il <- test_inclu_lower(df, cls)
   iu <- test_inclu_upper(df, cls)
+  
+  cls$test_desc <- paste0("Test ", il$lower," <= ", cls$col_name," <= ", iu$upper)
+  class(cls) <- append(class(cls), "inclu_lower_inclu_upper")
   
   if (il$test_result & iu$test_result) {
     
@@ -240,11 +241,11 @@ test_inclu_lower_inclu_upper <- function(df, cls) {
 #' @export
 test_exclu_lower_inclu_upper <- function(df, cls) {
   
-  cls$test_desc <- "Test lower < x <= upper"
-  class(cls) <- append(class(cls), "exclu_lower_inclu_upper")
-  
   el <- test_exclu_lower(df, cls)
   iu <- test_inclu_upper(df, cls)
+  
+  cls$test_desc <- paste0("Test ", el$lower," <= ", cls$col_name," <= ", iu$upper)
+  class(cls) <- append(class(cls), "exclu_lower_inclu_upper")
   
   if (el$test_result & iu$test_result) {
     
