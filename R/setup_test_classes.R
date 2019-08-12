@@ -60,7 +60,7 @@ test_param_numeric_or_null <- function(setup, param) {
 test_param_integer_or_null <- function(setup, param) {
   value <- setup[[param]]
   msg <- paste0("Parameter '", param, "' must be integer or NULL")
-  assertthat::assert_that((is_int(value) | is.null(value)) & !is.na(value), msg = msg)
+  assertthat::assert_that((is_int(value) | is.null(value)), msg = msg)
 }
 
 #' @title Test param is string
