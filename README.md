@@ -16,7 +16,7 @@ The validR package is a series of tests used for data validation.
 
 -   **test_unique**: tests the uniqueness of a dataframe column/series
 -   **test_values**: tests the values of a dataframe column/series against the expected values
--   **test_null_values**: tests that there are no null values in adataframe column/series
+-   **test_na**: tests that there are no null values in adataframe column/series
 -   **test_type**: tests that the type is equal to the expected column type. Expected type can take on the following values: _char_string_, _string_, _str_, _number_, _numeric_, _integer_, _int_, _float_, _flt_, _double_, _complex_, _boolean_, _bool_, _datetime_, _date_.
 
 #### Boolean Tests
@@ -28,11 +28,12 @@ The validR package is a series of tests used for data validation.
 
 #### Numeric tests
 
--   **test_less_than_value**: tests all values in a dataframe column/series are less than the specified upper bound
--   **test_less_than_or_equal_value**: tests all values in a dataframe column/series are less than or equal to the specified upper bound
--   **test_greater_than_value**: tests all values in a dataframe column/series are greater than the specified lower bound
--   **test_greater_than_or_equal_value**: tests all values in a dataframe column/series are greater than or equal to the specified lower bound
--   **test_inclu_value_range**: tests all values are in a dataframe column/series are less than or equal to the upper bound and greater than or equal to the lower bound
--   **test_exclu_value_range**: tests all values in a dataframe column/series are less than the upper bound and greater than the lower bound
--   **test_exclu_lower_inclu_upper_range**: tests that all values in a dataframe column/series are less than or equal to the upper bound and greater than the lower bound
--   **test_inclu_lower_exclu_upper_range**: tests that all values in a dataframe column/series are less than the upper bound or greater than or equal to the lower bound
+-   **test_exclu_upper**: tests all values in a dataframe column/series are less than the specified upper bound
+-   **test_inclu_upper**: tests all values in a dataframe column/series are less than or equal to the specified upper bound
+-   **test_exclu_lower**: tests all values in a dataframe column/series are greater than the specified lower bound
+-   **test_inclu_lower**: tests all values in a dataframe column/series are greater than or equal to the specified lower bound
+-   **test_inclu_lower_inclu_upper**: tests all values are in a dataframe column/series are less than or equal to the upper bound and greater than or equal to the lower bound
+-   **test_exclu_lower_exclu_upper**: tests all values in a dataframe column/series are less than the upper bound and greater than the lower bound
+-   **test_exclu_lower_inclu_upper**: tests that all values in a dataframe column/series are less than or equal to the upper bound and greater than the lower bound
+-   **test_inclu_lower_exclu_upper**: tests that all values in a dataframe column/series are less than the upper bound or greater than or equal to the lower bound
+
