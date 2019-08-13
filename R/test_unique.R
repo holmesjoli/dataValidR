@@ -47,6 +47,8 @@ test_unique <- function(df, setup) {
 
   if (length(setup$col_name) > 1) {
     col <- do.call(paste, c(df[setup$col_name], sep="-"))
+    setup$col_name <- paste(col_name, collapse = ", ")
+    
   } else {
     col <- df[[setup$col_name]]
   }
