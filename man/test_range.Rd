@@ -4,12 +4,12 @@
 \alias{test_range}
 \title{Assign the correct numeric test}
 \usage{
-test_range(df, cls)
+test_range(df, setup)
 }
 \arguments{
 \item{df}{the dataframe}
 
-\item{cls}{the setup class for testing}
+\item{setup}{the setup class for testing}
 }
 \description{
 Assigns the correct numeric test depending on the parameters

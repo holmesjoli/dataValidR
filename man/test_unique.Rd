@@ -4,12 +4,12 @@
 \alias{test_unique}
 \title{Test uniqueness}
 \usage{
-test_unique(df, cls)
+test_unique(df, setup)
 }
 \arguments{
 \item{df}{the dataframe}
 
-\item{cls}{the setup class for testing}
+\item{setup}{the setup setup for testing}
 }
 \description{
 Tests if the vector/column is unique
@@ -17,13 +17,13 @@ Tests if the vector/column is unique
 \examples{
 \dontrun{
 df <- data.frame(x = 1:4, y = c(1,1,2:3))
-cls <- class_test_unique("df_name", "x", FALSE) 
+setup <- setup_test_unique("df_name", "x", FALSE) 
 
-test <- test_unique(df, cls)
+test <- test_unique(df, setup)
 ## test$test_result returns TRUE
 
-cls <- class_test_unique("df_name", "y", FALSE) 
-test <- test_unique(df, cls)
+setup <- setup_test_unique("df_name", "y", FALSE) 
+test <- test_unique(df, setup)
 ## test$test_result returns FALSE
 }
 }

@@ -4,15 +4,15 @@
 \alias{test_values}
 \title{Test expected values}
 \usage{
-test_values(df, cls)
+test_values(df, setup)
 }
 \arguments{
 \item{df}{the dataframe}
 
-\item{cls}{the setup class for testing}
+\item{setup}{the setup setup for testing}
 }
 \value{
-class with test_result, test_message, test_description
+setup with test_result, test_message, test_description
 }
 \description{
 Tests if the vector/column contains values other than expected
@@ -22,13 +22,13 @@ Tests if the vector/column contains values other than expected
 df <- data.frame(x = 1:4, y = 5:8)
 values <- 1:4
 na <- FALSE
-cls <- class_test_values("df_name", "x", values, na)
+setup <- setup_test_values("df_name", "x", values, na)
 
-test <- test_values(df, cls)
+test <- test_values(df, setup)
 ## test$test_result returns TRUE
 
-cls <- class_test_values("df_name", "y", values, na)
-test <- test_values(df, cls)
+setup <- setup_test_values("df_name", "y", values, na)
+test <- test_values(df, setup)
 ## test$test_result returns FALSE
 }
 }

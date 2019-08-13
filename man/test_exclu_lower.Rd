@@ -4,12 +4,12 @@
 \alias{test_exclu_lower}
 \title{Test Exclu lower}
 \usage{
-test_exclu_lower(df, cls)
+test_exclu_lower(df, setup)
 }
 \arguments{
 \item{df}{the dataframe}
 
-\item{cls}{the setup class for testing}
+\item{setup}{the setup class for testing}
 }
 \description{
 Tests that column is greater than the lower bound
