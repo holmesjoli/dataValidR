@@ -1,11 +1,11 @@
 #' @title Apply test
 #' @export
-apply_test <- function(df, setup, df){
+apply_test <- function(df, setup, df) {
   UseMethod("apply_test")
   
 }
 
-apply_test.default <- function(df, setup, ...){
+apply_test.default <- function(df, setup, ...) {
   
   warning(paste("apply_test does not know how to handle object of class ", 
                 class(setup),
