@@ -1,6 +1,6 @@
 #' @title Setup Test Unique
 #' @param df_name is a string and represents the name of the dataframe. 
-#' @param col_name is a string and represents the name of the column to be tested.
+#' @param col_name is a string or vector of column names. If more than one column is included they will be concatenated and tested.
 #' @param na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
 #' there are NA values, an error will occur.
 #' @examples
@@ -44,12 +44,15 @@ setup_test_unique <- function(df_name, col_name, na) {
 #' }
 #' @export
 test_unique <- function(df, setup) {
-  
-  if (setup$na) {
-    
-    col <- df[[setup$col_name]][!is.na(df[[setup$col_name]])]
+
+  if (length(setup$col_name) > 1) {
+    col <- do.call(paste, c(df[setup$col_name], sep="-"))
   } else {
     col <- df[[setup$col_name]]
+  }
+  
+  if (setup$na) {
+    col <- col[!is.na(col)]
   }
   
   if (length(unique(col)) == length(col)) {
