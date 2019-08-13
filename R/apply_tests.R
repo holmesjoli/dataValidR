@@ -35,7 +35,7 @@ apply_test.test_unique <- function(df, setup) {
 
 #' @title Tests for Values
 #' @export
-apply_test.test_values <- function(setup, df) {
+apply_test.test_values <- function(df, setup) {
 
   test <- test_values(df, setup)
   test_result <- test_col(test)
