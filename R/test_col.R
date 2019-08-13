@@ -25,9 +25,9 @@ test_unique <- function(df, setup) {
   }
   
   if (length(unique(col)) == length(col)) {
-      
+
     setup$test_result <- TRUE
-    setup$test_message <- "PASSED"
+    setup$test_message <- passed
     
   } else {
     setup$test_result <- FALSE
@@ -71,7 +71,7 @@ test_values <- function(df, setup) {
   } else {
    
     setup$test_result <- TRUE
-    setup$test_message <- "PASSED"
+    setup$test_message <- passed
     
   }
   
@@ -100,7 +100,7 @@ test_na <- function(df, setup) {
     if (all(!is.na(df[[setup$col_name]]))) {
         
       setup$test_result <- TRUE
-      setup$test_message <- "PASSED"
+      setup$test_message <- passed
       
     } else {
       

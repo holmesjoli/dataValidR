@@ -44,7 +44,7 @@ test_exclu_lower <- function(df, setup) {
   
     if (mn > setup$lower) {
       setup$test_result <- TRUE
-      setup$test_message <- "PASSED"
+      setup$test_message <- passed
     } else {
       setup$test_result <- FALSE
       setup$test_message <- paste0("FAILED: lower bound is ", mn, " but expected less than ", setup$lower)
@@ -71,7 +71,7 @@ test_inclu_lower <- function(df, setup) {
     
     if (mn >= setup$lower) {
       setup$test_result <- TRUE
-      setup$test_message <- "PASSED"
+      setup$test_message <- passed
     } else {
       setup$test_result <- FALSE
       setup$test_message <- paste0("FAILED: lower bound is ", mn, " but expected less than or equal to", setup$lower)
@@ -99,7 +99,7 @@ test_exclu_upper <- function(df, setup) {
     
     if (mx < setup$upper) {
       setup$test_result <- TRUE
-      setup$test_message <- "PASSED"
+      setup$test_message <- passed
     } else {
       setup$test_result <- FALSE
       setup$test_message <- paste0("FAILED: upper bound is ", mx, " but expected greater than ", setup$upper)
@@ -126,7 +126,7 @@ test_inclu_upper <- function(df, setup) {
     
     if (mx <= setup$upper) {
       setup$test_result <- TRUE
-      setup$test_message <- "PASSED"
+      setup$test_message <- passed
     } else {
       setup$test_result <- FALSE
       setup$test_message <- paste0("FAILED: upper bound is ", mx, " but expected greater than or equal to ", setup$upper)
@@ -153,7 +153,7 @@ test_exclu_lower_exclu_upper <- function(df, setup) {
   if (el$test_result & eu$test_result) {
     
     setup$test_result <- TRUE
-    setup$test_message <- "PASSED"
+    setup$test_message <- passed
   
   } else {
     
@@ -185,7 +185,7 @@ test_inclu_lower_exclu_upper <- function(df, setup) {
   if (il$test_result & eu$test_result) {
     
     setup$test_result <- TRUE
-    setup$test_message <- "PASSED"
+    setup$test_message <- passed
     
   } else {
     
@@ -217,7 +217,7 @@ test_inclu_lower_inclu_upper <- function(df, setup) {
   if (il$test_result & iu$test_result) {
     
     setup$test_result <- TRUE
-    setup$test_message <- "PASSED"
+    setup$test_message <- passed
     
   } else {
     
@@ -250,7 +250,7 @@ test_exclu_lower_inclu_upper <- function(df, setup) {
   if (el$test_result & iu$test_result) {
     
     setup$test_result <- TRUE
-    setup$test_message <- "PASSED"
+    setup$test_message <- passed
     
   } else {
     
