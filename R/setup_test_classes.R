@@ -218,3 +218,28 @@ setup_test_na <- function(df_name, col_name) {
   
   
 }
+
+#' @title Setup Test merges
+#' @param df_left_name the name of left dataset
+#' @param df_right_name right dataset
+#' @param left_na from the left dataset are okay, default = FALSE
+#' @param right_na from the right dataset are okay, default = FALSE
+setup_test_merge <- function(df_left_name, df_right_name, 
+                             left_na = FALSE, right_na = FALSE) {
+  
+  setup <- structure(list(test_category = "Completeness",
+                          test_name = "test_merge",
+                          test_desc = "Test Merge",
+                          df_left_name = df_left_name,
+                          df_right_name = df_right_name,
+                          left_na = left_na,
+                          right_na = right_na), class = "test_merge")
+  
+  test_param_logical(left_na)
+  test_param_logical(right_na)
+  test_param_string(setup, "df_left_name")
+  test_param_string(setup, "df_right_name")
+  
+  return(setup)
+  
+}
