@@ -268,6 +268,59 @@ test_exclu_lower_inclu_upper <- function(df, setup) {
 }
 
 
+#' @title Setup Test Range
+#' @param df_name is a string and represents the name of the dataframe. 
+#' @param col_name is a string and represents the name of the column to be tested.
+#' @param int is a boolean value, if the values should be integers or not
+#' @param upper_inclu takes on the values TRUE, FALSE, or NULL. If there's an upper bound then it should be set to TRUE or FALSE.
+#' If the upper bound is inclusive, x <= upper, then upper_inclu = TRUE, else upper_inclu = FALSE.
+#' @param lower_inclu takes on the values TRUE, FALSE, or NULL. If there's an lower bound then it should be set to TRUE or FALSE.
+#' If the lower bound is inclusive, x >= lower, then lower_inclu = TRUE, else lower_inclu = FALSE.
+#' @param upper can take a numeric value or NULL. If there's no upper bound, then upper should be null.
+#' @param lower can take a numeric value or NULL. If there's no lower bound, then lower should be null.
+#' @param na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+#' there are NA values, an error will occur.
+#' @export
+setup_test_range <- function(df_name, col_name, int, lower_inclu, 
+                             upper_inclu, lower, upper, na) {
+  
+  setup <- structure(list(test_category = "Accuracy",
+                          test_name = "test_range", 
+                          test_desc = "Test Range",
+                          df_name = df_name,
+                          col_name = col_name,
+                          int = int,
+                          lower_inclu = lower_inclu,
+                          upper_inclu = upper_inclu,
+                          lower = lower,
+                          upper = upper,
+                          na = na), class = "test_range")
+  
+  expc_params <- c("df_name", "col_name", "int", "upper_inclu", 
+                   "lower_inclu", "upper", "lower", "na")
+  test_expc_params(setup, expc_params)
+  test_param_string(setup, "df_name")
+  test_param_string(setup, "col_name")
+  test_param_logical(setup, "int")
+  test_param_logical_or_null(setup, "upper_inclu")
+  test_param_logical_or_null(setup, "lower_inclu")
+  test_param_logical(setup, "na")
+  test_param_numeric_or_null(setup, "upper")
+  test_param_numeric_or_null(setup, "lower")
+  test_params_both_null_or_not(setup, "upper", "upper_inclu")
+  test_params_both_null_or_not(setup, "lower", "lower_inclu")
+  
+  if (setup$int) {
+    test_param_integer_or_null(setup, "upper")
+    test_param_integer_or_null(setup, "lower")
+    class(setup) <- append(class(setup), "integer")
+  } else {
+    class(setup) <- append(class(setup), "double")
+  }
+  
+  return(setup)
+}
+
 #' @title Assign the correct numeric test
 #' @description Assigns the correct numeric test depending on the parameters
 #' @inheritParams test_exclu_lower
