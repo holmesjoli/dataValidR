@@ -25,6 +25,7 @@ setup_test_unique <- function(df_name, col_name, na) {
   return(setup)
 }
 
+
 #' @title Test uniqueness
 #' @description Tests if the vector/column is unique
 #' @param df the dataframe
