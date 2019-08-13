@@ -1,16 +1,16 @@
 #' @title Test uniqueness
 #' @description Tests if the vector/column is unique
 #' @param df the dataframe
-#' @param setup the setup class for testing
+#' @param setup the setup setup for testing
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = c(1,1,2:3))
-#' setup <- class_test_unique("df_name", "x", FALSE) 
+#' setup <- setup_test_unique("df_name", "x", FALSE) 
 #' 
 #' test <- test_unique(df, setup)
 #' ## test$test_result returns TRUE
 #' 
-#' setup <- class_test_unique("df_name", "y", FALSE) 
+#' setup <- setup_test_unique("df_name", "y", FALSE) 
 #' test <- test_unique(df, setup)
 #' ## test$test_result returns FALSE
 #' }
@@ -40,19 +40,19 @@ test_unique <- function(df, setup) {
 #' @title Test expected values
 #' @description Tests if the vector/column contains values other than expected
 #' @param df the dataframe
-#' @param setup the setup class for testing
-#' @return class with test_result, test_message, test_description
+#' @param setup the setup setup for testing
+#' @return setup with test_result, test_message, test_description
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = 5:8)
 #' values <- 1:4
 #' na <- FALSE
-#' setup <- class_test_values("df_name", "x", values, na)
+#' setup <- setup_test_values("df_name", "x", values, na)
 #' 
 #' test <- test_values(df, setup)
 #' ## test$test_result returns TRUE
 #' 
-#' setup <- class_test_values("df_name", "y", values, na)
+#' setup <- setup_test_values("df_name", "y", values, na)
 #' test <- test_values(df, setup)
 #' ## test$test_result returns FALSE
 #' }
@@ -82,15 +82,15 @@ test_values <- function(df, setup) {
 #' @title Test NA values
 #' @description Tests if the vector/column contains any NA values
 #' @param df the dataframe
-#' @param setup the setup class for testing
+#' @param setup the setup setup for testing
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = c(NA, 6:8))
-#' setup <- class_test_na("df_name", "x") 
+#' setup <- setup_test_na("df_name", "x") 
 #' test <- test_na(df, setup)
 #' ## test$test_result returns TRUE
 #' 
-#' setup <- class_test_na("df_name", "y") 
+#' setup <- setup_test_na("df_name", "y") 
 #' test <- test_na(df, setup)
 #' ## test$test_result returns FALSE
 #' }
