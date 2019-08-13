@@ -9,7 +9,7 @@ setup_test_unique(df_name, col_name, na)
 \arguments{
 \item{df_name}{is a string and represents the name of the dataframe.}
 
-\item{col_name}{is a string and represents the name of the column to be tested.}
+\item{col_name}{is a string or vector of column names. If more than one column is included they will be concatenated and tested.}
 
 \item{na}{is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
 there are NA values, an error will occur.}
