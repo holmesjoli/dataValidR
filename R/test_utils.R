@@ -8,7 +8,8 @@ failed <- "FAILED"
 #' test_row(test)
 test_row <- function(test) {
   
-  data.frame(df_name = test$df_name,
+  data.frame(test_category = test$test_category,
+             df_name = test$df_name,
              col_name = test$col_name,
              test_name = test$test_name,
              test_desc = test$test_desc,

@@ -106,7 +106,8 @@ test_params_both_not_null <- function(setup, param1, param2) {
 setup_test_range <- function(df_name, col_name, int, lower_inclu, 
                              upper_inclu, lower, upper, na) {
   
-  setup <- structure(list(test_name = "test_range", 
+  setup <- structure(list(test_category = "Accuracy",
+                          test_name = "test_range", 
                           test_desc = "Test Range",
                           df_name = df_name,
                           col_name = col_name,
@@ -151,7 +152,8 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
 #' @export
 setup_test_values <- function(df_name, col_name, values, na) {
   
-  setup <- structure(list(test_name = "test_values",
+  setup <- structure(list(test_category = "Consistency",
+                          test_name = "test_values",
                           test_desc = "Expected Values",
                           df_name = df_name,
                           col_name = col_name,
@@ -179,7 +181,8 @@ setup_test_values <- function(df_name, col_name, values, na) {
 #' @export
 setup_test_unique <- function(df_name, col_name, na) {
   
-  setup <- structure(list(test_name = "test_unique",
+  setup <- structure(list(test_category = "Uniqueness",
+                          test_name = "test_unique",
                           test_desc = "Test Unique",
                           df_name = df_name,
                           col_name = col_name,
@@ -200,7 +203,8 @@ setup_test_unique <- function(df_name, col_name, na) {
 #' @export
 setup_test_na <- function(df_name, col_name) {
   
-  setup <- structure(list(test_name = "test_na",
+  setup <- structure(list(test_category = "Completeness",
+                          test_name = "test_na",
                           test_desc = "Test NA",
                           df_name = df_name,
                           col_name = col_name), class = "test_na")
