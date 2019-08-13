@@ -1,7 +1,7 @@
 #' @title Apply test
 #' @export
 apply_test <- function(df, setup) {
-  UseMethod("apply_test")
+  UseMethod("apply_test", object = setup)
 
 }
 
