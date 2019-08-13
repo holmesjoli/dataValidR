@@ -18,7 +18,7 @@ apply_test.default <- function(df, setup, ...){
 apply_test.test_na <- function(df, setup) {
   
   test <- test_na(df, setup)
-  test_result <- test_row(test)
+  test_result <- test_col(test)
   
   return(test_result)
 }
@@ -28,7 +28,7 @@ apply_test.test_na <- function(df, setup) {
 apply_test.test_unique <- function(df, setup) {
   
   test <- test_unique(df, setup)
-  test_result <- test_row(test)
+  test_result <- test_col(test)
   
   return(test_result)
 }
@@ -38,7 +38,7 @@ apply_test.test_unique <- function(df, setup) {
 apply_test.test_values <- function(setup, df) {
   
   test <- test_values(df, setup)
-  test_result <- test_row(test)
+  test_result <- test_col(test)
   
   return(test_result)
 }
@@ -48,7 +48,7 @@ apply_test.test_values <- function(setup, df) {
 apply_test.test_range <- function(df, setup) {
   
   test <- test_range(df, setup)
-  test_result <- test_row(test)
+  test_result <- test_col(test)
   
   return(test_result)
 }
