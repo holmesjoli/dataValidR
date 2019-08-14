@@ -49,10 +49,13 @@ setup3 <- setup_test_unique(df_name = "df", col_name = "x", na = FALSE)
 
 setup4 <- setup_test_na(df_name = "df", col_name = "y")
 
-test1 <- apply_test(setup1, df)
-test2 <- apply_test(setup2, df)
-test3 <- apply_test(setup3, df)
-test4 <- apply_test(setup4, df)
+test1 <- test(setup1, df)
+test2 <- test(setup2, df)
+test3 <- test(setup3, df)
+test4 <- test(setup4, df)
+
+
+
 
 tests <- rbind(test1, test2, test3, test4)
 
@@ -70,6 +73,14 @@ related_df <- data.frame(id1 = c(1,2,3), id2 = c(1,1,1), x = c(1,2,3))
 setup <- setup_test_orphan_rec(primary_df = "df1", related_df = "df2", 
                                primary_key = c("id1", "id2"), foreign_key = c("id1", "id2"))
 
-test1 <- apply_test(setup, primary_df, related_df)
+test1 <- test(setup, primary_df, related_df)
+
+primary_df <- data.frame(id = c(1,2,2), id2 = c(1,1,2), y = c(1,1,2))
+related_df <- data.frame(id1 = c(1,2,15), id2 = c(1,1,1), x = c(1,2,3))
+
+setup <- setup_test_orphan_rec(primary_df = "df1", related_df = "df2", 
+                               primary_key = c("id", "id2"), foreign_key = c("id1", "id2"))
+
+test2 <- test(setup, primary_df, related_df)
 
 ```
