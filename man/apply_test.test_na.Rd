@@ -4,7 +4,7 @@
 \alias{apply_test.test_na}
 \title{Tests for NAs}
 \usage{
-\method{apply_test}{test_na}(df, setup)
+\method{apply_test}{test_na}(setup, df, ...)
 }
 \description{
 Tests for NAs

@@ -4,7 +4,7 @@
 \alias{apply_test.test_unique}
 \title{Tests for uniqueness}
 \usage{
-\method{apply_test}{test_unique}(df, setup)
+\method{apply_test}{test_unique}(setup, df, ...)
 }
 \description{
 Tests for uniqueness

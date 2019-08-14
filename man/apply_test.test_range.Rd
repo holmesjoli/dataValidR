@@ -4,7 +4,7 @@
 \alias{apply_test.test_range}
 \title{Tests Range of Values}
 \usage{
-\method{apply_test}{test_range}(df, setup)
+\method{apply_test}{test_range}(setup, df, ...)
 }
 \description{
 Tests Range of Values

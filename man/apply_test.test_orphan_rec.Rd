@@ -4,7 +4,7 @@
 \alias{apply_test.test_orphan_rec}
 \title{Tests One to Many}
 \usage{
-\method{apply_test}{test_orphan_rec}(primary_df, related_df, setup)
+\method{apply_test}{test_orphan_rec}(setup, primary_df, related_df, ...)
 }
 \arguments{
 \item{setup}{from the merge setup class}

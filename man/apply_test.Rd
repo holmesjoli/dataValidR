@@ -4,7 +4,10 @@
 \alias{apply_test}
 \title{Apply test}
 \usage{
-apply_test(df, setup)
+apply_test(setup, ...)
+}
+\arguments{
+\item{setup}{the setup class}
 }
 \description{
 Apply test

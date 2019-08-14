@@ -4,7 +4,7 @@
 \alias{apply_test.test_values}
 \title{Tests for Values}
 \usage{
-\method{apply_test}{test_values}(df, setup)
+\method{apply_test}{test_values}(setup, df, ...)
 }
 \description{
 Tests for Values
