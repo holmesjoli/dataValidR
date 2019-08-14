@@ -43,10 +43,13 @@ test.values <- function(setup, df, ...) {
     setup$test_result <- FALSE
     setup$test_message <- paste0("FAILED with additional values in col: ", 
                                  paste(add_values, collapse = ","))
-    setup$problem_df <- data.frame(df_name = setup$df_name,
-                                  col_name = setup$col_name,
-                                  `incorrect values` = add_values,
-                                  stringsAsFactors = F)
+    
+    n <- nrow(df)
+    setup$problem_df <- data.frame(table(df[[setup$col_name]]), stringsAsFactors = F) %>% 
+                          dplyr::filter(Var1 %in% add_values) %>% 
+                          dplyr::mutate(percent = (Freq/n)*100) %>% 
+                          dplyr::rename(value = Var1,
+                                        freq = Freq)
   } else {
     
     setup$test_result <- TRUE
@@ -99,14 +102,10 @@ test.unique <- function(setup, df, ...) {
     setup$test_result <- FALSE
     setup$test_message <- "FAILED: Not Unique"
     
-    test <- as.data.frame(table(col)) %>% 
-      dplyr::filter(Freq > 1) %>% 
-      dplyr::rename(value = col) %>% 
-      dplyr::mutate(df_name = setup$df_name,
-                    col_name = setup$col_name) %>% 
-      dplyr::select(df_name, col_name, value, Freq)
-
-    setup$problem_df <- test
+    setup$problem_df <- as.data.frame(table(col)) %>% 
+                          dplyr::filter(Freq > 1) %>% 
+                          dplyr::rename(value = col,
+                                        freq = Freq)
   }
   
   return(setup)
@@ -178,9 +177,8 @@ test.na <- function(setup, df, ...) {
     
     setup$test_result <- FALSE  
     setup$test_message <- "FAILED: Contains na values"
-    setup$problem_df <- data.frame(df_name = setup$df_name,
-                                   col_name = setup$col_name,
-                                   n_na = sum(is.na(df[[setup$col_name]])))
+    setup$problem_df <- data.frame(n_na = sum(is.na(df[[setup$col_name]])),
+                                   stringsAsFactors = F)
   }
   
   return(setup)
@@ -210,7 +208,10 @@ test.orphan_rec <- function(setup, primary_df, related_df, ...) {
                                                  .Data = setup$foreign_key))
   
   if (nrow(test) != nrow(related_df)) {
+
     
+    setup$test_result <- FALSE
+    setup$test_message <- paste0("FAILED: orphaned values in ", setup$related_df)
     setup$problem_df <- primary_df %>% 
       dplyr::mutate(primary_df = 1) %>% 
       dplyr::right_join(related_df, by = structure(names = setup$primary_key, 
@@ -218,13 +219,12 @@ test.orphan_rec <- function(setup, primary_df, related_df, ...) {
       dplyr::filter(is.na(primary_df)) %>% 
       dplyr::select(dplyr::one_of(setup$primary_key))
     
-    setup$test_result <- FALSE
-    setup$test_message <- paste0("FAILED: orphaned values in ", setup$related_df)
-    
   } else {
-    setup$problem_df <- NA
+    
     setup$test_result <- TRUE
     setup$test_message <- passed
+    setup$problem_df <- NA
+
   }
   
   return(setup)
