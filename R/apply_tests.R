@@ -1,21 +1,21 @@
 #' @title Apply test
-#' @export
-apply_test <- function(df, setup) {
+#' @param setup the setup class
+apply_test <- function(setup, ...) {
   UseMethod("apply_test", object = setup)
 
 }
 
-apply_test.default <- function(df, setup, ...) {
+apply_test.default <- function(setup, ...) {
 
   warning(paste("apply_test does not know how to handle object of class ",
                 class(setup),
-                "and can only be used on classes test_na, test_unique, test_values, and test_range"))
+                "and can only be used on classes test_na, test_unique, test_values, test_range, and test_orphan_rec"))
 
 }
 
 #' @title Tests for NAs
-#' @export
-apply_test.test_na <- function(df, setup) {
+#' @esetupport
+apply_test.test_na <- function(setup, df, ...) {
 
   test <- test_na(df, setup)
   test_result <- test_col(test)
@@ -24,8 +24,8 @@ apply_test.test_na <- function(df, setup) {
 }
 
 #' @title Tests for uniqueness
-#' @export
-apply_test.test_unique <- function(df, setup) {
+#' @esetupport
+apply_test.test_unique <- function(setup, df, ...) {
 
   test <- test_unique(df, setup)
   test_result <- test_col(test)
@@ -34,8 +34,8 @@ apply_test.test_unique <- function(df, setup) {
 }
 
 #' @title Tests for Values
-#' @export
-apply_test.test_values <- function(df, setup) {
+#' @esetupport
+apply_test.test_values <- function(setup, df, ...) {
 
   test <- test_values(df, setup)
   test_result <- test_col(test)
@@ -44,8 +44,8 @@ apply_test.test_values <- function(df, setup) {
 }
 
 #' @title Tests Range of Values
-#' @export
-apply_test.test_range <- function(df, setup) {
+#' @esetupport
+apply_test.test_range <- function(setup, df, ...) {
 
   test <- test_range(df, setup)
   test_result <- test_col(test)
@@ -57,8 +57,8 @@ apply_test.test_range <- function(df, setup) {
 #' @param df_left left dataset
 #' @param df_right right dataset
 #' @param setup from the merge setup class
-#' @export
-apply_test.test_orphan_rec <- function(primary_df, related_df, setup) {
+#' @esetupport
+apply_test.test_orphan_rec <- function(setup, primary_df, related_df, ...) {
 
   test <- test_orphan_rec(primary_df, related_df, setup)
   test_result <- test_merge(test)
