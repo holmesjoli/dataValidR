@@ -54,7 +54,6 @@ test.values <- function(setup, df, ...) {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
-    setup$problem_df <- NA
     
   }
   
@@ -96,7 +95,6 @@ test.unique <- function(setup, df, ...) {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
-    setup$problem_df <- NA
     
   } else {
     setup$test_result <- FALSE
@@ -171,7 +169,6 @@ test.na <- function(setup, df, ...) {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
-    setup$problem_df <- NA
     
   } else {
     
@@ -223,7 +220,6 @@ test.orphan_rec <- function(setup, primary_df, related_df, ...) {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
-    setup$problem_df <- NA
 
   }
   
