@@ -15,7 +15,6 @@ test.default <- function(setup, ...) {
   
 }
 
-
 #' @title Test expected values
 #' @description Tests if the vector/column contains values other than expected
 #' @inheritParams test
@@ -44,11 +43,15 @@ test.values <- function(setup, df, ...) {
     setup$test_result <- FALSE
     setup$test_message <- paste0("FAILED with additional values in col: ", 
                                  paste(add_values, collapse = ","))
-    
+    setup$problem_df <- data.frame(df_name = setup$df_name,
+                                  col_name = setup$col_name,
+                                  `incorrect values` = add_values,
+                                  stringsAsFactors = F)
   } else {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
+    setup$problem_df <- NA
     
   }
   
