@@ -118,8 +118,8 @@ test_col <- function(test) {
 test_merge <- function(test){
   
   data.frame(test_category = test$test_category,
-             df_left_name = df_left_name,
-             df_right_name = df_right_name,
+             primary_df = test$primary_df,
+             related_df = test$related_df,
              test_name = test$test_name,
              test_desc = test$test_desc,
              test_result = test$test_result,
