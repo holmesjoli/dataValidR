@@ -2,13 +2,16 @@
 % Please edit documentation in R/apply_tests.R
 \name{test_summary}
 \alias{test_summary}
-\title{Apply test}
+\title{Get summary}
 \usage{
 test_summary(setup, ...)
 }
 \arguments{
 \item{setup}{the setup class}
 }
+\value{
+dataframe
+}
 \description{
-Apply test
+Summarizes the attributes from the test
 }
