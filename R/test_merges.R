@@ -11,7 +11,7 @@ setup_test_orphan_rec <- function(primary_df, related_df, primary_key, foreign_k
                           primary_df = primary_df,
                           related_df = related_df,
                           primary_key = primary_key,
-                          foreign_key = foreign_key), class = "test_merge")
+                          foreign_key = foreign_key), class = "test_orphan_rec")
   
   test_param_string(setup, "primary_df")
   test_param_string(setup, "related_df")
@@ -37,10 +37,18 @@ test_orphan_rec <- function(primary_df, related_df, setup) {
   
   if (nrow(test) != nrow(related_df)) {
     
+    setup$problem_df <- primary_df %>% 
+      dplyr::mutate(primary_df = 1) %>% 
+      dplyr::right_join(related_df, by = structure(names = setup$primary_key, 
+                                                   .Data = setup$foreign_key)) %>% 
+      dplyr::filter(is.na(primary_df)) %>% 
+      dplyr::select(dplyr::one_of(setup$primary_key))
+    
     setup$test_result <- FALSE
-    setup$test_message <- "FAILED: "
+    setup$test_message <- paste0("FAILED: orphaned values in ", setup$related_df)
     
   } else {
+    setup$problem_df <- NA
     setup$test_result <- TRUE
     setup$test_message <- passed
   }
