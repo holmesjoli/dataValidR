@@ -1,3 +1,111 @@
+#' @title Setup for tests for orphaned records
+#' @param primary_df the name of the primary dataframe
+#' @param related_df the name of the related dataframe
+#' @param primary_key the column or vector of columns to merge on
+#' @param foreign_key the column or vector of columns to merge on
+setup_test_orphan_rec <- function(primary_df, related_df, primary_key, foreign_key) {
+  
+  setup <- structure(list(test_category = "Completeness",
+                          test_name = "test_merge",
+                          test_desc = "Test Merge",
+                          primary_df = primary_df,
+                          related_df = related_df,
+                          primary_key = primary_key,
+                          foreign_key = foreign_key), class = "test_orphan_rec")
+  
+  test_param_string(setup, "primary_df")
+  test_param_string(setup, "related_df")
+  test_param_string(setup, "primary_key")
+  test_param_string(setup, "foreign_key")
+  
+  return(setup)
+  
+}
+
+#' @title Setup Test Na
+#' @param df_name is a string and represents the name of the dataframe. 
+#' @param col_name is a string and represents the name of the column to be tested.
+#' @examples
+#' df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
+#' setup <- setup_test_na(df_name = "df", col_name = "y")
+#' @export
+setup_test_na <- function(df_name, col_name) {
+  
+  setup <- structure(list(test_category = "Completeness",
+                          test_name = "test_na",
+                          test_desc = "Test NA",
+                          df_name = df_name,
+                          col_name = col_name), class = "test_na")
+  
+  expc_params <- c("df_name", "col_name")
+  test_expc_params(setup, expc_params)
+  test_param_string(setup, "df_name")
+  test_param_string(setup, "col_name")
+  
+  return(setup)
+  
+}
+
+#' @title Setup Test Unique
+#' @param df_name is a string and represents the name of the dataframe. 
+#' @param col_name is a string or vector of column names. If more than one column is included they will be concatenated and tested.
+#' @param na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+#' there are NA values, an error will occur.
+#' @examples
+#' df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
+#' setup <- setup_test_unique(df_name = "df", col_name = "x", na = FALSE)
+#' @export
+setup_test_unique <- function(df_name, col_name, na) {
+  
+  setup <- structure(list(test_category = "Uniqueness",
+                          test_name = "test_unique",
+                          test_desc = "Test Unique",
+                          df_name = df_name,
+                          col_name = col_name,
+                          na = na), class = "test_unique")
+  
+  expc_params <- c("df_name", "col_name", "na")
+  test_expc_params(setup, expc_params)
+  test_param_string(setup, "df_name")
+  test_param_string(setup, "col_name")
+  test_param_logical(setup, "na")
+  
+  return(setup)
+}
+
+#' @title Setup Test Values
+#' @param df_name is a string and represents the name of the dataframe. 
+#' @param col_name is a string and represents the name of the column to be tested.
+#' @param values is a list of values that expected in the column to be tested. 
+#' @param na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
+#' there are NA values, an error will occur.
+#' @examples
+#' df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
+#' setup <- setup_test_values(df_name = "df", col_name = "y", values = c("X", "Y"), na = FALSE)
+#' @export
+setup_test_values <- function(df_name, col_name, values, na) {
+  
+  setup <- structure(list(test_category = "Consistency",
+                          test_name = "test_values",
+                          test_desc = "Expected Values",
+                          df_name = df_name,
+                          col_name = col_name,
+                          values = values,
+                          na = na), class = "test_values")
+  
+  expc_params <- c("df_name", "col_name", "values", "na")
+  test_expc_params(setup, expc_params)
+  test_param_string(setup, "df_name")
+  test_param_string(setup, "col_name")
+  test_param_logical(setup, "na")
+  
+  if (setup$na) {
+    setup$values <- c(setup$values, NA)
+  }
+  
+  return(setup)
+}
+
 #' @title Min with NA
 #' @description Returns the minimum with NA's removed if na = TRUE
 #' @param col the column to test
@@ -41,7 +149,7 @@ test_exclu_lower <- function(df, setup) {
   class(setup) <- append(class(setup), "exclu_lower")
   
   if (!is.na(mn)) {
-  
+    
     if (mn > setup$lower) {
       setup$test_result <- TRUE
       setup$test_message <- passed
@@ -143,7 +251,7 @@ test_inclu_upper <- function(df, setup) {
 #' @inheritParams test_exclu_lower
 #' @export
 test_exclu_lower_exclu_upper <- function(df, setup) {
-
+  
   el <- test_exclu_lower(df, setup)
   eu <- test_exclu_upper(df, setup)
   
@@ -154,7 +262,7 @@ test_exclu_lower_exclu_upper <- function(df, setup) {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
-  
+    
   } else {
     
     setup$test_result <- FALSE
@@ -318,42 +426,5 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
     class(setup) <- append(class(setup), "double")
   }
   
-  return(setup)
-}
-
-#' @title Assign the correct numeric test
-#' @description Assigns the correct numeric test depending on the parameters
-#' @inheritParams test_exclu_lower
-test_range <- function(df, setup) {
-  
-  if (!is.null(setup$upper) & !is.null(setup$lower)) {
-    
-    if (setup$upper_inclu & setup$lower_inclu) {
-      setup <- test_inclu_lower_inclu_upper(df, setup) 
-    } else if (setup$upper_inclu & !setup$lower_inclu) {
-      setup <- test_exclu_lower_inclu_upper(df, setup) 
-    } else if (!setup$upper_inclu & setup$lower_inclu) {
-      setup <- test_inclu_lower_exclu_upper(df, setup)
-    } else {
-      setup <- test_exclu_lower_exclu_upper(df, setup)
-    }
-    
-  } else if (!is.null(setup$upper) & is.null(setup$lower)) {
-    
-     if (setup$upper_inclu) {
-       setup <- test_inclu_upper(df, setup)
-     } else {
-       setup <- test_exclu_upper(df, setup)
-     }
-    
-  } else if (is.null(setup$upper) & !is.null(setup$lower)) {
-    
-    if (setup$lower_inclu) {
-      setup <- test_inclu_lower(df, setup)
-    } else {
-      setup <- test_exclu_lower(df, setup)
-    }
-    
-  }
   return(setup)
 }
