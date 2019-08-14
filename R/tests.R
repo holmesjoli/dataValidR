@@ -172,11 +172,15 @@ test.na <- function(setup, df, ...) {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
+    setup$problem_df <- NA
     
   } else {
     
     setup$test_result <- FALSE  
     setup$test_message <- "FAILED: Contains na values"
+    setup$problem_df <- data.frame(df_name = setup$df_name,
+                                   col_name = setup$col_name,
+                                   n_na = sum(is.na(df[[setup$col_name]])))
   }
   
   return(setup)
