@@ -88,8 +88,8 @@ get_problems.merge <- function(setup, ...) {
   if(!is.null(t$problem_df)) {
     
     t$problem_df <- t$problem_df %>% 
-      dplyr::mutate(df_name = t$df_name,
-                    col_name = t$col_name,
+      dplyr::mutate(primary_df = t$primary_df,
+                    related_df = t$related_df,
                     date = lubridate::today())
     
     return(t$problem_df)
