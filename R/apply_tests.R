@@ -58,32 +58,11 @@ apply_test.test_range <- function(df, setup) {
 #' @param df_right right dataset
 #' @param setup from the merge setup class
 #' @export
-apply_test.test_one_many <- function(df_left, df_right, setup) {
+apply_test.test_orphan_rec <- function(primary_df, related_df, setup) {
 
-  test <- test_one_many(df_left, df_right, setup)
+  test <- test_orphan_rec(primary_df, related_df, setup)
   test_result <- test_merge(test)
 
   return(test_result)
 }
 
-#' @title Tests One to One
-#' @inheritParams apply_test.test_one_many
-#' @export
-apply_test.test_one_one <- function(df_left, df_right, setup) {
-
-  test <- test_one_one(df_left, df_right, setup)
-  test_result <- test_merge(test)
-
-  return(test_result)
-}
-
-#' @title Tests One to One
-#' @inheritParams apply_test.test_one_many
-#' @export
-apply_test.test_many_many <- function(df_left, df_right, setup) {
-
-  test <- test_many_many(df_left, df_right, setup)
-  test_result <- test_merge(test)
-
-  return(test_result)
-}
