@@ -54,3 +54,13 @@ test_summary.merge <- function(setup, ...){
   return(d)
   
 }
+
+test_specific <- function() {}
+
+test_specific.default <- function(setup) {
+  
+  data.frame(
+    df_name = setup$problem_df$df_name,
+    col_name = setup$problem_df$col_name,
+    date = setup$problem_df$lubridate::today())
+}
