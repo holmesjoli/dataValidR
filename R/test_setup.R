@@ -11,7 +11,7 @@ setup_test_orphan_rec <- function(primary_df, related_df, primary_key, foreign_k
                           primary_df = primary_df,
                           related_df = related_df,
                           primary_key = primary_key,
-                          foreign_key = foreign_key), class = "test_orphan_rec")
+                          foreign_key = foreign_key), class = "orphan_rec")
   
   test_param_string(setup, "primary_df")
   test_param_string(setup, "related_df")
@@ -35,7 +35,7 @@ setup_test_na <- function(df_name, col_name) {
                           test_name = "test_na",
                           test_desc = "Test NA",
                           df_name = df_name,
-                          col_name = col_name), class = "test_na")
+                          col_name = col_name), class = "na")
   
   expc_params <- c("df_name", "col_name")
   test_expc_params(setup, expc_params)
@@ -62,7 +62,7 @@ setup_test_unique <- function(df_name, col_name, na) {
                           test_desc = "Test Unique",
                           df_name = df_name,
                           col_name = col_name,
-                          na = na), class = "test_unique")
+                          na = na), class = "unique")
   
   expc_params <- c("df_name", "col_name", "na")
   test_expc_params(setup, expc_params)
@@ -91,7 +91,7 @@ setup_test_values <- function(df_name, col_name, values, na) {
                           df_name = df_name,
                           col_name = col_name,
                           values = values,
-                          na = na), class = "test_values")
+                          na = na), class = "values")
   
   expc_params <- c("df_name", "col_name", "values", "na")
   test_expc_params(setup, expc_params)
@@ -402,7 +402,7 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
                           upper_inclu = upper_inclu,
                           lower = lower,
                           upper = upper,
-                          na = na), class = "test_range")
+                          na = na), class = "range")
   
   expc_params <- c("df_name", "col_name", "int", "upper_inclu", 
                    "lower_inclu", "upper", "lower", "na")
