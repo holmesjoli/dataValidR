@@ -1,10 +1,12 @@
 #' @title Test
 #' @param setup the setup class
+#' @export
 test <- function(setup, ...) {
   UseMethod("test", object = setup)
   
 }
 
+#' @export
 test.default <- function(setup, ...) {
   
   warning(paste("apply_test does not know how to handle object of class ",
@@ -16,21 +18,19 @@ test.default <- function(setup, ...) {
 
 #' @title Test expected values
 #' @description Tests if the vector/column contains values other than expected
+#' @inheritParams test
 #' @param df the dataframe
-#' @param setup the setup setup for testing
-#' @return setup with test_result, test_message, test_description
+#' @return class with test_result, test_message, test_description
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = 5:8)
-#' values <- 1:4
-#' na <- FALSE
-#' setup <- setup_test_values("df_name", "x", values, na)
+#' setup <- setup_test_values("df_name", "x", values = 1:4, na = FALSE)
 #' 
-#' test <- test_values(df, setup)
+#' test <- test(setup, df)
 #' ## test$test_result returns TRUE
 #' 
-#' setup <- setup_test_values("df_name", "y", values, na)
-#' test <- test_values(df, setup)
+#' setup <- setup_test_values("df_name", "y", values = 1:4, na = FALSE)
+#' test <- test(setup, df)
 #' ## test$test_result returns FALSE
 #' }
 #' @export
@@ -57,18 +57,18 @@ test.values <- function(setup, df, ...) {
 
 #' @title Test uniqueness
 #' @description Tests if the vector/column is unique
+#' @inheritParams test
 #' @param df the dataframe
-#' @param setup the setup setup for testing
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = c(1,1,2:3))
 #' setup <- setup_test_unique("df_name", "x", FALSE) 
 #' 
-#' test <- test(df, setup)
+#' test <- test(setup, df)
 #' ## test$test_result returns TRUE
 #' 
 #' setup <- setup_test_unique("df_name", "y", FALSE) 
-#' test <- test(df, setup)
+#' test <- test(setup, df)
 #' ## test$test_result returns FALSE
 #' }
 #' @export
@@ -90,10 +90,20 @@ test.unique <- function(setup, df, ...) {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
+    setup$problem_df <- NA
     
   } else {
     setup$test_result <- FALSE
     setup$test_message <- "FAILED: Not Unique"
+    
+    test <- as.data.frame(table(col)) %>% 
+      dplyr::filter(Freq > 1) %>% 
+      dplyr::rename(value = col) %>% 
+      dplyr::mutate(df_name = setup$df_name,
+                    col_name = setup$col_name) %>% 
+      dplyr::select(df_name, col_name, value, Freq)
+
+    setup$problem_df <- test
   }
   
   return(setup)
@@ -101,6 +111,8 @@ test.unique <- function(setup, df, ...) {
 
 #' @title Assign the correct numeric test
 #' @description Assigns the correct numeric test depending on the parameters
+#' @inheritParams test
+#' @param df the dataframe
 test.range <- function(setup, df, ...) {
   
   if (!is.null(setup$upper) & !is.null(setup$lower)) {
@@ -137,17 +149,17 @@ test.range <- function(setup, df, ...) {
 
 #' @title Test NA values
 #' @description Tests if the vector/column contains any NA values
+#' @inheritParams test
 #' @param df the dataframe
-#' @param setup the setup setup for testing
 #' @examples
 #' \dontrun{
 #' df <- data.frame(x = 1:4, y = c(NA, 6:8))
 #' setup <- setup_test_na("df_name", "x") 
-#' test <- test_na(df, setup)
+#' test <- test(setup, df)
 #' ## test$test_result returns TRUE
 #' 
 #' setup <- setup_test_na("df_name", "y") 
-#' test <- test_na(df, setup)
+#' test <- test(setup, df)
 #' ## test$test_result returns FALSE
 #' }
 #' @export
@@ -169,9 +181,19 @@ test.na <- function(setup, df, ...) {
 
 #' @title Tests for orphaned records 
 #' @description Tests that there is a one to many relationship between the left and right dataset
+#' @inheritParams test
 #' @param primary_df the primary dataframe
 #' @param related_df the related dataframe
-#' @param setup from the merge setup class
+#' @examples 
+#' primary_df <- data.frame(id1 = c(1,2,2,3), id2 = c(1,1,2,1), y = c(1,1,2,5))
+#' related_df <- data.frame(id1 = c(1,2,3), id2 = c(1,1,1), x = c(1,2,3))
+#'
+#'setup <- setup_test_orphan_rec(primary_df = "df1", related_df = "df2", 
+#'                               primary_key = c("id1", "id2"), foreign_key = c("id1", "id2"))
+
+#'test <- test(setup, primary_df, related_df)
+#'## test$test_result returns TRUE
+#' @export
 test.orphan_rec <- function(setup, primary_df, related_df, ...) {
   
   related_df <- related_df[complete.cases(related_df[setup$foreign_key]), ]
