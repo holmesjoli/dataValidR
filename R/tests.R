@@ -168,13 +168,20 @@ test_fail.exclu_lower_inclu_upper <- function(setup, ...) {
   return(setup)
 }
 
+test_fail.orphan_rec <- function(setup, ...) {
+  
+  setup$test_result <- FALSE
+  setup$test_message <- paste0("FAILED: orphaned values in ", setup$related_df)
+  
+  return(setup)
+}
+
 #' @title Test conditional
 #' @description Applies the attribute of a passing or failing test
 #' @inheritParams test
-#' @param t a boolean value of TRUE or FALSE, if t == TRUE then return the passing class, else return the failing class
-test_conditional <- function(setup, t) {
+test_conditional <- function(setup) {
   
-  if (t) {
+  if (nrow(setup$wrong_rows) == 0) {
     
     return(test_pass(setup))
     
@@ -226,13 +233,10 @@ test.values <- function(setup, df, ...) {
   df <- df[complete.cases(df[setup$col_name]), ]
     
   setup$wrong_rows <- df[df[[setup$col_name]] %in% setup$values == FALSE, ]
-  
   setup$rows_failed <- nrow(setup$wrong_rows)
   setup$pct_failed <- (setup$rows_failed/nrow(df))*100
   
-  t <- nrow(setup$wrong_rows) == 0
-  
-  test_conditional(setup, t)
+  test_conditional(setup)
 
 }
 
@@ -257,18 +261,16 @@ test.unique <- function(setup, df, ...) {
   
   df <- df[complete.cases(df[setup$col_name]), ]
   
-  if (length(setup$col_name) > 1) {
-    
-    col <- do.call(paste, c(df[setup$col_name], sep="-"))
-    setup$col_name <- paste(col_name, collapse = ", ")
-    
+  if (length(setup$col_name) == 1) {
+    setup$wrong_rows <- df[duplicated(df[[setup$col_name]]), ]
   } else {
-    col <- df[[setup$col_name]]
+    setup$wrong_rows <- df[duplicated(df[setup$col_name]), ]
   }
+
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
   
-  t <- length(unique(col)) == length(col)
-  
-  test_conditional(setup, t)
+  test_conditional(setup)
 }
 
 #' @title Test NA values
@@ -289,9 +291,11 @@ test.unique <- function(setup, df, ...) {
 #' @export
 test.na <- function(setup, df, ...) {
   
-  t <- all(!is.na(df[[setup$col_name]]))
+  setup$wrong_rows <- df[is.na(df[setup$col_name]), ]
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
     
-  test_conditional(setup, t)
+  test_conditional(setup)
   
 }
 
@@ -302,11 +306,16 @@ test.na <- function(setup, df, ...) {
 #' @export
 test.exclu_lower <- function(setup, df, ...) {
   
+  df <- df[complete.cases(df[setup$col_name]), ]
+  
   setup$mn <- min(df[[setup$col_name]], na.rm = TRUE)
   setup$test_desc <- paste0("Test ", setup$col_name," > ", setup$mn)
   
-  t <- setup$mn > setup$lower
-  test_conditional(setup, t)
+  setup$wrong_rows <- df[df[[setup$col_name]] <= setup$lower, ]
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
+  
+  test_conditional(setup)
 
 }
 
@@ -317,11 +326,16 @@ test.exclu_lower <- function(setup, df, ...) {
 #' @export
 test.inclu_lower <- function(setup, df, ...) {
 
+  df <- df[complete.cases(df[setup$col_name]), ]
+  
   setup$mn <- min(df[[setup$col_name]], na.rm = TRUE)
   setup$test_desc <- paste0("Test ", setup$col_name," >= ", setup$mn)
   
-  t <- setup$mn >= setup$lower
-  test_conditional(setup, t)
+  setup$wrong_rows <- df[df[[setup$col_name]] < setup$lower, ]
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
+  
+  test_conditional(setup)
 
 }
 
@@ -332,12 +346,17 @@ test.inclu_lower <- function(setup, df, ...) {
 #' @export
 test.exclu_upper <- function(setup, df, ...) {
   
+  df <- df[complete.cases(df[setup$col_name]), ]
+  
   setup$mx <- max(df[[setup$col_name]], na.rm = TRUE)
   setup$test_desc <- paste0("Test ", setup$col_name," < ", setup$mx)
   
-  t <- setup$mx < setup$upper
-  test_conditional(setup, t)
+  setup$wrong_rows <- df[df[[setup$col_name]] >= setup$upper, ]
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
 
+  test_conditional(setup)
+  
 }
 
 #' @title Test Exclu upper
@@ -347,11 +366,16 @@ test.exclu_upper <- function(setup, df, ...) {
 #' @export
 test.inclu_upper <- function(setup, df, ...) {
   
+  df <- df[complete.cases(df[setup$col_name]), ]
+  
   setup$mx <- max(df[[setup$col_name]], na.rm = TRUE)
   setup$test_desc <- paste0("Test ", setup$col_name," <= ", setup$mx)
   
-  t <- setup$mx <= setup$upper
-  test_conditional(setup, t)
+  setup$wrong_rows <- df[df[[setup$col_name]] > setup$upper, ]
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
+  
+  test_conditional(setup)
   
 }
 
@@ -361,6 +385,8 @@ test.inclu_upper <- function(setup, df, ...) {
 #' @param df the dataframe
 #' @export
 test.exclu_lower_exclu_upper <- function(setup, df, ...) {
+  
+  df <- df[complete.cases(df[setup$col_name]), ]
   
   setup_el <- setup
   class(setup_el) <- "exclu_lower"
@@ -373,8 +399,11 @@ test.exclu_lower_exclu_upper <- function(setup, df, ...) {
   setup$test_desc <- paste0("Test ", setup$lower," < ", 
                             setup$col_name," < ", setup$upper)
   
-  t <- setup$el$test_result & setup$eu$test_result
-  test_conditional(setup, t)
+  setup$wrong_rows <- rbind(setup$el$wrong_rows, setup$eu$wrong_rows)
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
+
+  test_conditional(setup)
 
 }
 
@@ -385,6 +414,8 @@ test.exclu_lower_exclu_upper <- function(setup, df, ...) {
 #' @export
 test.inclu_lower_exclu_upper <- function(setup, df, ...) {
 
+  df <- df[complete.cases(df[setup$col_name]), ]
+  
   setup_il <- setup
   class(setup_il) <- "inclu_lower"
   setup$il <- test(setup_il, df)
@@ -396,8 +427,11 @@ test.inclu_lower_exclu_upper <- function(setup, df, ...) {
   setup$test_desc <- paste0("Test ", setup$lower," <= ", 
                             setup$col_name," < ", setup$upper)
   
-  t <- setup$il$test_result & setup$eu$test_result
-  test_conditional(setup, t)
+  setup$wrong_rows <- rbind(setup$il$wrong_rows, setup$eu$wrong_rows)
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
+  
+  test_conditional(setup)
 
 }
 
@@ -407,6 +441,8 @@ test.inclu_lower_exclu_upper <- function(setup, df, ...) {
 #' @param df the dataframe
 #' @export
 test.inclu_lower_inclu_upper <- function(setup, df, ...) {
+  
+  df <- df[complete.cases(df[setup$col_name]), ]
   
   setup_il <- setup
   class(setup_il) <- "inclu_lower"
@@ -419,8 +455,11 @@ test.inclu_lower_inclu_upper <- function(setup, df, ...) {
   setup$test_desc <- paste0("Test ", setup$il$lower," <= ",
                             setup$col_name," <= ", setup$iu$upper)
 
-  t <- setup$il$test_result & setup$iu$test_result
-  test_conditional(setup, t)
+  setup$wrong_rows <- rbind(setup$il$wrong_rows, setup$iu$wrong_rows)
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
+  
+  test_conditional(setup)
 
 }
 
@@ -431,6 +470,8 @@ test.inclu_lower_inclu_upper <- function(setup, df, ...) {
 #' @param df the dataframe
 #' @export
 test.exclu_lower_inclu_upper <- function(setup, df, ...) {
+  
+  df <- df[complete.cases(df[setup$col_name]), ]
   
   setup_el <- setup
   class(setup_el) <- "exclu_lower"
@@ -444,8 +485,11 @@ test.exclu_lower_inclu_upper <- function(setup, df, ...) {
   setup$test_desc <- paste0("Test ", setup$lower, " <= ", 
                             setup$col_name," <= ", setup$upper)
   
-  t <- setup$el$test_result & setup$iu$test_result
-  test_conditional(setup, t)
+  setup$wrong_rows <- rbind(setup$el$wrong_rows, setup$iu$wrong_rows)
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(df))*100
+  
+  test_conditional(setup)
 
 }
 
@@ -467,27 +511,16 @@ test.orphan_rec <- function(setup, primary_df, related_df, ...) {
   
   related_df <- related_df[complete.cases(related_df[setup$foreign_key]), ]
   
-  test <- primary_df %>% 
-    dplyr::inner_join(related_df, by = structure(names = setup$primary_key, 
-                                                 .Data = setup$foreign_key))
+  setup$wrong_rows <- primary_df %>% 
+    dplyr::mutate(primary_df = 1) %>% 
+    dplyr::right_join(related_df, by = structure(names = setup$primary_key, 
+                                                 .Data = setup$foreign_key)) %>% 
+    dplyr::filter(is.na(primary_df)) %>% 
+    dplyr::select(-primary_df)
   
-  if (nrow(test) != nrow(related_df)) {
-    
-    setup$test_result <- FALSE
-    setup$test_message <- paste0("FAILED: orphaned values in ", setup$related_df)
-    
-    # setup$problem_df <- primary_df %>% 
-    #   dplyr::mutate(primary_df = 1) %>% 
-    #   dplyr::right_join(related_df, by = structure(names = setup$primary_key, 
-    #                                                .Data = setup$foreign_key)) %>% 
-    #   dplyr::filter(is.na(primary_df)) %>% 
-    #   dplyr::select(dplyr::one_of(setup$primary_key))
-    
-  } else {
-    
-    setup <- test_pass(setup)
-    
-  }
+  setup$rows_failed <- nrow(setup$wrong_rows)
+  setup$pct_failed <- (setup$rows_failed/nrow(related_df))*100
   
-  return(setup)
+  test_conditional(setup)
+
 }
