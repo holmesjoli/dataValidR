@@ -10,7 +10,7 @@ test_summary <- function(setup, ...) {
 
 test_summary.default <- function(setup, ...) {
   
-  warning(paste("apply_test does not know how to handle object of class ",
+  warning(paste("test_summary does not know how to handle object of class ",
                 class(setup),
                 "and can only be used on classes column or merge"))
   
