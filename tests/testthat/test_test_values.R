@@ -19,22 +19,22 @@ testthat::test_that("test_values", {
   setup <- setup_test_values(df_name = "X", col_name = "x", 
                              values = 1:4, na = TRUE)
   
-  test <- test.values(setup, df)
+  test <- test(setup, df)
   testthat::expect_true(test$test_result)
   
   setup <- setup_test_values(df_name = "X", col_name = "y", 
                              values = 1:4, na = TRUE)
-  test <- test.values(setup, df)
+  test <- test(setup, df)
   testthat::expect_false(test$test_result)
   
   setup <- setup_test_values(df_name = "X", col_name = "z", 
                              values = 1:4, na = TRUE)
-  test <- test.values(setup, df)
+  test <- test(setup, df)
   testthat::expect_true(test$test_result)
   
   setup <- setup_test_values(df_name = "X", col_name = "z", 
                              values = 1:4, na = FALSE)
-  test <- test.values(setup, df)
+  test <- test(setup, df)
   testthat::expect_false(test$test_result)
   
 })
