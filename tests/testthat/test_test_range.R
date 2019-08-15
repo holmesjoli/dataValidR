@@ -53,9 +53,15 @@ testthat::test_that("Test Inclu lower", {
 
   setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
                             upper_inclu, lower = 0, upper)
-
+  
   test <- test(setup, df)
   testthat::expect_true(test$test_result)
+  
+  setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
+                            upper_inclu, lower = 2, upper)
+
+  test <- test(setup, df)
+  testthat::expect_false(test$test_result)
 
   setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
                             upper_inclu, lower = 1, upper)
@@ -115,6 +121,12 @@ testthat::test_that("Test Inclu upper", {
 
   test <- test(setup, df)
   testthat::expect_true(test$test_result)
+  
+  setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
+                            upper_inclu, lower, upper = 3)
+  
+  test <- test(setup, df)
+  testthat::expect_false(test$test_result)
 
   setup <- setup_test_range(df_name, col_name = "y", int, lower_inclu, 
                             upper_inclu, lower, upper = 5)
