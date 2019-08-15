@@ -17,12 +17,12 @@ Tests if the vector/column is unique
 \examples{
 \dontrun{
 df <- data.frame(x = 1:4, y = c(1,1,2:3))
-setup <- setup_test_unique("df_name", "x", FALSE) 
+setup <- setup_test_unique("df_name", "x") 
 
 test <- test(setup, df)
 ## test$test_result returns TRUE
 
-setup <- setup_test_unique("df_name", "y", FALSE) 
+setup <- setup_test_unique("df_name", "y") 
 test <- test(setup, df)
 ## test$test_result returns FALSE
 }

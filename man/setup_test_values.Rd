@@ -4,7 +4,7 @@
 \alias{setup_test_values}
 \title{Setup Test Values}
 \usage{
-setup_test_values(df_name, col_name, values, na)
+setup_test_values(df_name, col_name, values, ptr = NULL)
 }
 \arguments{
 \item{df_name}{is a string and represents the name of the dataframe.}
@@ -13,13 +13,12 @@ setup_test_values(df_name, col_name, values, na)
 
 \item{values}{is a list of values that expected in the column to be tested.}
 
-\item{na}{is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
-there are NA values, an error will occur.}
+\item{ptr}{a string or vector of strings correspond to the unique identifier or unique identifiers of the dataset}
 }
 \description{
 Setup Test Values
 }
 \examples{
 df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
-setup <- setup_test_values(df_name = "df", col_name = "y", values = c("X", "Y"), na = FALSE)
+setup <- setup_test_values(df_name = "df", col_name = "y", values = c("X", "Y"))
 }

@@ -20,12 +20,12 @@ Tests if the vector/column contains values other than expected
 \examples{
 \dontrun{
 df <- data.frame(x = 1:4, y = 5:8)
-setup <- setup_test_values("df_name", "x", values = 1:4, na = FALSE)
+setup <- setup_test_values("df_name", "x", values = 1:4)
 
 test <- test(setup, df)
 ## test$test_result returns TRUE
 
-setup <- setup_test_values("df_name", "y", values = 1:4, na = FALSE)
+setup <- setup_test_values("df_name", "y", values = 1:4)
 test <- test(setup, df)
 ## test$test_result returns FALSE
 }

@@ -4,20 +4,19 @@
 \alias{setup_test_unique}
 \title{Setup Test Unique}
 \usage{
-setup_test_unique(df_name, col_name, na)
+setup_test_unique(df_name, col_name, ptr = NULL)
 }
 \arguments{
 \item{df_name}{is a string and represents the name of the dataframe.}
 
 \item{col_name}{is a string or vector of column names. If more than one column is included they will be concatenated and tested.}
 
-\item{na}{is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
-there are NA values, an error will occur.}
+\item{ptr}{a string or vector of strings correspond to the unique identifier or unique identifiers of the dataset}
 }
 \description{
 Setup Test Unique
 }
 \examples{
 df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
-setup <- setup_test_unique(df_name = "df", col_name = "x", na = FALSE)
+setup <- setup_test_unique(df_name = "df", col_name = "x")
 }

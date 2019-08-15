@@ -4,12 +4,14 @@
 \alias{setup_test_na}
 \title{Setup Test Na}
 \usage{
-setup_test_na(df_name, col_name)
+setup_test_na(df_name, col_name, ptr = NULL)
 }
 \arguments{
 \item{df_name}{is a string and represents the name of the dataframe.}
 
 \item{col_name}{is a string and represents the name of the column to be tested.}
+
+\item{ptr}{a string or vector of strings correspond to the unique identifier or unique identifiers of the dataset}
 }
 \description{
 Setup Test Na

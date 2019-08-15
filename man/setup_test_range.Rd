@@ -5,7 +5,7 @@
 \title{Setup Test Range}
 \usage{
 setup_test_range(df_name, col_name, int, lower_inclu, upper_inclu, lower,
-  upper, na)
+  upper, ptr = NULL)
 }
 \arguments{
 \item{df_name}{is a string and represents the name of the dataframe.}
@@ -24,8 +24,7 @@ If the upper bound is inclusive, x <= upper, then upper_inclu = TRUE, else upper
 
 \item{upper}{can take a numeric value or NULL. If there's no upper bound, then upper should be null.}
 
-\item{na}{is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
-there are NA values, an error will occur.}
+\item{ptr}{a string or vector of strings correspond to the unique identifier or unique identifiers of the dataset}
 }
 \description{
 Setup Test Range
