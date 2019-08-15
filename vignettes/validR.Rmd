@@ -45,36 +45,26 @@ df <- data.frame(w = c(NA, 2:10),
 
 # Setup the test classes
 
-setup_range1 <- setup_test_range(df_name = "df", col_name = "x", int = TRUE, lower_inclu = TRUE,
-                                  upper_inclu = TRUE, lower = 1, upper = 10, na = FALSE)
-setup_range2 <- setup_test_range(df_name = "df", col_name = "z", int = TRUE, lower_inclu = TRUE,
-                                  upper_inclu = TRUE, lower = 3, upper = 10, na = FALSE)
-setup_range3 <- setup_test_range(df_name = "df", col_name = "w", int = TRUE, lower_inclu = FALSE,
-                                  upper_inclu = NULL, lower = 2, upper = NULL, na = TRUE)
-setup_range <- list(setup_range1, setup_range2, setup_range3)
+setup1 <- setup_test_range(df_name = "df", col_name = "x", int = TRUE, lower_inclu = TRUE,
+                                  upper_inclu = TRUE, lower = 1, upper = 10)
+setup2 <- setup_test_range(df_name = "df", col_name = "z", int = TRUE, lower_inclu = TRUE,
+                                  upper_inclu = TRUE, lower = 3, upper = 10)
+setup3 <- setup_test_range(df_name = "df", col_name = "w", int = TRUE, lower_inclu = FALSE,
+                                  upper_inclu = NULL, lower = 2, upper = NULL)
+setup4 <- setup_test_values(df_name = "df", col_name = "y", values = c("X"))
+setup5 <- setup_test_unique(df_name = "df", col_name = "x")
+setup6 <- setup_test_unique(df_name = "df", col_name = "z")
+setup7 <- setup_test_na(df_name = "df", col_name = "y")
+setup8 <- setup_test_na(df_name = "df", col_name = "w")
 
-setup_values1 <- setup_test_values(df_name = "df", col_name = "y", values = c("X"), na = FALSE)
-setup_values <- list(setup_values1)
-
-setup_unique1 <- setup_test_unique(df_name = "df", col_name = "x", na = FALSE)
-setup_unique2 <- setup_test_unique(df_name = "df", col_name = "z", na = FALSE)
-setup_unique <- list(setup_unique1, setup_unique2)
-
-setup_na1 <- setup_test_na(df_name = "df", col_name = "y")
-setup_na2 <- setup_test_na(df_name = "df", col_name = "w")
-setup_na <- list(setup_na1, setup_na2)
-
-setup <- c(setup_range, setup_values, setup_unique, setup_na)
+setup <- list(setup1, setup2, setup3, setup4, setup5, setup6, setup7, setup8)
 
 # If the tests all rely on the same dataframe use the following line of code to apply the tests
+tests_all <- lapply(setup, test, df = df)
 
-col_tests <- do.call("rbind", lapply(setup, test_summary, df = df))
+col_tests <- do.call("rbind", lapply(tests_all, test_summary, df = df))
 
-na_problems <- do.call("rbind", lapply(setup_na, get_problems, df = df))
-unique_problems <- do.call("rbind", lapply(setup_unique, get_problems, df = df))
-range_problems <- do.call("rbind", lapply(setup_range, get_problems, df = df))
-values_problems <- do.call("rbind", lapply(setup_values, get_problems, df = df))
-
+issues <- do.call("rbind", lapply(tests_all, wrong_rows, df = df))
 ```
 
 ## Merge Tests
@@ -89,8 +79,9 @@ related_df <- data.frame(id1 = c(1,2,3), id2 = c(1,1,1), x = c(1,2,3))
 setup1 <- setup_test_orphan_rec(primary_df = "df1", related_df = "df2", 
                                primary_key = c("id1", "id2"), foreign_key = c("id1", "id2"))
 
-test1 <- test_summary(setup1, primary_df, related_df)
-problems1 <- get_problems(setup1, primary_df, related_df)
+test1 <- test(setup1, primary_df, related_df)
+merge_test1 <- test_summary(test1, primary_df, related_df)
+issues1 <- wrong_rows(test1, primary_df, related_df)
 
 
 primary_df <- data.frame(id = c(1,2,2), id2 = c(1,1,2), y = c(1,1,2))
@@ -99,13 +90,14 @@ related_df <- data.frame(id1 = c(1,2,15), id2 = c(1,1,1), x = c(1,2,3))
 setup2 <- setup_test_orphan_rec(primary_df = "df1", related_df = "df2", 
                                primary_key = c("id", "id2"), foreign_key = c("id1", "id2"))
 
-test2 <- test_summary(setup2, primary_df, related_df)
-problems2 <- get_problems(setup2, primary_df, related_df)
+test2 <- test(setup2, primary_df, related_df)
+merge_test2 <- test_summary(test2, primary_df, related_df)
+issues2 <- wrong_rows(test2, primary_df, related_df)
 
 # Merge tests
 
-merge_tests <- rbind(test1, test2)
-merge_problems <- rbind(problems1, problems2)
-
+merge_tests <- rbind(merge_test1, merge_test2)
+merge_problems <- rbind(issues1, issues2)
 
 ```
+
