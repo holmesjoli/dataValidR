@@ -87,7 +87,7 @@ setup_test_values <- function(df_name, col_name, values, ptr = NULL) {
   
   setup <- structure(list(test_category = "Consistency",
                           test_name = "test_values",
-                          test_desc = "Expected Values",
+                          test_desc = paste0("Expected Values: ", paste(values, collapse = ", ")),
                           df_name = df_name,
                           col_name = col_name,
                           values = values,
