@@ -25,17 +25,19 @@ setup_test_orphan_rec <- function(primary_df, related_df, primary_key, foreign_k
 #' @title Setup Test Na
 #' @param df_name is a string and represents the name of the dataframe. 
 #' @param col_name is a string and represents the name of the column to be tested.
+#' @param ptr a string or vector of strings correspond to the unique identifier or unique identifiers of the dataset
 #' @examples
 #' df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
 #' setup <- setup_test_na(df_name = "df", col_name = "y")
 #' @export
-setup_test_na <- function(df_name, col_name) {
+setup_test_na <- function(df_name, col_name, ptr = NULL) {
   
   setup <- structure(list(test_category = "Completeness",
                           test_name = "test_na",
                           test_desc = "Test NA",
                           df_name = df_name,
-                          col_name = col_name), class = c("na", "column"))
+                          col_name = col_name,
+                          ptr = ptr), class = c("na", "column"))
   
   
   expc_params <- c("df_name", "col_name")
@@ -52,18 +54,20 @@ setup_test_na <- function(df_name, col_name) {
 #' @param col_name is a string or vector of column names. If more than one column is included they will be concatenated and tested.
 #' @param na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
 #' there are NA values, an error will occur.
+#' @param ptr a string or vector of strings correspond to the unique identifier or unique identifiers of the dataset
 #' @examples
 #' df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
 #' setup <- setup_test_unique(df_name = "df", col_name = "x", na = FALSE)
 #' @export
-setup_test_unique <- function(df_name, col_name, na) {
+setup_test_unique <- function(df_name, col_name, na, ptr = NULL) {
   
   setup <- structure(list(test_category = "Uniqueness",
                           test_name = "test_unique",
                           test_desc = "Test Unique",
                           df_name = df_name,
                           col_name = col_name,
-                          na = na), class = c("unique", "column"))
+                          na = na, 
+                          ptr = ptr), class = c("unique", "column"))
   
   expc_params <- c("df_name", "col_name", "na")
   test_expc_params(setup, expc_params)
@@ -80,11 +84,12 @@ setup_test_unique <- function(df_name, col_name, na) {
 #' @param values is a list of values that expected in the column to be tested. 
 #' @param na is a boolean value, if NA values are allowed in the column to be tested. If NA = FALSE and
 #' there are NA values, an error will occur.
+#' @param ptr a string or vector of strings correspond to the unique identifier or unique identifiers of the dataset
 #' @examples
 #' df <- data.frame(x = 1:10, y = c(rep("X", 4), rep("Y", 4), rep("Z", 2)))
 #' setup <- setup_test_values(df_name = "df", col_name = "y", values = c("X", "Y"), na = FALSE)
 #' @export
-setup_test_values <- function(df_name, col_name, values, na) {
+setup_test_values <- function(df_name, col_name, values, na, ptr = NULL) {
   
   setup <- structure(list(test_category = "Consistency",
                           test_name = "test_values",
@@ -92,7 +97,8 @@ setup_test_values <- function(df_name, col_name, values, na) {
                           df_name = df_name,
                           col_name = col_name,
                           values = values,
-                          na = na), class = c("values", "column"))
+                          na = na,
+                          ptr = ptr), class = c("values", "column"))
   
   expc_params <- c("df_name", "col_name", "values", "na")
   test_expc_params(setup, expc_params)
@@ -121,7 +127,7 @@ setup_test_values <- function(df_name, col_name, values, na) {
 #' there are NA values, an error will occur.
 #' @export
 setup_test_range <- function(df_name, col_name, int, lower_inclu, 
-                             upper_inclu, lower, upper, na) {
+                             upper_inclu, lower, upper, na, ptr = NULL) {
   
   setup <- structure(list(test_category = "Accuracy",
                           test_name = "test_range", 
@@ -133,7 +139,8 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
                           upper_inclu = upper_inclu,
                           lower = lower,
                           upper = upper,
-                          na = na), class = c("range", "column"))
+                          na = na,
+                          ptr = ptr), class = c("range", "column"))
   
   expc_params <- c("df_name", "col_name", "int", "upper_inclu", 
                    "lower_inclu", "upper", "lower", "na")
