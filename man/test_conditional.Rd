@@ -4,12 +4,10 @@
 \alias{test_conditional}
 \title{Test conditional}
 \usage{
-test_conditional(setup, t)
+test_conditional(setup)
 }
 \arguments{
 \item{setup}{the setup class}
-
-\item{t}{a boolean value of TRUE or FALSE, if t == TRUE then return the passing class, else return the failing class}
 }
 \description{
 Applies the attribute of a passing or failing test

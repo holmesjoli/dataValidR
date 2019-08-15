@@ -4,10 +4,10 @@
 \alias{test_summary}
 \title{Get summary}
 \usage{
-test_summary(setup, ...)
+test_summary(test, ...)
 }
 \arguments{
-\item{setup}{the setup class}
+\item{test}{the test class}
 }
 \value{
 dataframe
