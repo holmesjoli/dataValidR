@@ -1,51 +1,49 @@
 #' @title Get summary
 #' @description Summarizes the attributes from the test
-#' @inheritParams test
+#' @param test the test class
 #' @return dataframe
 #' @export
-test_summary <- function(setup, ...) {
-  UseMethod("test_summary", object = setup)
+test_summary <- function(test, ...) {
+  UseMethod("test_summary", object = test)
   
 }
 
-test_summary.default <- function(setup, ...) {
+test_summary.default <- function(test, ...) {
   
   warning(paste("test_summary does not know how to handle object of class ",
-                class(setup),
+                class(test),
                 "and can only be used on classes column or merge"))
   
 }
 
-test_summary.column <- function(setup, ...) {
+test_summary.column <- function(test, ...) {
   
-  t <- test(setup, df)
-  
-  d <- data.frame(test_category = t$test_category,
-             df_name = t$df_name,
-             col_name = t$col_name,
-             test_name = t$test_name,
-             test_desc = t$test_desc,
-             test_result = t$test_result,
-             test_message = t$test_message)
-  
-  return(d)
-  
+  data.frame(date = lubridate::today(),
+             test_category = test$test_category,
+             df_name = test$df_name,
+             col_name = test$col_name,
+             test_name = test$test_name,
+             test_desc = test$test_desc,
+             test_result = test$test_result,
+             test_message = test$test_message,
+             rows_failed = test$rows_failed,
+             pct_failed = test$pct_failed)
+
 }
 
-test_summary.merge <- function(setup, ...){
-  
-  t <- test(setup, primary_df, related_df)
-  
-  d <- data.frame(test_category = t$test_category,
-             primary_df = t$primary_df,
-             related_df = t$related_df,
-             test_name = t$test_name,
-             test_desc = t$test_desc,
-             test_result = t$test_result,
-             test_message = t$test_message)
-  
-  return(d)
-  
+test_summary.merge <- function(test, ...){
+
+ data.frame(date = lubridate::today(),
+            test_category = test$test_category,
+            primary_df = test$primary_df,
+            related_df = test$related_df,
+            test_name = test$test_name,
+            test_desc = test$test_desc,
+            test_result = test$test_result,
+            test_message = test$test_message,
+            rows_failed = test$rows_failed,
+            pct_failed = test$pct_failed)
+
 }
 
 #' @title Get Problems
@@ -53,46 +51,48 @@ test_summary.merge <- function(setup, ...){
 #' @inheritParams test
 #' @return dataframe
 #' @export
-get_problems <- function(setup, ...) {
-  UseMethod("get_problems", object = setup)
+wrong_rows <- function(test, ...) {
+  UseMethod("wrong_rows", object = test)
 }
 
-get_problems.default <- function(setup, ...) {
+wrong_rows.default <- function(test, ...) {
   
-  warning(paste("get_problems does not know how to handle object of class ",
-                class(setup),
+  warning(paste("wrong_rows does not know how to handle object of class ",
+                class(test),
                 "and can only be used on classes column or merge"))
 
 }
 
-get_problems.column <- function(setup, ...) {
+wrong_rows.column <- function(test, ...) {
   
-  t <- test(setup, df)
-  
-  if(!is.null(t$problem_df)) {
+  if(!is.null(test$wrong_rows)) {
     
-    t$problem_df <- t$problem_df %>% 
-        dplyr::mutate(df_name = t$df_name,
-                      col_name = t$col_name,
-                      date = lubridate::today())
+    test$wrong_rows <- test$wrong_rows %>% 
+        dplyr::mutate(date = lubridate::today(),
+                      test_category = test$test_category,
+                      df_name = test$df_name,
+                      col_name = test$col_name,
+                      test_name = test$test_name,
+                      test_desc = test$test_desc)
     
-    return(t$problem_df)
+    return(test$wrong_rows)
   }
   
 }
 
-get_problems.merge <- function(setup, ...) {
+wrong_rows.merge <- function(test, ...) {
   
-  t <- test(setup, primary_df, related_df)
-  
-  if(!is.null(t$problem_df)) {
+  if(!is.null(test$wrong_rows)) {
     
-    t$problem_df <- t$problem_df %>% 
-      dplyr::mutate(primary_df = t$primary_df,
-                    related_df = t$related_df,
-                    date = lubridate::today())
+    test$wrong_rows <- test$wrong_rows %>% 
+      dplyr::mutate(date = lubridate::today(),
+                    test_category = test$test_category,
+                    test_name = test$test_name,
+                    test_desc = test$test_desc,
+                    primary_df = test$primary_df,
+                    related_df = test$related_df,)
     
-    return(t$problem_df)
+    return(test$wrong_rows)
   }
   
 }
