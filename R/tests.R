@@ -9,7 +9,7 @@ test <- function(setup, ...) {
 #' @export
 test.default <- function(setup, ...) {
   
-  warning(paste("apply_test does not know how to handle object of class ",
+  warning(paste("test does not know how to handle object of class ",
                 class(setup),
                 "and can only be used on classes na, unique, values, range, and orphan_rec"))
   
@@ -109,44 +109,6 @@ test.unique <- function(setup, df, ...) {
   return(setup)
 }
 
-#' @title Assign the correct numeric test
-#' @description Assigns the correct numeric test depending on the parameters
-#' @inheritParams test
-#' @param df the dataframe
-test.range <- function(setup, df, ...) {
-  
-  if (!is.null(setup$upper) & !is.null(setup$lower)) {
-    
-    if (setup$upper_inclu & setup$lower_inclu) {
-      setup <- test_inclu_lower_inclu_upper(df, setup) 
-    } else if (setup$upper_inclu & !setup$lower_inclu) {
-      setup <- test_exclu_lower_inclu_upper(df, setup) 
-    } else if (!setup$upper_inclu & setup$lower_inclu) {
-      setup <- test_inclu_lower_exclu_upper(df, setup)
-    } else {
-      setup <- test_exclu_lower_exclu_upper(df, setup)
-    }
-    
-  } else if (!is.null(setup$upper) & is.null(setup$lower)) {
-    
-    if (setup$upper_inclu) {
-      setup <- test_inclu_upper(df, setup)
-    } else {
-      setup <- test_exclu_upper(df, setup)
-    }
-    
-  } else if (is.null(setup$upper) & !is.null(setup$lower)) {
-    
-    if (setup$lower_inclu) {
-      setup <- test_inclu_lower(df, setup)
-    } else {
-      setup <- test_exclu_lower(df, setup)
-    }
-    
-  }
-  return(setup)
-}
-
 #' @title Test NA values
 #' @description Tests if the vector/column contains any NA values
 #' @inheritParams test
@@ -181,6 +143,244 @@ test.na <- function(setup, df, ...) {
   return(setup)
 }
 
+#' @title Test Exclu lower
+#' @description Tests that column is greater than the lower bound
+#' @inheritParams test
+#' @param df the dataframe
+#' @export
+test.exclu_lower <- function(setup, df, ...) {
+  
+  mn <- min_na(df[[setup$col_name]], setup$na)
+  
+  setup$test_desc <- paste0("Test ", setup$col_name," > ", mn)
+  
+  if (!is.na(mn)) {
+    
+    if (mn > setup$lower) {
+      setup$test_result <- TRUE
+      setup$test_message <- passed
+    } else {
+      setup$test_result <- FALSE
+      setup$test_message <- paste0("FAILED: lower bound is ", mn, " but expected greater than ", setup$lower)
+    }
+  } else {
+    setup$test_result <- FALSE
+    setup$test_message <- "NAs present but NA was set to FALSE"
+  }
+  
+  return(setup)
+}
+
+#' @title Test inclu lower
+#' @description Tests that column is greater than or equal to the lower bound
+#' @inheritParams test
+#' @param df the dataframe
+#' @export
+test.inclu_lower <- function(setup, df, ...) {
+  
+  mn <- min_na(df[[setup$col_name]], setup$na)
+  
+  setup$test_desc <- paste0("Test ", setup$col_name," >= ", mn)
+  
+  if (!is.na(mn)) {
+    
+    if (mn >= setup$lower) {
+      setup$test_result <- TRUE
+      setup$test_message <- passed
+    } else {
+      setup$test_result <- FALSE
+      setup$test_message <- paste0("FAILED: lower bound is ", mn, " but expected greater than or equal to", setup$lower)
+    }
+  } else {
+    setup$test_result <- FALSE
+    setup$test_message <- "NAs present but NA was set to FALSE"
+  }
+  return(setup)
+}
+
+#' @title Test Exclu upper
+#' @description Tests that column is less than the upper bound
+#' @inheritParams test
+#' @param df the dataframe
+#' @export
+test.exclu_upper <- function(setup, df, ...) {
+  
+  mx <- max_na(df[[setup$col_name]], setup$na)
+  
+  setup$test_desc <- paste0("Test ", setup$col_name," < ", mx)
+  
+  if (!is.na(mx)) {
+    
+    if (mx < setup$upper) {
+      setup$test_result <- TRUE
+      setup$test_message <- passed
+    } else {
+      setup$test_result <- FALSE
+      setup$test_message <- paste0("FAILED: upper bound is ", mx, " but expected less than ", setup$upper)
+    }
+  } else {
+    setup$test_result <- FALSE
+    setup$test_message <- "NAs present but NA was set to FALSE"
+  }
+  return(setup)
+}
+
+#' @title Test Exclu upper
+#' @description Tests that column is less than or equal to the upper bound
+#' @inheritParams test
+#' @param df the dataframe
+#' @export
+test.inclu_upper <- function(setup, df, ...) {
+  
+  mx <- max_na(df[[setup$col_name]], setup$na)
+  
+  setup$test_desc <- paste0("Test ", setup$col_name," <= ", mx)
+  
+  if (!is.na(mx)) {
+    
+    if (mx <= setup$upper) {
+      setup$test_result <- TRUE
+      setup$test_message <- passed
+    } else {
+      setup$test_result <- FALSE
+      setup$test_message <- paste0("FAILED: upper bound is ", mx, " but expected lesser than or equal to ", setup$upper)
+    }
+  } else {
+    setup$test_result <- FALSE
+    setup$test_message <- "NAs present but NA was set to FALSE"
+  }
+  return(setup)
+}
+
+#' @title Test exclu lower and exclu upper
+#' @description Tests that the column is greater than the lower bound AND less than the upper bound
+#' @inheritParams test
+#' @param df the dataframe
+#' @export
+test.exclu_lower_exclu_upper <- function(setup, df, ...) {
+  
+  el <- test.exclu_lower(setup,df)
+  eu <- test.exclu_upper(setup,df)
+  
+  setup$test_desc <- paste0("Test ", el$lower," < ", setup$col_name," < ", eu$upper)
+  
+  if (el$test_result & eu$test_result) {
+    
+    setup$test_result <- TRUE
+    setup$test_message <- passed
+    
+  } else {
+    
+    setup$test_result <- FALSE
+    
+    if (el$test_result) {
+      setup$test_message <- paste0("lower bound: ", el$test_message, ", but upper bound ", eu$test_message)
+    } else if (eu$test_result) {
+      setup$test_message <- paste0("upper bound: ", eu$test_message, ", but lower bound ", el$test_message)
+    } else {
+      setup$test_message <- paste0("lower bound: ", el$test_message, " and upper bound: ", eu$test_message)
+    }
+  }
+  return(setup)
+}
+
+#' @title Test inclu lower and exclu upper
+#' @description Tests that the column is greater than or equal to the lower bound AND less than the upper bound
+#' @inheritParams test
+#' @param df the dataframe
+#' @export
+test.inclu_lower_exclu_upper <- function(setup, df, ...) {
+  
+  il <- test.inclu_lower(setup,df)
+  eu <- test.exclu_upper(setup,df)
+  
+  setup$test_desc <- paste0("Test ", il$lower," <= ", setup$col_name," < ", eu$upper)
+  
+  if (il$test_result & eu$test_result) {
+    
+    setup$test_result <- TRUE
+    setup$test_message <- passed
+    
+  } else {
+    
+    setup$test_result <- FALSE
+    
+    if (il$test_result) {
+      setup$test_message <- paste0("lower bound: ", il$test_message, ", but upper bound ", eu$test_message)
+    } else if (eu$test_result) {
+      setup$test_message <- paste0("upper bound: ", eu$test_message, ", but lower bound ", il$test_message)
+    } else {
+      setup$test_message <- paste0("lower bound: ", il$test_message, " and upper bound: ", eu$test_message)
+    }
+  }
+  return(setup)
+}
+
+#' @title Test inclu lower and inclu upper
+#' @description Tests that the column is greater than or equal to the lower bound AND less or equal to than the upper bound
+#' @inheritParams test
+#' @param df the dataframe
+#' @export
+test.inclu_lower_inclu_upper <- function(setup, df, ...) {
+  
+  il <- test.inclu_lower(setup,df)
+  iu <- test.inclu_upper(setup,df)
+  
+  setup$test_desc <- paste0("Test ", il$lower," <= ", setup$col_name," <= ", iu$upper)
+  
+  if (il$test_result & iu$test_result) {
+    
+    setup$test_result <- TRUE
+    setup$test_message <- passed
+    
+  } else {
+    
+    setup$test_result <- FALSE
+    
+    if (il$test_result) {
+      setup$test_message <- paste0("lower bound: ", il$test_message, ", but upper bound ", iu$test_message)
+    } else if (iu$test_result) {
+      setup$test_message <- paste0("upper bound: ", iu$test_message, ", but lower bound ", il$test_message)
+    } else {
+      setup$test_message <- paste0("lower bound: ", il$test_message, " and upper bound: ", iu$test_message)
+    }
+  }
+  return(setup)
+}
+
+
+#' @title Test exclu lower and inclu upper
+#' @description Tests that the column is greater than the lower bound AND less or equal to than the upper bound
+#' @inheritParams test
+#' @param df the dataframe
+#' @export
+test.exclu_lower_inclu_upper <- function(setup, df, ...) {
+  
+  el <- test.exclu_lower(setup,df)
+  iu <- test.inclu_upper(setup,df)
+  
+  setup$test_desc <- paste0("Test ", el$lower," <= ", setup$col_name," <= ", iu$upper)
+  
+  if (el$test_result & iu$test_result) {
+    
+    setup$test_result <- TRUE
+    setup$test_message <- passed
+    
+  } else {
+    
+    setup$test_result <- FALSE
+    
+    if (el$test_result) {
+      setup$test_message <- paste0("lower bound: ", el$test_message, ", but upper bound ", iu$test_message)
+    } else if (iu$test_result) {
+      setup$test_message <- paste0("upper bound: ", iu$test_message, ", but lower bound ", el$test_message)
+    } else {
+      setup$test_message <- paste0("lower bound: ", el$test_message, " and upper bound: ", iu$test_message)
+    }
+  }
+  return(setup)
+}
+
 #' @title Tests for orphaned records 
 #' @description Tests that there is a one to many relationship between the left and right dataset
 #' @inheritParams test
@@ -205,7 +405,7 @@ test.orphan_rec <- function(setup, primary_df, related_df, ...) {
                                                  .Data = setup$foreign_key))
   
   if (nrow(test) != nrow(related_df)) {
-
+    
     
     setup$test_result <- FALSE
     setup$test_message <- paste0("FAILED: orphaned values in ", setup$related_df)
@@ -220,7 +420,7 @@ test.orphan_rec <- function(setup, primary_df, related_df, ...) {
     
     setup$test_result <- TRUE
     setup$test_message <- passed
-
+    
   }
   
   return(setup)
