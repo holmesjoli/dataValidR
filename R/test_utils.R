@@ -92,3 +92,33 @@ test_params_both_not_null <- function(setup, param1, param2) {
   log <-  !is.null(setup[[param1]]) | !is.null(setup[[param2]])
   assertthat::assert_that(log, msg = msg)
 }
+
+#' @title Min with NA
+#' @description Returns the minimum with NA's removed if na = TRUE
+#' @param col the column to test
+#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
+#' @export
+min_na <- function(col, na) {
+  
+  if (na) {
+    mn <- min(col, na.rm = T)
+  } else {
+    mn <- min(col)
+  }
+  return(mn)
+}
+
+#' @title Max with NA
+#' @description Returns the maximum with NA's removed if na = TRUE
+#' @param col the column to test
+#' @param na if the column should include NA values or not, takes the values TRUE or FALSE
+#' @export
+max_na <- function(col, na) {
+  
+  if (na) {
+    mx <- max(col, na.rm = T)
+  } else {
+    mx <- max(col)
+  }
+  return(mx)
+}
