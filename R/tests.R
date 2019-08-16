@@ -6,6 +6,7 @@ test_pass <- function(setup, ...) {
   
 }
 
+#' @export
 test_pass.default <- function(setup, ...) {
  
   setup$test_result <- TRUE
@@ -22,6 +23,7 @@ test_fail <- function(setup, ...) {
   UseMethod("test_fail", object = setup)
 }
 
+#' @export
 test_fail.default <- function(setup, ...) {
   
   warning(paste("test does not know how to handle object of class ",
@@ -30,6 +32,7 @@ test_fail.default <- function(setup, ...) {
   
 }
 
+#' @export
 test_fail.values <- function(setup, ...) {
  
   setup$test_result <- FALSE
@@ -40,6 +43,7 @@ test_fail.values <- function(setup, ...) {
    
 }
 
+#' @export
 test_fail.unique <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -49,6 +53,7 @@ test_fail.unique <- function(setup, ...) {
   
 }
 
+#' @export
 test_fail.na <- function(setup, ...) {
   
   setup$test_result <- FALSE  
@@ -58,6 +63,7 @@ test_fail.na <- function(setup, ...) {
   
 }
 
+#' @export
 test_fail.exclu_lower <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -67,6 +73,7 @@ test_fail.exclu_lower <- function(setup, ...) {
   return(setup)
 }
 
+#' @export
 test_fail.inclu_lower <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -77,6 +84,7 @@ test_fail.inclu_lower <- function(setup, ...) {
   
 }
 
+#' @export
 test_fail.exclu_upper <- function(setup, ...) {
  
   setup$test_result <- FALSE
@@ -87,6 +95,7 @@ test_fail.exclu_upper <- function(setup, ...) {
    
 }
 
+#' @export
 test_fail.inclu_upper <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -114,6 +123,7 @@ test_fail.exclu_lower_exclu_upper <- function(setup, ...) {
   return(setup)
 }
 
+#' @export
 test_fail.inclu_lower_exclu_upper <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -133,6 +143,7 @@ test_fail.inclu_lower_exclu_upper <- function(setup, ...) {
   
 }
 
+#' @export
 test_fail.inclu_lower_inclu_upper <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -151,6 +162,7 @@ test_fail.inclu_lower_inclu_upper <- function(setup, ...) {
   return(setup)
 }
 
+#' @export
 test_fail.exclu_lower_inclu_upper <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -168,6 +180,7 @@ test_fail.exclu_lower_inclu_upper <- function(setup, ...) {
   return(setup)
 }
 
+#' @export
 test_fail.orphan_rec <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -265,8 +278,9 @@ test.unique <- function(setup, df, ...) {
     setup$wrong_rows <- df[duplicated(df[[setup$col_name]]), ]
   } else {
     setup$wrong_rows <- df[duplicated(df[setup$col_name]), ]
+    setup$col_name <- paste(setup$col_name, collapse = ", ")
   }
-
+  
   setup$rows_failed <- nrow(setup$wrong_rows)
   setup$pct_failed <- (setup$rows_failed/nrow(df))*100
   

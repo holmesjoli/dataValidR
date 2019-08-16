@@ -8,6 +8,7 @@ test_summary <- function(test, ...) {
   
 }
 
+#' @export
 test_summary.default <- function(test, ...) {
   
   warning(paste("test_summary does not know how to handle object of class ",
@@ -16,6 +17,7 @@ test_summary.default <- function(test, ...) {
   
 }
 
+#' @export
 test_summary.column <- function(test, ...) {
   
   data.frame(date = lubridate::today(),
@@ -31,6 +33,7 @@ test_summary.column <- function(test, ...) {
 
 }
 
+#' @export
 test_summary.merge <- function(test, ...){
 
  data.frame(date = lubridate::today(),
@@ -55,6 +58,7 @@ wrong_rows <- function(test, ...) {
   UseMethod("wrong_rows", object = test)
 }
 
+#' @export
 wrong_rows.default <- function(test, ...) {
   
   warning(paste("wrong_rows does not know how to handle object of class ",
@@ -63,6 +67,7 @@ wrong_rows.default <- function(test, ...) {
 
 }
 
+#' @export
 wrong_rows.column <- function(test, ...) {
   
   if(!is.null(test$wrong_rows)) {
@@ -80,6 +85,7 @@ wrong_rows.column <- function(test, ...) {
   
 }
 
+#' @export
 wrong_rows.merge <- function(test, ...) {
   
   if(!is.null(test$wrong_rows)) {

@@ -3,6 +3,7 @@
 #' @param related_df the name of the related dataframe
 #' @param primary_key the column or vector of columns to merge on
 #' @param foreign_key the column or vector of columns to merge on
+#' @export
 setup_test_orphan_rec <- function(primary_df, related_df, primary_key, foreign_key) {
   
   setup <- structure(list(test_category = "Completeness",
