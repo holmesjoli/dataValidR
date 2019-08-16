@@ -530,7 +530,8 @@ test.orphan_rec <- function(setup, primary_df, related_df, ...) {
     dplyr::right_join(related_df, by = structure(names = setup$primary_key, 
                                                  .Data = setup$foreign_key)) %>% 
     dplyr::filter(is.na(primary_df)) %>% 
-    dplyr::select(-primary_df)
+    dplyr::select(-primary_df) %>% 
+    dplyr::select(dplyr::one_of(setup$primary_key))
   
   setup$rows_failed <- nrow(setup$wrong_rows)
   setup$pct_failed <- (setup$rows_failed/nrow(related_df))*100
