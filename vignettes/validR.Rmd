@@ -80,8 +80,8 @@ setup1 <- setup_test_orphan_rec(primary_df = "df1", related_df = "df2",
                                primary_key = c("id1", "id2"), foreign_key = c("id1", "id2"))
 
 test1 <- test(setup1, primary_df, related_df)
-merge_test1 <- test_summary(test1, primary_df, related_df)
-issues1 <- wrong_rows(test1, primary_df, related_df)
+merge_test1 <- test_summary(test1)
+issues1 <- wrong_rows(test1)
 
 
 primary_df <- data.frame(id = c(1,2,2), id2 = c(1,1,2), y = c(1,1,2))
@@ -91,8 +91,8 @@ setup2 <- setup_test_orphan_rec(primary_df = "df1", related_df = "df2",
                                primary_key = c("id", "id2"), foreign_key = c("id1", "id2"))
 
 test2 <- test(setup2, primary_df, related_df)
-merge_test2 <- test_summary(test2, primary_df, related_df)
-issues2 <- wrong_rows(test2, primary_df, related_df)
+merge_test2 <- test_summary(test2)
+issues2 <- wrong_rows(test2)
 
 # Merge tests
 
