@@ -62,9 +62,9 @@ setup <- list(setup1, setup2, setup3, setup4, setup5, setup6, setup7, setup8)
 # If the tests all rely on the same dataframe use the following line of code to apply the tests
 tests_all <- lapply(setup, test, df = df)
 
-col_tests <- do.call("rbind", lapply(tests_all, test_summary, df = df))
+col_tests <- do.call("rbind", lapply(tests_all, test_summary))
 
-issues <- do.call("rbind", lapply(tests_all, wrong_rows, df = df))
+issues <- do.call("rbind", lapply(tests_all, wrong_rows))
 ```
 
 ## Merge Tests
