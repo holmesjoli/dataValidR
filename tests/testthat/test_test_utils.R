@@ -10,14 +10,6 @@ testthat::test_that("is_int returns TRUE for integers", {
   
 })
 
-testthat::test_that("expc_params_check", {
-  
-  expc_params <- c("df_name", "col_name", "na")
-  setup <- list(df_name = "x", col_name = "x")
-  testthat::expect_error(test_expc_params(setup, expc_params))
-  
-})
-
 testthat::test_that("test_param_logical", {
   
   setup <- list(t = NULL, u = NA, v = FALSE, w = TRUE, x = 1.1, y = 1, z = "X")
