@@ -11,15 +11,6 @@ is_int <- function(x) {
   }
 }
 
-#' @title Test the expected parameters exist in the class
-#' @param setup the class to check for the parameters in
-#' @param expc_params the expected parameters
-test_expc_params <- function(setup, expc_params) {
-  msg <- paste0("Test configuration missing parameter(s): ", paste(setdiff(expc_params, names(setup)), collapse = ", "))
-  assertthat::assert_that(all(expc_params %in% names(setup)), msg = msg)
-  
-}
-
 #' @title Test param is logical
 #' @param setup the class to check the parameters
 #' @param param string, the parameter to check
@@ -73,6 +64,7 @@ test_param_string <- function(setup, param) {
 
 #' @title Test params are both null or both not null
 #' @description Tests that param1 and param2 both equal null or both are not equal to null
+#' @param setup the class to check the parameters
 #' @param param1 first param to test
 #' @param param2 second param to test
 test_params_both_null_or_not <- function(setup, param1, param2) {
