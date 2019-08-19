@@ -1,13 +1,14 @@
 #' @title Get summary
 #' @description Summarizes the attributes from the test
 #' @param test the test class
-#' @return dataframe
+#' @param ... other arguments passed to the function
 #' @export
 test_summary <- function(test, ...) {
   UseMethod("test_summary", object = test)
   
 }
 
+#' @inheritParams test_summary
 #' @export
 test_summary.default <- function(test, ...) {
   
@@ -17,6 +18,7 @@ test_summary.default <- function(test, ...) {
   
 }
 
+#' @inheritParams test_summary
 #' @export
 test_summary.column <- function(test, ...) {
   
@@ -33,6 +35,7 @@ test_summary.column <- function(test, ...) {
 
 }
 
+#' @inheritParams test_summary
 #' @export
 test_summary.merge <- function(test, ...){
 
@@ -50,14 +53,15 @@ test_summary.merge <- function(test, ...){
 }
 
 #' @title Get Problems
-#' @inheritParams test
-#' @inheritParams test
+#' @param test the test class
+#' @param ... other arguments passed to the function
 #' @return dataframe
 #' @export
 wrong_rows <- function(test, ...) {
   UseMethod("wrong_rows", object = test)
 }
 
+#' @inheritParams wrong_rows
 #' @export
 wrong_rows.default <- function(test, ...) {
   
@@ -67,6 +71,7 @@ wrong_rows.default <- function(test, ...) {
 
 }
 
+#' @inheritParams wrong_rows
 #' @export
 wrong_rows.column <- function(test, ...) {
   
@@ -85,6 +90,7 @@ wrong_rows.column <- function(test, ...) {
   
 }
 
+#' @inheritParams wrong_rows
 #' @export
 wrong_rows.merge <- function(test, ...) {
   
