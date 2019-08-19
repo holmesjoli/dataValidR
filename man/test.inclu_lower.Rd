@@ -10,6 +10,8 @@
 \item{setup}{the setup class}
 
 \item{df}{the dataframe}
+
+\item{...}{other arguments passed to the function}
 }
 \description{
 Tests that column is greater than or equal to the lower bound

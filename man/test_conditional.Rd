@@ -8,6 +8,8 @@ test_conditional(setup)
 }
 \arguments{
 \item{setup}{the setup class}
+
+\item{...}{other arguments passed to the function}
 }
 \description{
 Applies the attribute of a passing or failing test

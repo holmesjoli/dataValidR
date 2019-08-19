@@ -8,9 +8,8 @@ test_summary(test, ...)
 }
 \arguments{
 \item{test}{the test class}
-}
-\value{
-dataframe
+
+\item{...}{other arguments passed to the function}
 }
 \description{
 Summarizes the attributes from the test

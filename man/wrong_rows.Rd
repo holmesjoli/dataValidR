@@ -6,6 +6,11 @@
 \usage{
 wrong_rows(test, ...)
 }
+\arguments{
+\item{test}{the test class}
+
+\item{...}{other arguments passed to the function}
+}
 \value{
 dataframe
 }

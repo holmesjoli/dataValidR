@@ -10,6 +10,8 @@
 \item{setup}{the setup class}
 
 \item{df}{the dataframe}
+
+\item{...}{other arguments passed to the function}
 }
 \description{
 Tests if the vector/column contains any NA values

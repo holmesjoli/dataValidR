@@ -8,6 +8,8 @@ test_pass(setup, ...)
 }
 \arguments{
 \item{setup}{the setup class}
+
+\item{...}{other arguments passed to the function}
 }
 \description{
 Test Pass

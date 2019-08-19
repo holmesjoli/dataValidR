@@ -12,6 +12,8 @@
 \item{primary_df}{the primary dataframe}
 
 \item{related_df}{the related dataframe}
+
+\item{...}{other arguments passed to the function}
 }
 \description{
 Tests that there is a one to many relationship between the left and right dataset
