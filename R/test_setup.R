@@ -39,10 +39,7 @@ setup_test_na <- function(df_name, col_name, ptr = NULL) {
                           df_name = df_name,
                           col_name = col_name,
                           ptr = ptr), class = c("na", "column"))
-  
-  
-  expc_params <- c("df_name", "col_name")
-  test_expc_params(setup, expc_params)
+
   test_param_string(setup, "df_name")
   test_param_string(setup, "col_name")
   
@@ -66,9 +63,7 @@ setup_test_unique <- function(df_name, col_name, ptr = NULL) {
                           df_name = df_name,
                           col_name = col_name,
                           ptr = ptr), class = c("unique", "column"))
-  
-  expc_params <- c("df_name", "col_name")
-  test_expc_params(setup, expc_params)
+
   test_param_string(setup, "df_name")
   test_param_string(setup, "col_name")
   
@@ -94,8 +89,6 @@ setup_test_values <- function(df_name, col_name, values, ptr = NULL) {
                           values = values,
                           ptr = ptr), class = c("values", "column"))
   
-  expc_params <- c("df_name", "col_name", "values")
-  test_expc_params(setup, expc_params)
   test_param_string(setup, "df_name")
   test_param_string(setup, "col_name")
   
@@ -128,10 +121,7 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
                           lower = lower,
                           upper = upper,
                           ptr = ptr), class = c("range", "column"))
-  
-  expc_params <- c("df_name", "col_name", "int", "upper_inclu", 
-                   "lower_inclu", "upper", "lower")
-  test_expc_params(setup, expc_params)
+
   test_param_string(setup, "df_name")
   test_param_string(setup, "col_name")
   test_param_logical(setup, "int")
