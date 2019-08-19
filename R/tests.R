@@ -1,5 +1,6 @@
 #' @title Test Pass
 #' @param setup the setup class
+#' @param ... other arguments passed to the function
 #' @export
 test_pass <- function(setup, ...) {
   UseMethod("test_pass", object = setup)
@@ -7,6 +8,7 @@ test_pass <- function(setup, ...) {
 }
 
 #' @export
+#' @inheritParams test_pass
 test_pass.default <- function(setup, ...) {
  
   setup$test_result <- TRUE
@@ -18,11 +20,13 @@ test_pass.default <- function(setup, ...) {
 
 #' @title Test Fail
 #' @param setup the setup class
+#' @param ... other arguments passed to the function
 #' @export
 test_fail <- function(setup, ...) {
   UseMethod("test_fail", object = setup)
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.default <- function(setup, ...) {
   
@@ -32,6 +36,7 @@ test_fail.default <- function(setup, ...) {
   
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.values <- function(setup, ...) {
  
@@ -43,6 +48,7 @@ test_fail.values <- function(setup, ...) {
    
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.unique <- function(setup, ...) {
   
@@ -53,6 +59,7 @@ test_fail.unique <- function(setup, ...) {
   
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.na <- function(setup, ...) {
   
@@ -63,6 +70,7 @@ test_fail.na <- function(setup, ...) {
   
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.exclu_lower <- function(setup, ...) {
   
@@ -73,6 +81,7 @@ test_fail.exclu_lower <- function(setup, ...) {
   return(setup)
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.inclu_lower <- function(setup, ...) {
   
@@ -84,6 +93,7 @@ test_fail.inclu_lower <- function(setup, ...) {
   
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.exclu_upper <- function(setup, ...) {
  
@@ -95,6 +105,7 @@ test_fail.exclu_upper <- function(setup, ...) {
    
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.inclu_upper <- function(setup, ...) {
   
@@ -105,6 +116,8 @@ test_fail.inclu_upper <- function(setup, ...) {
   return(setup)
 }
 
+#' @inheritParams test_fail
+#' @export
 test_fail.exclu_lower_exclu_upper <- function(setup, ...) {
   
   setup$test_result <- FALSE
@@ -123,6 +136,7 @@ test_fail.exclu_lower_exclu_upper <- function(setup, ...) {
   return(setup)
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.inclu_lower_exclu_upper <- function(setup, ...) {
   
@@ -180,6 +194,7 @@ test_fail.exclu_lower_inclu_upper <- function(setup, ...) {
   return(setup)
 }
 
+#' @inheritParams test_fail
 #' @export
 test_fail.orphan_rec <- function(setup, ...) {
   
@@ -191,7 +206,8 @@ test_fail.orphan_rec <- function(setup, ...) {
 
 #' @title Test conditional
 #' @description Applies the attribute of a passing or failing test
-#' @inheritParams test
+#' @param setup the setup class
+#' @param ... other arguments passed to the function
 test_conditional <- function(setup) {
   
   if (nrow(setup$wrong_rows) == 0) {
@@ -208,12 +224,14 @@ test_conditional <- function(setup) {
 
 #' @title Test
 #' @param setup the setup class
+#' @param ... other arguments passed to the function
 #' @export
 test <- function(setup, ...) {
   UseMethod("test", object = setup)
   
 }
 
+#' @inheritParams test
 #' @export
 test.default <- function(setup, ...) {
   
@@ -243,9 +261,10 @@ test.default <- function(setup, ...) {
 #' @export
 test.values <- function(setup, df, ...) {
   
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
     
   setup$wrong_rows <- df[df[[setup$col_name]] %in% setup$values == FALSE, ]
+  setup$add_values <- unique(setup$wrong_rows[[setup$col_name]])
   setup$rows_failed <- nrow(setup$wrong_rows)
   setup$pct_failed <- (setup$rows_failed/nrow(df))*100
   
@@ -272,7 +291,7 @@ test.values <- function(setup, df, ...) {
 #' @export
 test.unique <- function(setup, df, ...) {
   
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   if (length(setup$col_name) == 1) {
     setup$wrong_rows <- df[duplicated(df[[setup$col_name]]), ]
@@ -320,7 +339,7 @@ test.na <- function(setup, df, ...) {
 #' @export
 test.exclu_lower <- function(setup, df, ...) {
   
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup$mn <- min(df[[setup$col_name]], na.rm = TRUE)
   setup$test_desc <- paste0("Test ", setup$col_name," > ", setup$mn)
@@ -340,7 +359,7 @@ test.exclu_lower <- function(setup, df, ...) {
 #' @export
 test.inclu_lower <- function(setup, df, ...) {
 
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup$mn <- min(df[[setup$col_name]], na.rm = TRUE)
   setup$test_desc <- paste0("Test ", setup$col_name," >= ", setup$mn)
@@ -360,7 +379,7 @@ test.inclu_lower <- function(setup, df, ...) {
 #' @export
 test.exclu_upper <- function(setup, df, ...) {
   
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup$mx <- max(df[[setup$col_name]], na.rm = TRUE)
   setup$test_desc <- paste0("Test ", setup$col_name," < ", setup$mx)
@@ -380,7 +399,7 @@ test.exclu_upper <- function(setup, df, ...) {
 #' @export
 test.inclu_upper <- function(setup, df, ...) {
   
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup$mx <- max(df[[setup$col_name]], na.rm = TRUE)
   setup$test_desc <- paste0("Test ", setup$col_name," <= ", setup$mx)
@@ -400,7 +419,7 @@ test.inclu_upper <- function(setup, df, ...) {
 #' @export
 test.exclu_lower_exclu_upper <- function(setup, df, ...) {
   
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup_el <- setup
   class(setup_el) <- "exclu_lower"
@@ -428,7 +447,7 @@ test.exclu_lower_exclu_upper <- function(setup, df, ...) {
 #' @export
 test.inclu_lower_exclu_upper <- function(setup, df, ...) {
 
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup_il <- setup
   class(setup_il) <- "inclu_lower"
@@ -456,7 +475,7 @@ test.inclu_lower_exclu_upper <- function(setup, df, ...) {
 #' @export
 test.inclu_lower_inclu_upper <- function(setup, df, ...) {
   
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup_il <- setup
   class(setup_il) <- "inclu_lower"
@@ -485,7 +504,7 @@ test.inclu_lower_inclu_upper <- function(setup, df, ...) {
 #' @export
 test.exclu_lower_inclu_upper <- function(setup, df, ...) {
   
-  df <- df[complete.cases(df[setup$col_name]), ]
+  df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup_el <- setup
   class(setup_el) <- "exclu_lower"
@@ -523,7 +542,7 @@ test.exclu_lower_inclu_upper <- function(setup, df, ...) {
 #' @export
 test.orphan_rec <- function(setup, primary_df, related_df, ...) {
   
-  related_df <- related_df[complete.cases(related_df[setup$foreign_key]), ]
+  related_df <- related_df[stats::complete.cases(related_df[setup$foreign_key]), ]
   
   setup$wrong_rows <- primary_df %>% 
     dplyr::mutate(primary_df = 1) %>% 
@@ -531,10 +550,11 @@ test.orphan_rec <- function(setup, primary_df, related_df, ...) {
                                                  .Data = setup$foreign_key)) %>% 
     dplyr::filter(is.na(primary_df)) %>% 
     dplyr::select(-primary_df) %>% 
-    dplyr::select(dplyr::one_of(setup$primary_key))
+    dplyr::select(dplyr::one_of(setup$primary_key)) %>% 
+    dplyr::distinct()
   
   setup$rows_failed <- nrow(setup$wrong_rows)
-  setup$pct_failed <- (setup$rows_failed/nrow(related_df))*100
+  setup$pct_failed <- (setup$rows_failed/nrow(primary_df))*100
   
   test_conditional(setup)
 
