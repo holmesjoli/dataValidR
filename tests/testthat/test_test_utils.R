@@ -72,6 +72,20 @@ testthat::test_that("test_param_numeric_or_null", {
   
 })
 
+
+testthat::test_that("test_param_numeric_or_na", {
+  
+  setup <- list(t = NULL, u = NA, v = FALSE, w = TRUE, x = 1.1, y = 1, z = "X")
+  testthat::expect_error(test_param_numeric_or_na(setup, "t"))
+  testthat::expect_silent(test_param_numeric_or_na(setup, "u"))
+  testthat::expect_error(test_param_numeric_or_na(setup, "v"))
+  testthat::expect_error(test_param_numeric_or_na(setup, "w"))
+  testthat::expect_silent(test_param_numeric_or_na(setup, "x"))
+  testthat::expect_silent(test_param_numeric_or_na(setup, "y"))
+  testthat::expect_error(test_param_numeric_or_na(setup, "z"))
+  
+})
+
 testthat::test_that("test_param_integer_or_null", {
   
   setup <- list(t = NULL, u = NA, v = FALSE, w = TRUE, x = 1.1, y = 1, z = "X")
@@ -81,6 +95,19 @@ testthat::test_that("test_param_integer_or_null", {
   testthat::expect_error(test_param_integer_or_null(setup, "x"))
   testthat::expect_silent(test_param_integer_or_null(setup, "y"))
   testthat::expect_error(test_param_integer_or_null(setup, "z"))
+  
+})
+
+testthat::test_that("test_param_integer_or_na", {
+  
+  setup <- list(t = NULL, u = NA, v = FALSE, w = TRUE, x = 1.1, y = 1, z = "X")
+  testthat::expect_error(test_param_integer_or_na(setup, "t"))
+  testthat::expect_silent(test_param_integer_or_na(setup, "u"))
+  testthat::expect_error(test_param_integer_or_na(setup, "v"))
+  testthat::expect_error(test_param_integer_or_na(setup, "w"))
+  testthat::expect_error(test_param_integer_or_na(setup, "x"))
+  testthat::expect_silent(test_param_integer_or_na(setup, "y"))
+  testthat::expect_error(test_param_integer_or_na(setup, "z"))
   
 })
 
