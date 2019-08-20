@@ -30,6 +30,14 @@ test_param_logical_or_null <- function(setup, param) {
   assertthat::assert_that((is.logical(value) | is.null(value)), msg = msg)
 }
 
+#' @title Test param is logical or NA
+#' @inheritParams test_param_logical
+test_param_logical_or_na <- function(setup, param) {
+  value <- setup[[param]]
+  msg <- paste0("Parameter '", param, "' only takes the values TRUE or FALSE or NA")
+  assertthat::assert_that((is.logical(value) | is.na(value)), msg = msg)
+}
+
 #' @title Test param is numeric
 #' @inheritParams test_param_logical
 test_param_numeric <- function(setup, param) {
@@ -71,6 +79,18 @@ test_params_both_null_or_not <- function(setup, param1, param2) {
   msg <- paste0(param1, " and ", param2, " must both be null or both be not null")
   log <- (is.null(setup[[param1]]) & is.null(setup[[param2]])) | 
     (!is.null(setup[[param1]]) & !is.null(setup[[param2]]))
+  assertthat::assert_that(log, msg = msg)
+}
+
+#' @title Test params are both na or both not na
+#' @description Tests that param1 and param2 both equal na or both are not equal to na
+#' @param setup the class to check the parameters
+#' @param param1 first param to test
+#' @param param2 second param to test
+test_params_both_na_or_not <- function(setup, param1, param2) {
+  msg <- paste0(param1, " and ", param2, " must both be na or both be not na")
+  log <- (is.na(setup[[param1]]) & is.na(setup[[param2]])) | 
+    (!is.na(setup[[param1]]) & !is.na(setup[[param2]]))
   assertthat::assert_that(log, msg = msg)
 }
 
