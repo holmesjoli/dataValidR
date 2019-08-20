@@ -129,18 +129,18 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
   test_param_logical_or_na(setup, "lower_inclu")
   test_param_numeric_or_na(setup, "upper")
   test_param_numeric_or_na(setup, "lower")
-  test_params_both_null_or_not(setup, "upper", "upper_inclu")
-  test_params_both_null_or_not(setup, "lower", "lower_inclu")
+  test_params_both_na_or_not(setup, "upper", "upper_inclu")
+  test_params_both_na_or_not(setup, "lower", "lower_inclu")
   
   if (setup$int) {
-    test_param_integer_or_null(setup, "upper")
-    test_param_integer_or_null(setup, "lower")
+    test_param_integer_or_na(setup, "upper")
+    test_param_integer_or_na(setup, "lower")
     class(setup) <- append(class(setup), "integer")
   } else {
     class(setup) <- append(class(setup), "double")
   }
   
-  if (!is.null(setup$upper) & !is.null(setup$lower)) {
+  if (!is.na(setup$upper) & !is.na(setup$lower)) {
     
     if (setup$upper_inclu & setup$lower_inclu) {
       class(setup) <- append(class(setup), "inclu_lower_inclu_upper")
@@ -152,7 +152,7 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
       class(setup) <- append(class(setup), "exclu_lower_exclu_upper")
     }
     
-  } else if (!is.null(setup$upper) & is.null(setup$lower)) {
+  } else if (!is.na(setup$upper) & is.na(setup$lower)) {
     
     if (setup$upper_inclu) {
       class(setup) <- append(class(setup), "inclu_upper")
@@ -160,7 +160,7 @@ setup_test_range <- function(df_name, col_name, int, lower_inclu,
       class(setup) <- append(class(setup), "exclu_upper")
     }
     
-  } else if (is.null(setup$upper) & !is.null(setup$lower)) {
+  } else if (is.na(setup$upper) & !is.na(setup$lower)) {
     
     if (setup$lower_inclu) {
       class(setup) <- append(class(setup), "inclu_lower")
