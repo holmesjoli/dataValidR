@@ -35,6 +35,18 @@ testthat::test_that("test_param_logical_or_null", {
   
 })
 
+testthat::test_that("test_param_logical_or_na", {
+  
+  setup <- list(t = NULL, u = NA, v = FALSE, w = TRUE, x = 1.1, y = 1, z = "X")
+  testthat::expect_error(test_param_logical_or_na(setup, "t"))
+  testthat::expect_silent(test_param_logical_or_na(setup, "u"))
+  testthat::expect_silent(test_param_logical_or_na(setup, "v"))
+  testthat::expect_silent(test_param_logical_or_na(setup, "w"))
+  testthat::expect_error(test_param_logical_or_na(setup, "z"))
+  testthat::expect_error(test_param_logical_or_na(setup, "y"))
+  
+})
+
 testthat::test_that("test_param_numeric", {
   
   setup <- list(t = NULL, u = NA, v = FALSE, w = TRUE, x = 1.1, y = 1, z = "X")
@@ -90,6 +102,15 @@ testthat::test_that("test_params_both_null_or_not", {
   testthat::expect_error(test_params_both_null_or_not(setup, "x", "y"))
   testthat::expect_silent(test_params_both_null_or_not(setup, "x", "x"))
   testthat::expect_silent(test_params_both_null_or_not(setup, "y", "y"))
+  
+})
+
+testthat::test_that("test_params_both_na_or_not", {
+  
+  setup <- list(x = NA, y = "z")
+  testthat::expect_error(test_params_both_na_or_not(setup, "x", "y"))
+  testthat::expect_silent(test_params_both_na_or_not(setup, "x", "x"))
+  testthat::expect_silent(test_params_both_na_or_not(setup, "y", "y"))
   
 })
 
