@@ -7,6 +7,8 @@
 test_params_both_null_or_not(setup, param1, param2)
 }
 \arguments{
+\item{setup}{the class to check the parameters}
+
 \item{param1}{first param to test}
 
 \item{param2}{second param to test}
