@@ -18,5 +18,6 @@ Depends:
 Remotes:
   holmesjoli/utilsR
 Suggests: 
-  knitr,
-  rmarkdown
+    knitr,
+    rmarkdown,
+    covr
