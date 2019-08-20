@@ -3,7 +3,7 @@ testthat::test_that("Test Exclu lower", {
   df <- data.frame(x = 1:4, y = c(1:3, NA))
   
   df_name = "x"; col_name = "x"; lower = 0; lower_inclu = FALSE;
-  upper = NULL; upper_inclu = NULL; int = TRUE
+  upper = NA; upper_inclu = NA; int = TRUE
   
   setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
                             upper_inclu, lower, upper)
@@ -37,7 +37,7 @@ testthat::test_that("Test Inclu lower", {
   df <- data.frame(x = 1:4, y = c(1:3, NA))
   
   df_name = "x"; col_name = "x"; lower = 0; lower_inclu = TRUE;
-  upper = NULL; upper_inclu = NULL; int = TRUE
+  upper = NA; upper_inclu = NA; int = TRUE
   
   setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
                             upper_inclu, lower, upper)
@@ -75,8 +75,8 @@ testthat::test_that("Test Inclu lower", {
 testthat::test_that("Test Exclu upper", {
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
-  df_name = "x"; col_name = "x"; int = TRUE; lower_inclu = NULL
-  upper_inclu = FALSE;lower = NULL; upper = 5
+  df_name = "x"; col_name = "x"; int = TRUE; lower_inclu = NA
+  upper_inclu = FALSE;lower = NA; upper = 5
   
   setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
                             upper_inclu, lower, upper)
@@ -107,8 +107,8 @@ testthat::test_that("Test Exclu upper", {
 testthat::test_that("Test Inclu upper", {
 
   df <- data.frame(x = 1:4, y = c(1:3, NA))
-  df_name = "x"; col_name = "x"; int = TRUE; lower_inclu = NULL
-  upper_inclu = TRUE; lower = NULL; upper = 5
+  df_name = "x"; col_name = "x"; int = TRUE; lower_inclu = NA
+  upper_inclu = TRUE; lower = NA; upper = 5
 
   setup <- setup_test_range(df_name, col_name, int, lower_inclu, 
                             upper_inclu, lower, upper)
@@ -382,9 +382,9 @@ testthat::test_that("setup_test_range", {
                 df_name = "x",
                 col_name = "x",
                 int = TRUE,
-                upper = NULL,
+                upper = NA,
                 lower = 5,
-                upper_inclu = NULL,
+                upper_inclu = NA,
                 lower_inclu = TRUE)
 
   test <- test(setup, df)
@@ -395,9 +395,9 @@ testthat::test_that("setup_test_range", {
                 df_name = "x",
                 col_name = "x",
                 int = TRUE,
-                upper = NULL,
+                upper = NA,
                 lower = 5,
-                upper_inclu = NULL,
+                upper_inclu = NA,
                 lower_inclu = FALSE)
 
   test <- test(setup, df)
@@ -410,9 +410,9 @@ testthat::test_that("setup_test_range", {
                 col_name = "x",
                 int = TRUE,
                 upper = 5,
-                lower = NULL,
+                lower = NA,
                 upper_inclu = TRUE,
-                lower_inclu = NULL)
+                lower_inclu = NA)
 
   test <- test(setup, df)
   testthat::expect_true("inclu_upper" %in% class(test))
@@ -423,9 +423,9 @@ testthat::test_that("setup_test_range", {
                 col_name = "x",
                 int = TRUE,
                 upper = 5,
-                lower = NULL,
+                lower = NA,
                 upper_inclu = FALSE,
-                lower_inclu = NULL)
+                lower_inclu = NA)
 
   test <- test(setup, df)
   testthat::expect_true("exclu_upper" %in% class(test))
