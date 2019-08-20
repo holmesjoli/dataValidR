@@ -54,12 +54,28 @@ test_param_numeric_or_null <- function(setup, param) {
   assertthat::assert_that(is.numeric(value) | is.null(value), msg = msg)
 }
 
+#' @title Test param is numeric or NA
+#' @inheritParams test_param_logical
+test_param_numeric_or_na <- function(setup, param) {
+  value <- setup[[param]]
+  msg <- paste0("Parameter '", param, "' must be numeric or NA")
+  assertthat::assert_that(is.numeric(value) | is.na(value), msg = msg)
+}
+
 #' @title Test param is integer or NULL
 #' @inheritParams test_param_logical
 test_param_integer_or_null <- function(setup, param) {
   value <- setup[[param]]
   msg <- paste0("Parameter '", param, "' must be integer or NULL")
   assertthat::assert_that((is_int(value) | is.null(value)), msg = msg)
+}
+
+#' @title Test param is integer or NA
+#' @inheritParams test_param_logical
+test_param_integer_or_na <- function(setup, param) {
+  value <- setup[[param]]
+  msg <- paste0("Parameter '", param, "' must be integer or NULL")
+  assertthat::assert_that((is_int(value) | is.na(value)), msg = msg)
 }
 
 #' @title Test param is string
