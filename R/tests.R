@@ -1,3 +1,12 @@
+#' @title Check for column
+#' @description Checks that column name is in the dataframe
+#' @export
+check_for_column <- function(setup, df) {
+  
+  assertthat::assert_that(setup$col_name %in% colnames(df),
+                          msg = paste(setup$col_name, " not in data."))
+}
+
 #' @title Test Pass
 #' @param setup the setup class
 #' @param ... other arguments passed to the function
@@ -228,7 +237,6 @@ test_conditional <- function(setup) {
 #' @export
 test <- function(setup, ...) {
   UseMethod("test", object = setup)
-  
 }
 
 #' @inheritParams test
@@ -261,6 +269,8 @@ test.default <- function(setup, ...) {
 #' @export
 test.values <- function(setup, df, ...) {
   
+  check_for_column(setup, df)
+  
   df <- df[stats::complete.cases(df[setup$col_name]), ]
     
   setup$wrong_rows <- df[df[[setup$col_name]] %in% setup$values == FALSE, ]
@@ -290,6 +300,8 @@ test.values <- function(setup, df, ...) {
 #' }
 #' @export
 test.unique <- function(setup, df, ...) {
+  
+  check_for_column(setup, df)
   
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
@@ -324,6 +336,8 @@ test.unique <- function(setup, df, ...) {
 #' @export
 test.na <- function(setup, df, ...) {
   
+  check_for_column(setup, df)
+  
   setup$wrong_rows <- df[is.na(df[setup$col_name]), ]
   setup$rows_failed <- nrow(setup$wrong_rows)
   setup$pct_failed <- (setup$rows_failed/nrow(df))*100
@@ -338,6 +352,8 @@ test.na <- function(setup, df, ...) {
 #' @param df the dataframe
 #' @export
 test.exclu_lower <- function(setup, df, ...) {
+  
+  check_for_column(setup, df)
   
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
@@ -359,6 +375,8 @@ test.exclu_lower <- function(setup, df, ...) {
 #' @export
 test.inclu_lower <- function(setup, df, ...) {
 
+  check_for_column(setup, df)
+  
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup$mn <- min(df[[setup$col_name]], na.rm = TRUE)
@@ -378,6 +396,8 @@ test.inclu_lower <- function(setup, df, ...) {
 #' @param df the dataframe
 #' @export
 test.exclu_upper <- function(setup, df, ...) {
+  
+  check_for_column(setup, df)
   
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
@@ -399,6 +419,8 @@ test.exclu_upper <- function(setup, df, ...) {
 #' @export
 test.inclu_upper <- function(setup, df, ...) {
   
+  check_for_column(setup, df)
+  
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup$mx <- max(df[[setup$col_name]], na.rm = TRUE)
@@ -418,6 +440,8 @@ test.inclu_upper <- function(setup, df, ...) {
 #' @param df the dataframe
 #' @export
 test.exclu_lower_exclu_upper <- function(setup, df, ...) {
+  
+  check_for_column(setup, df)
   
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
@@ -447,6 +471,8 @@ test.exclu_lower_exclu_upper <- function(setup, df, ...) {
 #' @export
 test.inclu_lower_exclu_upper <- function(setup, df, ...) {
 
+  check_for_column(setup, df)
+  
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
   setup_il <- setup
@@ -474,6 +500,8 @@ test.inclu_lower_exclu_upper <- function(setup, df, ...) {
 #' @param df the dataframe
 #' @export
 test.inclu_lower_inclu_upper <- function(setup, df, ...) {
+  
+  check_for_column(setup, df)
   
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
@@ -503,6 +531,8 @@ test.inclu_lower_inclu_upper <- function(setup, df, ...) {
 #' @param df the dataframe
 #' @export
 test.exclu_lower_inclu_upper <- function(setup, df, ...) {
+  
+  check_for_column(setup, df)
   
   df <- df[stats::complete.cases(df[setup$col_name]), ]
   
