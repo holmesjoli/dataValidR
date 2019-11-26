@@ -1,7 +1,7 @@
 Package: validR
 Type: Package
 Title: Data Validation Tools for R
-Version: 0.0.1
+Version: 0.0.2
 Author: Joli Holmes
 Maintainer: Joli Holmes <holmesjoli@gmail.com>
 Description: A package for performing data validation tests
