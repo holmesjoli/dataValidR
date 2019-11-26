@@ -3,7 +3,7 @@
 #' @export
 check_for_column <- function(setup, df) {
   
-  assertthat::assert_that(setup$col_name %in% colnames(df),
+  assertthat::assert_that(all(setup$col_name %in% colnames(df)),
                           msg = paste(setup$col_name, " not in data."))
 }
 
